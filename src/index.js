@@ -68,7 +68,7 @@ class SalaryCalculator {
       const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
 
       const response = await fetch(
-        "https://api.exchangerate-api.com/v4/latest/USD",
+        "https://open.er-api.com/v6/latest/USD",
         {
           signal: controller.signal,
           headers: {
