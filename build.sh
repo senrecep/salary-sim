@@ -1,9 +1,8 @@
 #!/bin/bash
 
-# Get git commit hash (short version)
-GIT_HASH=$(git rev-parse --short HEAD 2>/dev/null || echo "dev")
+# Simple timestamp-based cache busting
 BUILD_TIME=$(date +%s)
-VERSION="${GIT_HASH}-${BUILD_TIME}"
+VERSION="v${BUILD_TIME}"
 
 echo "🚀 Building with version: ${VERSION}"
 
