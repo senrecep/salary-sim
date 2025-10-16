@@ -68,18 +68,24 @@ class SalaryCalculator {
     
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
 
-      const response = await fetch(
-        "/api/exchange-rate",
-        {
-          signal: controller.signal,
-          headers: {
-            Accept: "application/json",
-            "Cache-Control": "no-cache",
-          },
-        }
-      );
+      // Try proxy first
+      let response = await fetch("/api/exchange-rate", {
+        signal: controller.signal,
+        headers: { Accept: "application/json" },
+      });
+
+      // If proxy fails, try direct CORS-free API
+      if (!response.ok) {
+        response = await fetch(
+          "http://api.exchangerate-api.com/v4/latest/USD",
+          {
+            signal: controller.signal,
+            headers: { Accept: "application/json" },
+          }
+        );
+      }
 
       clearTimeout(timeoutId);
 
