@@ -88,8 +88,8 @@ class SalaryCalculator {
       }
 
       const data = await response.json();
-      // Handle different API response formats
-      const tryRate = data.rates?.TRY || data.TRY || data.result?.TRY;
+      // Handle our backend API response format
+      const tryRate = data.usd_try;
 
       if (!tryRate || isNaN(tryRate) || tryRate <= 0) {
         throw new Error(`Invalid TRY rate received: ${tryRate}`);
