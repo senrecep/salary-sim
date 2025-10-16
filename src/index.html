@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kariyer ve Maaş Karşılaştırma Simülatörü</title>
+    <meta
+      name="description"
+      content="Career and Salary Comparison Simulator - Compare net income between salaried employment and freelance/company work"
+    />
+    <meta
+      name="keywords"
+      content="salary calculator, freelance, Turkey, SGK, Bağ-Kur, career, employee"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body class="p-2 md:p-6">
+    <!-- Main Page Wrapper -->
+    <div class="min-h-screen">
+      <!-- Header Section -->
+      <div class="max-w-7xl mx-auto">
+        <header class="text-center mb-6 md:mb-10">
+          <h1
+            class="text-xl md:text-3xl lg:text-4xl font-bold text-gray-800 leading-tight"
+          >
+            Kariyer ve Maaş Karşılaştırma Simülatörü
+          </h1>
+          <p class="text-sm md:text-lg text-gray-600 mt-2">
+            Maaşlı Çalışan vs. Freelance/Şahıs Şirketi - Net Gelir
+            Karşılaştırması
+          </p>
+        </header>
+      </div>
+
+      <main class="space-y-4 md:space-y-8">
+        <!-- Financial Data Section -->
+        <section class="max-w-7xl mx-auto">
+          <div class="card p-4 md:p-6">
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+              <p class="text-sm text-blue-800">
+                <span class="font-semibold">📊 2025 Projeksiyonu:</span>
+                Bu simülatörde kullanılan 2025 yılı gelir vergisi dilimleri ve
+                istisna tutarları, beklenen yeniden değerleme oranlarına göre
+                yapılmış projeksiyonlardır. Resmi rakamlar yıl sonunda
+                netleşecektir.
+              </p>
+            </div>
+            <div class="border-b pb-3 md:pb-4 mb-4 md:mb-6">
+              <div
+                class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3"
+              >
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800">
+                  Finansal Veriler
+                </h2>
+                <div class="flex flex-wrap gap-3">
+                  <!-- Currency Selector -->
+                  <div
+                    class="flex rounded-lg p-1 bg-gray-100"
+                    role="group"
+                    aria-label="Currency selection"
+                  >
+                    <button
+                      id="tryBtn"
+                      class="toggle-btn px-2 py-1 text-xs font-semibold rounded-md transition-colors"
+                      aria-pressed="true"
+                    >
+                      TRY
+                    </button>
+                    <button
+                      id="usdBtn"
+                      class="toggle-btn px-2 py-1 text-xs font-semibold rounded-md transition-colors"
+                      aria-pressed="false"
+                    >
+                      USD
+                    </button>
+                  </div>
+                  <!-- Time Period Selector -->
+                  <div
+                    class="flex rounded-lg p-1 bg-gray-100"
+                    role="group"
+                    aria-label="Time period selection"
+                  >
+                    <button
+                      id="aylikBtn"
+                      class="toggle-btn px-3 py-1 text-sm font-semibold rounded-md transition-colors"
+                      aria-pressed="true"
+                    >
+                      Aylık
+                    </button>
+                    <button
+                      id="yillikBtn"
+                      class="toggle-btn px-3 py-1 text-sm font-semibold rounded-md transition-colors"
+                      aria-pressed="false"
+                    >
+                      Yıllık
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="text-xs text-gray-500 text-right mt-2"
+                id="kur-status"
+                aria-live="polite"
+              ></div>
+            </div>
+
+            <div class="space-y-6">
+              <!-- Input Fields - Side by Side -->
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    for="netMaasInput"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                    ><span class="mode-label">Aylık</span> Net SGK'lı Maaşınız
+                    (TRY)</label
+                  >
+                  <input
+                    type="number"
+                    id="netMaasInput"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm p-3"
+                    aria-describedby="netMaasHelp"
+                  />
+                  <div id="netMaasHelp" class="sr-only">
+                    Enter your monthly net salary with SGK deductions
+                  </div>
+                </div>
+                <div>
+                  <label
+                    for="hesaplananBrutInput"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                    >Hesaplanan Brüt Maaş / Hasılat (<span
+                      class="currency-label"
+                      >TRY</span
+                    >)</label
+                  >
+                  <input
+                    type="text"
+                    id="hesaplananBrutInput"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm p-3"
+                    disabled
+                    aria-describedby="brutMaasHelp"
+                  />
+                  <div id="brutMaasHelp" class="sr-only">
+                    Calculated gross salary or revenue based on net input
+                  </div>
+                </div>
+              </div>
+
+              <!-- Retirement Conditions - Internal Section -->
+              <section
+                class="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-4 space-y-3 shadow-sm"
+                aria-labelledby="retirement-heading"
+              >
+                <h3
+                  id="retirement-heading"
+                  class="text-sm font-semibold text-yellow-800 mb-3"
+                >
+                  📋 Emeklilik Şartları
+                </h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <!-- SGK (4A) Card -->
+                  <div class="bg-blue-50 rounded-lg p-2 border border-blue-200">
+                    <h4 class="font-semibold text-blue-700 mb-1 text-xs">
+                      🏢 SGK (4/a)
+                    </h4>
+                    <div id="sgkSartlari" class="space-y-1">
+                      <div class="flex justify-between text-xs">
+                        <span class="text-gray-600">Tam:</span>
+                        <span class="font-bold text-blue-700"
+                          >60 yaş / 7200 gün</span
+                        >
+                      </div>
+                      <div class="flex justify-between text-xs">
+                        <span class="text-gray-600">Kısmi:</span>
+                        <span class="font-bold text-orange-600"
+                          >63 yaş / 5400 gün</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Bağ-Kur Card -->
+                  <div
+                    class="bg-green-50 rounded-lg p-2 border border-green-200"
+                  >
+                    <h4 class="font-semibold text-green-700 mb-1 text-xs">
+                      🏪 Bağ-Kur (4/b)
+                    </h4>
+                    <div id="bagkurSartlari" class="space-y-1">
+                      <div class="flex justify-between text-xs">
+                        <span class="text-gray-600">Tam:</span>
+                        <span class="font-bold text-green-700"
+                          >65 yaş / 9000 gün</span
+                        >
+                      </div>
+                      <div class="flex justify-between text-xs">
+                        <span class="text-gray-600">Süre:</span>
+                        <span class="font-bold text-green-700">25 yıl</span>
+                      </div>
+                      <div class="flex justify-between text-xs">
+                        <span class="text-gray-600">Fark:</span>
+                        <span class="font-bold text-red-600"
+                          >+5 yıl SGK'dan</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  id="emeklilikUyari"
+                  class="bg-blue-100 border border-blue-200 p-2 rounded-lg text-xs text-blue-800"
+                  role="note"
+                >
+                  <div id="uyariMetni" class="text-xs">
+                    <strong>📋 Bilgi:</strong> SGK'da 60 yaş tam emeklilik (7200
+                    gün), 63 yaş kısmi emeklilik (5400 gün) seçenekleri var.
+                    Bağ-Kur'da 65 yaş + 25 yıl (9000 gün) şartı gerekli.
+                    Emeklilik koşulları sigortalılık başlangıç tarihine göre
+                    değişebilir.
+                  </div>
+                </div>
+              </section>
+
+              <!-- Main Input Fields - Side by Side -->
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <!-- Expense Input -->
+                <div>
+                  <label
+                    for="giderInput"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                    ><span class="mode-label">Aylık</span> Şirket Gideri
+                    (TRY)</label
+                  >
+                  <input
+                    type="number"
+                    id="giderInput"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm p-3"
+                    aria-describedby="giderHelp"
+                  />
+                  <div id="giderHelp" class="sr-only">
+                    Enter monthly company expenses
+                  </div>
+                </div>
+
+                <!-- Bağ-Kur Premium Input -->
+                <div>
+                  <label
+                    for="bagkurPrimiInput"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                    >Bağ-Kur Prim Kazancı (<span class="mode-label">Aylık</span>
+                    TRY)</label
+                  >
+                  <input
+                    type="range"
+                    id="bagkurPrimiInput"
+                    class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-2"
+                    aria-describedby="bagkurHelp"
+                  />
+                  <div id="bagkurHelp" class="sr-only">
+                    Select Bağ-Kur premium income level
+                  </div>
+                  <div class="flex justify-between text-xs text-gray-500 mt-1">
+                    <span>Min</span>
+                    <span
+                      id="bagkurPrimLabel"
+                      class="font-semibold text-blue-600"
+                    ></span>
+                    <span>Tavan</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Control Options -->
+              <fieldset class="bg-gray-50 p-4 rounded-lg">
+                <legend class="text-sm font-semibold text-gray-700 mb-3">
+                  Seçenekler
+                </legend>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"
+                >
+                  <!-- Retirement Equivalence -->
+                  <div class="flex items-center space-x-2">
+                    <input
+                      id="matchSgkPrim"
+                      name="matchSgkPrim"
+                      type="checkbox"
+                      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      aria-describedby="matchSgkHelp"
+                    />
+                    <label
+                      for="matchSgkPrim"
+                      class="text-sm font-medium text-gray-700 flex items-center gap-1"
+                      >Emeklilik Eşdeğerliği
+                      <span
+                        class="text-blue-500 cursor-help"
+                        title="Bu seçenek, Bağ-Kur emekli maaşınızın, maaşlı çalışandakiyle aynı seviyede olmasını sağlamak için ödemeniz gereken prim kazancını (PEK) otomatik olarak ayarlar."
+                        >ℹ️</span
+                      >
+                    </label>
+                    <div id="matchSgkHelp" class="sr-only">
+                      Match SGK retirement contributions for equivalent pension
+                    </div>
+                  </div>
+
+                  <!-- Young Entrepreneur -->
+                  <div class="flex items-center space-x-2">
+                    <input
+                      id="gencGirisimci"
+                      name="gencGirisimci"
+                      type="checkbox"
+                      checked
+                      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      aria-describedby="gencGirisimciHelp"
+                    />
+                    <label
+                      for="gencGirisimci"
+                      class="text-sm font-medium text-gray-700"
+                      >Genç Girişimci</label
+                    >
+                    <div id="gencGirisimciHelp" class="sr-only">
+                      Apply young entrepreneur tax benefits
+                    </div>
+                  </div>
+
+                  <!-- SGK Exemption -->
+                  <div class="flex items-center space-x-2">
+                    <input
+                      id="sgkMuafiyeti"
+                      name="sgkMuafiyeti"
+                      type="checkbox"
+                      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      aria-describedby="sgkMuafiyetiHelp"
+                    />
+                    <label
+                      for="sgkMuafiyeti"
+                      class="text-sm font-medium text-gray-700 flex items-center gap-1"
+                      >SGK Muafiyeti
+                      <span
+                        class="text-blue-500 cursor-help"
+                        title="Mevcut SGK'lı işiniz devam ederken şahıs şirketi kurduğunuzda, 5510 sayılı kanunun 53. maddesi gereği Bağ-Kur primi ödeme yükümlülüğünüz bulunmaz. Bu seçenek bu durumu simüle eder."
+                        >ℹ️</span
+                      >
+                    </label>
+                    <div id="sgkMuafiyetiHelp" class="sr-only">
+                      Exempt from Bağ-Kur premiums due to existing SGK
+                      employment
+                    </div>
+                  </div>
+
+                  <!-- Service Export -->
+                  <div class="flex items-center space-x-2">
+                    <input
+                      id="hizmetIhracati"
+                      name="hizmetIhracati"
+                      type="checkbox"
+                      checked
+                      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      aria-describedby="hizmetIhracatiHelp"
+                    />
+                    <label
+                      for="hizmetIhracati"
+                      class="text-sm font-medium text-gray-700"
+                      >%80 Hizmet İhracatı</label
+                    >
+                    <div id="hizmetIhracatiHelp" class="sr-only">
+                      Apply 80% service export tax exemption
+                    </div>
+                  </div>
+
+                  <!-- Mid-Year Raise Effect -->
+                  <div>
+                    <div class="flex items-center space-x-2">
+                      <input
+                        id="zamEtkisiCheck"
+                        name="zamEtkisiCheck"
+                        type="checkbox"
+                        class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        aria-describedby="zamEtkisiHelp"
+                      />
+                      <label
+                        for="zamEtkisiCheck"
+                        class="text-sm font-medium text-gray-700"
+                        >🔄 Yıl İçi Zam Simülasyonu</label
+                      >
+                      <div id="zamEtkisiHelp" class="sr-only">
+                        Simulate mid-year salary increase effects
+                      </div>
+                    </div>
+                    <div
+                      id="zamDetayPanel"
+                      class="hidden mt-2 pl-6 border-l-2 border-blue-200"
+                    >
+                      <div class="grid grid-cols-2 gap-2">
+                        <div>
+                          <label
+                            for="zamOrani"
+                            class="block text-xs font-medium text-gray-700"
+                            >Zam Oranı (%)</label
+                          >
+                          <input
+                            type="number"
+                            id="zamOrani"
+                            min="0"
+                            max="200"
+                            step="5"
+                            value="20"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+                            aria-describedby="zamOraniHelp"
+                          />
+                          <div id="zamOraniHelp" class="sr-only">
+                            Enter raise percentage
+                          </div>
+                        </div>
+                        <div>
+                          <label
+                            for="zamAyi"
+                            class="block text-xs font-medium text-gray-700"
+                            >Hangi Aydan İtibaren</label
+                          >
+                          <select
+                            id="zamAyi"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+                            aria-describedby="zamAyiHelp"
+                          >
+                            <option value="1">Ocak</option>
+                            <option value="2">Şubat</option>
+                            <option value="3">Mart</option>
+                            <option value="4">Nisan</option>
+                            <option value="5">Mayıs</option>
+                            <option value="6">Haziran</option>
+                            <option value="7" selected>Temmuz</option>
+                            <option value="8">Ağustos</option>
+                            <option value="9">Eylül</option>
+                            <option value="10">Ekim</option>
+                            <option value="11">Kasım</option>
+                            <option value="12">Aralık</option>
+                          </select>
+                          <div id="zamAyiHelp" class="sr-only">
+                            Select month when raise takes effect
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-xs text-gray-500 mt-2">
+                  <strong>SGK Muafiyeti:</strong> Mevcut SGK'lı iş devam ederken
+                  Bağ-Kur primi ödeme yükümlülüğü olmaz (5510 SK m.53)<br />
+                  <strong>Emeklilik Eşdeğerliği:</strong> SGK ile aynı emekli
+                  maaşı için gerekli PEK'i otomatik ayarlar<br />
+                  <strong>Yıl İçi Zam:</strong> Belirtilen aydan itibaren maaş
+                  artışı simülasyonu (SGK kümülatif vergi etkisi analizi)
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="max-w-7xl mx-auto" aria-labelledby="results-heading">
+          <h2 id="results-heading" class="sr-only">Calculation Results</h2>
+          <div
+            id="results-panel"
+            class="space-y-4"
+            role="region"
+            aria-live="polite"
+          ></div>
+        </section>
+      </main>
+
+      <!-- Calculation Details Section -->
+      <section class="mt-12" aria-labelledby="calculation-details-heading">
+        <div class="max-w-7xl mx-auto">
+          <h2 id="calculation-details-heading" class="sr-only">
+            Calculation Details
+          </h2>
+          <div
+            class="space-y-4"
+            id="accordion-container"
+            role="region"
+            aria-label="Detailed calculation breakdowns"
+          ></div>
+        </div>
+      </section>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
