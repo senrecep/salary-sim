@@ -76,15 +76,9 @@ class SalaryCalculator {
         headers: { Accept: "application/json" },
       });
 
-      // If proxy fails, try direct CORS-free API
+      // If proxy fails, skip direct API (CORS issues)
       if (!response.ok) {
-        response = await fetch(
-          "http://api.exchangerate-api.com/v4/latest/USD",
-          {
-            signal: controller.signal,
-            headers: { Accept: "application/json" },
-          }
-        );
+        throw new Error(`Proxy failed with status: ${response.status}`);
       }
 
       clearTimeout(timeoutId);
@@ -94,7 +88,8 @@ class SalaryCalculator {
       }
 
       const data = await response.json();
-      const tryRate = data.rates?.TRY;
+      // Handle different API response formats
+      const tryRate = data.rates?.TRY || data.TRY || data.result?.TRY;
 
       if (!tryRate || isNaN(tryRate) || tryRate <= 0) {
         throw new Error(`Invalid TRY rate received: ${tryRate}`);
