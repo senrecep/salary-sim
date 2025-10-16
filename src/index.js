@@ -8,7 +8,7 @@ class SalaryCalculator {
     this.state = {
       currentMode: "monthly",
       currentCurrency: "TRY",
-      usdRate: 42.0,
+      usdRate: 42,
       baseAylikNetMaasTRY: 0,
       baseAylikGiderTRY: 0,
       baseAylikBagkurPekTRY: 0,
@@ -63,12 +63,15 @@ class SalaryCalculator {
   }
 
   async fetchExchangeRates() {
+    // Show loading state
+    this.showExchangeRateLoading();
+    
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
 
       const response = await fetch(
-        "https://open.er-api.com/v6/latest/USD",
+        "/api/exchange-rate",
         {
           signal: controller.signal,
           headers: {
@@ -99,6 +102,12 @@ class SalaryCalculator {
 
       this.state.usdRate = Math.round(tryRate * 10000) / 10000; // 4 decimal precision
       this.updateExchangeRateDisplay(false);
+      
+      // Recalculate if currency is USD and inputs have values
+      if (this.state.currentCurrency === "USD" && this.elements.netMaasInput.value) {
+        this.performCalculations();
+      }
+      
       return true;
     } catch (error) {
       if (error.name === "AbortError") {
@@ -117,6 +126,10 @@ class SalaryCalculator {
       : `1 USD = ${this.state.usdRate.toFixed(4)} TRY (Güncel)`;
 
     this.elements.kurStatus.textContent = statusText;
+  }
+
+  showExchangeRateLoading() {
+    this.elements.kurStatus.textContent = `1 USD = ${this.state.usdRate.toFixed(4)} TRY (Güncelleniyor...)`;
   }
 
   // Utility Functions
@@ -1646,8 +1659,12 @@ class SalaryCalculator {
   }
 
   // Initialization
-  async initialize() {
-    await this.fetchExchangeRates();
+  initialize() {
+    // Show default exchange rate immediately
+    this.updateExchangeRateDisplay(true);
+    
+    // Fetch real exchange rate in background
+    this.fetchExchangeRates();
 
     this.state.currentMode = "monthly";
     this.state.currentCurrency = "TRY";
