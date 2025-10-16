@@ -1,0 +1,9 @@
+.git
+.gitignore
+README.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+LICENSE
+node_modules
+*.log
+.DS_Store
