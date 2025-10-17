@@ -7,11 +7,11 @@ VERSION="v${BUILD_TIME}"
 echo "🚀 Building with version: ${VERSION}"
 
 # Replace {{VERSION}} placeholders in HTML
-sed -i.bak "s/{{VERSION}}/${VERSION}/g" src/index.html
+sed -i.bak "s/{{VERSION}}/${VERSION}/g" src/public/index.html
 
 # Clean up backup files
-rm -f src/index.html.bak
+rm -f src/public/index.html.bak
 
 echo "✅ Cache busting applied: ${VERSION}"
 echo "📄 Updated files:"
-grep -n "v=${VERSION}" src/index.html || echo "⚠️  No version found in HTML"
+grep -n "v=${VERSION}" src/public/index.html || echo "⚠️  No version found in HTML"

@@ -10,8 +10,8 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from current directory (src)
-app.use(express.static(__dirname));
+// Serve static files from public directory
+app.use(express.static(path.join(__dirname, 'static')));
 
 // Exchange rate API endpoint
 app.get('/api/exchange-rate', async (req, res) => {
@@ -148,14 +148,14 @@ app.get('/api/health', (req, res) => {
 
 // Serve main HTML for all other routes (SPA support)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'static', 'index.html'));
 });
 
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log(`📊 Salary Simulator Backend v1.0.0`);
-  console.log(`📁 Serving static files from: ${__dirname}`);
+  console.log(`📁 Serving static files from: ${path.join(__dirname, 'static')}`);
 });
 
 // Graceful shutdown
