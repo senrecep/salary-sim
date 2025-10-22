@@ -103,6 +103,29 @@
                       Yıllık
                     </button>
                   </div>
+                  <!-- Comparison Basis Selector -->
+                  <div
+                    class="flex rounded-lg p-1 bg-gray-100"
+                    role="group"
+                    aria-label="Comparison basis selection"
+                  >
+                    <button
+                      id="brutBasisBtn"
+                      class="toggle-btn px-2 py-1 text-xs font-semibold rounded-md transition-colors"
+                      aria-pressed="true"
+                    >
+                      Brüt Maaş
+                    </button>
+                    <button
+                      id="tceBasisBtn"
+                      class="toggle-btn px-2 py-1 text-xs font-semibold rounded-md transition-colors"
+                      aria-pressed="false"
+                      title="Varsayılan modda, freelance hasılatı maaşlı çalışanın brüt maaşına eşitlenir. 'İşveren Maliyeti' modunda ise hasılat, işverenin SGK payları dahil toplam maliyetine eşitlenir. Bu, bir pozisyon için ayrılan toplam bütçenin daha doğru bir karşılaştırmasını sağlar."
+                    >
+                      İşveren Maliyeti
+                      <span class="text-blue-500 cursor-help ml-1">ℹ️</span>
+                    </button>
+                  </div>
                 </div>
               </div>
               <div

@@ -12,6 +12,7 @@ class SalaryCalculator {
       baseAylikNetMaasTRY: 0,
       baseAylikGiderTRY: 0,
       baseAylikBagkurPekTRY: 0,
+      comparisonBasis: 'grossEquivalence', // Default comparison mode
     };
 
     this.constants = {
@@ -22,7 +23,11 @@ class SalaryCalculator {
       DAMGA_VERGISI_ORANI: 0.00759,
       SGK_ISCI_PAYI_ORANI: 0.15,
       SGK_ISVEREN_IMALAT_ORANI: 0.155,
-      SGK_ISVEREN_DIGER_ORANI: 0.165,
+      SGK_ISVEREN_DIGER_ORANI: 0.165, // Legacy rate - kept for compatibility
+      SGK_ISVEREN_STANDART_ORANI: 0.2075, // Standard rate without incentive
+      SGK_ISVEREN_TESVIKLI_ORANI: 0.1575, // 5-point Hazine incentive rate (default for TCE)
+      ISSIZLIK_ISVEREN_PAYI_ORANI: 0.02, // Unemployment insurance employer share
+      TOPLAM_ISVEREN_PRIM_ORANI: 0.1775, // Combined employer premium rate (0.1575 + 0.02)
       BAGKUR_INDIRIMLI_ORAN: 0.295,
       GENC_GIRISIMCI_ISTISNA_TUTARI: 150000, // 2025 revaluation amount
       HIZMET_IHRACATI_INDIRIM_ORANI: 0.8,
@@ -52,6 +57,8 @@ class SalaryCalculator {
       yillikBtn: document.getElementById("yillikBtn"),
       tryBtn: document.getElementById("tryBtn"),
       usdBtn: document.getElementById("usdBtn"),
+      brutBasisBtn: document.getElementById("brutBasisBtn"),
+      tceBasisBtn: document.getElementById("tceBasisBtn"),
       modeLabels: document.querySelectorAll(".mode-label"),
       currencyLabels: document.querySelectorAll(".currency-label"),
       kurStatus: document.getElementById("kur-status"),
@@ -983,6 +990,23 @@ class SalaryCalculator {
     return yillikBrut - (sgkIsciPayi + yillikGelirVergisi + damgaVergisi);
   }
 
+  calculateTotalCostToEmployer(yillikBrutMaas) {
+    if (isNaN(yillikBrutMaas) || yillikBrutMaas <= 0) {
+      return { totalCost: 0, employerPremiums: 0 };
+    }
+    
+    const YILLIK_PEK_TAVAN = this.constants.AYLIK_PEK_TAVAN * 12;
+    const SGK_MATRAHI = Math.min(yillikBrutMaas, YILLIK_PEK_TAVAN);
+
+    const SGK_ISVEREN_PAYI = SGK_MATRAHI * this.constants.SGK_ISVEREN_TESVIKLI_ORANI;
+    const ISSIZLIK_ISVEREN_PAYI = SGK_MATRAHI * this.constants.ISSIZLIK_ISVEREN_PAYI_ORANI;
+    
+    const totalCost = yillikBrutMaas + SGK_ISVEREN_PAYI + ISSIZLIK_ISVEREN_PAYI;
+    const employerPremiums = SGK_ISVEREN_PAYI + ISSIZLIK_ISVEREN_PAYI;
+
+    return { totalCost, employerPremiums };
+  }
+
   calculateBrutFromNet(yillikNet) {
     if (yillikNet <= 0) return 0;
     let low = yillikNet;
@@ -1008,6 +1032,13 @@ class SalaryCalculator {
   updateUI() {
     try {
       const yillikNetMaas = this.state.baseAylikNetMaasTRY * 12;
+      
+      // Early return if no valid input
+      if (isNaN(yillikNetMaas) || yillikNetMaas <= 0) {
+        this.elements.resultsPanel.innerHTML = '<div class="card p-6 text-gray-500 text-center">Lütfen geçerli bir maaş değeri girin.</div>';
+        return;
+      }
+      
       const yillikBrutMaas = this.calculateBrutFromNet(yillikNetMaas);
       const yillikGiderTRY = this.state.baseAylikGiderTRY * 12;
       const yillikBagkurKazanciTRY = this.state.baseAylikBagkurPekTRY * 12;
@@ -1072,6 +1103,9 @@ class SalaryCalculator {
         zamParametreleri: zamParametreleri,
       };
 
+      // Calculate TCE for Model A
+      const tceData = this.calculateTotalCostToEmployer(yillikBrutMaasYeni);
+
       this.elements.resultsPanel.innerHTML += this.createResultCard(
         "Model A: Maaşlı Çalışan (SGK - 4a)",
         netGelirA,
@@ -1081,12 +1115,20 @@ class SalaryCalculator {
         false,
         false,
         0,
-        sgkDetaylari
+        sgkDetaylari,
+        tceData // Pass entire TCE data object to card
       );
 
       // Model B calculation
-      // Correction for accurate revenue during mid-year salary increases
-      const yillikHasilat = yillikBrutMaasYeni;
+      // Determine revenue base based on comparison mode
+      let yillikHasilat;
+      if (this.state.comparisonBasis === 'tceEquivalence') {
+        // Use Total Cost to Employer as revenue base
+        yillikHasilat = tceData.totalCost;
+      } else {
+        // Default: Use gross salary as revenue base
+        yillikHasilat = yillikBrutMaasYeni;
+      }
       const karB = yillikHasilat - yillikGiderTRY;
       const yillikBagkurPrimiHesaplanan =
         yillikBagkurKazanciTRY * this.constants.BAGKUR_INDIRIMLI_ORAN;
@@ -1162,7 +1204,8 @@ class SalaryCalculator {
     isGencGirisimci = false,
     isHizmetIhracati = false,
     hizmetIhracatiIstisnaTutari = 0,
-    sgkDetaylari = null
+    sgkDetaylari = null,
+    tceData = null
   ) {
     try {
       const score = toplamGelir > 0 ? (netGelir / toplamGelir) * 100 : 0;
@@ -1340,8 +1383,26 @@ class SalaryCalculator {
                 `;
       }
 
+      // Add TCE section for Model A
+      let tceHTML = "";
+      if (tceData && title.includes("Model A") && tceData.totalCost && !isNaN(tceData.totalCost)) {
+        const displayTCE =
+          this.state.currentCurrency === "TRY"
+            ? tceData.totalCost / divisor
+            : tceData.totalCost / divisor / this.state.usdRate;
+
+        tceHTML = `
+                <div class="mt-4 border-t pt-3">
+                    <p class="text-sm text-gray-500 text-center">İşverene Toplam Maliyeti</p>
+                    <p class="text-xl font-semibold text-blue-700 text-center">${this.formatCurrency(
+                      displayTCE,
+                      this.state.currentCurrency
+                    )}</p>
+                </div>`;
+      }
+
       return `<div class="card p-6">
-                <h3 class="text-xl font-bold text-gray-800">${title}</h3>
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">${title}</h3>
                 <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                     <div>
                         <p class="text-sm text-gray-500">${netGelirEtiketi}</p>
@@ -1371,6 +1432,7 @@ class SalaryCalculator {
                         )}</p>
                     </div>
                 </div>
+                ${tceHTML}
                 <div class="mt-4">
                     <p class="text-sm text-gray-500 text-center">Gelire Oranla Net Kârlılık</p>
                     <div class="level-bar-container mt-2">
@@ -1435,11 +1497,21 @@ class SalaryCalculator {
       );
     }
 
-    const brutToShow = (yillikBrut / 12) * timeMultiplier;
+    // Calculate the value to show based on comparison mode
+    let valueToShow;
+    if (this.state.comparisonBasis === 'tceEquivalence' && yillikBrut > 0) {
+      // TCE mode: show total cost to employer
+      const tceData = this.calculateTotalCostToEmployer(yillikBrut);
+      valueToShow = (tceData.totalCost / 12) * timeMultiplier;
+    } else {
+      // Default mode: show gross salary
+      valueToShow = (yillikBrut / 12) * timeMultiplier;
+    }
+
     this.elements.hesaplananBrutInput.value = this.formatCurrency(
       this.state.currentCurrency === "TRY"
-        ? brutToShow
-        : brutToShow / this.state.usdRate,
+        ? valueToShow
+        : valueToShow / this.state.usdRate,
       this.state.currentCurrency
     );
 
@@ -1474,6 +1546,32 @@ class SalaryCalculator {
     this.elements.currencyLabels.forEach((label) => {
       label.textContent = newCurrency;
     });
+    this.updateInputDisplays();
+    this.updateUI();
+  }
+
+  setComparisonBasis(newBasis) {
+    if (this.state.comparisonBasis === newBasis) return;
+    this.state.comparisonBasis = newBasis;
+    
+    // Update button states
+    this.elements.brutBasisBtn.classList.toggle("active", newBasis === "grossEquivalence");
+    this.elements.tceBasisBtn.classList.toggle("active", newBasis === "tceEquivalence");
+    
+    // Update label for the calculated input field
+    const brutInputLabel = document.querySelector('label[for="hesaplananBrutInput"]');
+    if (brutInputLabel) {
+      if (newBasis === 'tceEquivalence') {
+        brutInputLabel.innerHTML = 'Hesaplanan Toplam Maliyet / Hasılat (<span class="currency-label">' + this.state.currentCurrency + '</span>)';
+      } else {
+        brutInputLabel.innerHTML = 'Hesaplanan Brüt Maaş / Hasılat (<span class="currency-label">' + this.state.currentCurrency + '</span>)';
+      }
+      
+      // Re-query currency labels since we just updated them
+      this.elements.currencyLabels = document.querySelectorAll(".currency-label");
+    }
+    
+    // Update input field value immediately to reflect new comparison basis
     this.updateInputDisplays();
     this.updateUI();
   }
@@ -1635,6 +1733,14 @@ class SalaryCalculator {
       this.setCurrency("USD")
     );
 
+    // Comparison basis buttons
+    this.elements.brutBasisBtn.addEventListener("click", () =>
+      this.setComparisonBasis("grossEquivalence")
+    );
+    this.elements.tceBasisBtn.addEventListener("click", () =>
+      this.setComparisonBasis("tceEquivalence")
+    );
+
     // Accordion functionality - Hybrid Implementation
     this.elements.accordionContainer.addEventListener("click", (event) => {
       const button = event.target.closest(".accordion-button");
@@ -1674,6 +1780,8 @@ class SalaryCalculator {
     this.elements.yillikBtn.classList.remove("active");
     this.elements.tryBtn.classList.add("active");
     this.elements.usdBtn.classList.remove("active");
+    this.elements.brutBasisBtn.classList.add("active");
+    this.elements.tceBasisBtn.classList.remove("active");
 
     this.elements.modeLabels.forEach((label) => {
       label.textContent = "Aylık";
