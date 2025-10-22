@@ -1682,8 +1682,8 @@ class SalaryCalculator {
       label.textContent = "TRY";
     });
 
-    this.elements.netMaasInput.value = 67050;
-    this.elements.giderInput.value = 8000;
+    this.elements.netMaasInput.value = 100000;
+    this.elements.giderInput.value = 10000;
 
     if (this.elements.zamEtkisiCheck) {
       this.elements.zamEtkisiCheck.checked = false;
