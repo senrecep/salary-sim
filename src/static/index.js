@@ -2,16 +2,16 @@
 fetch('/api/github-stars')
   .then(response => response.json())
   .then(data => {
-    const starElem = document.getElementById('github-stars');
+    const starCountElem = document.getElementById('github-stars-count');
     if (data.success && typeof data.stars === 'number') {
-      if (starElem) starElem.textContent = `★ ${data.stars}`;
+      if (starCountElem) starCountElem.textContent = data.stars;
     } else {
-      if (starElem) starElem.textContent = '★ ?';
+      if (starCountElem) starCountElem.textContent = '?';
     }
   })
   .catch(() => {
-    const starElem = document.getElementById('github-stars');
-    if (starElem) starElem.textContent = '★ ?';
+    const starCountElem = document.getElementById('github-stars-count');
+    if (starCountElem) starCountElem.textContent = '?';
   });
 
 class SalaryCalculator {
