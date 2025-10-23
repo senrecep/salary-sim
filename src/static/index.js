@@ -327,9 +327,9 @@ class SalaryCalculator {
                 <h4>Bu Simülatör Ne Yapar?</h4>
                 <p>Bu araç, Türkiye'de çalışanların iki temel kariyer modelini finansal olarak karşılaştırmasını sağlar: <strong>Maaşlı Çalışan</strong> ve <strong>Freelance/Şahıs Şirketi Sahibi</strong>.</p>
                 
-                <div style="background-color: #fefce8; border: 1px solid #eab308; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0;">
-                    <p><strong>📋 Not:</strong> Bu hesaplama aracı genel olarak tüm meslekler için kullanılabilir. Özellikle bilgi işçiliği, danışmanlık, tasarım, eğitim ve benzeri hizmet sektörlerinde çalışanlar için optimize edilmiştir. İstisnai imalat ve ağır sanayi gibi özel düzenlemelerin olduğu sektörlerde farklı kurallar geçerli olabilir.</p>
-                </div>
+        <div class="bg-yellow-50 border border-yellow-400 rounded-lg p-4 my-4">
+          <p><strong>📋 Not:</strong> Bu hesaplama aracı genel olarak tüm meslekler için kullanılabilir. Özellikle bilgi işçiliği, danışmanlık, tasarım, eğitim ve benzeri hizmet sektörlerinde çalışanlar için optimize edilmiştir. İstisnai imalat ve ağır sanayi gibi özel düzenlemelerin olduğu sektörlerde farklı kurallar geçerli olabilir.</p>
+        </div>
                 
                 <h4>Nasıl Kullanılır?</h4>
                 <ol>
@@ -493,14 +493,14 @@ class SalaryCalculator {
                   <span class="font-semibold">Geçici Vergi:</span> Yıllık gelir vergisi, yıl sonunda tek seferde ödenmez. Her yıl <span class="font-semibold">Mayıs, Ağustos ve Kasım</span> aylarında, son 3 aylık kârınıza göre <span class="font-semibold">geçici vergi</span> ödersiniz. Bu büyük, toplu ödemelere hazırlıklı olun. Simülatör, bu yükümlülükleri <span class="font-semibold">nakit akışınızda dikkate almanız</span> için uyarı verir.
                 </div>
 
-        <h4 style="margin-top: 1.5rem;">2. Kaybedilen Sosyal Haklar ve Telafi Stratejileri</h4>
+  <h4 class="mt-6">2. Kaybedilen Sosyal Haklar ve Telafi Stratejileri</h4>
         <p>4A'lı bir çalışanın işvereni tarafından finanse edilen ve genellikle fark edilmeyen bazı önemli sosyal hakları vardır. 4B'li olduğunuzda bu haklar ortadan kalkar ve bunları kendiniz telafi etmelisiniz.</p>
         <ul>
           <li><strong>Kıdem Tazminatı:</strong> 4A'lıların yasal hakkı olan kıdem tazminatı, 4B'liler için mevcut değildir. <b>Bu hakkı telafi etmek için, her ay KDV hariç hasılatınızın en az <u>%8,33'ünü (1/12'sini)</u> "Kişisel Kıdem Fonu" olarak biriktirin.</b> Simülatör, bu tutarı isteğe bağlı olarak net gelirden düşerek daha gerçekçi bir harcanabilir gelir gösterebilir.</li>
           <li><strong>Acil Durum Fonu:</strong> 4B'liler genel hastalıklarda <b>rapor parası alamaz</b>. <b>En az 3-6 aylık temel yaşam ve işletme giderinizi karşılayacak bir "Acil Durum Fonu" oluşturun.</b> Bu fon, hastalık, müşteri kaybı veya ekonomik kriz gibi beklenmedik durumlarda finansal güvenliğiniz için zorunludur.</li>
         </ul>
 
-                <h4 style="margin-top: 1.5rem;">3. Hibrit Çalışma ve Statü Değişiklikleri</h4>
+                <h4 class="mt-6">3. Hibrit Çalışma ve Statü Değişiklikleri</h4>
                 <p>Şahıs şirketinizi açık tutarken tekrar 4A'lı olarak maaşlı bir işe başlayabilirsiniz. Bu durumda bilmeniz gerekenler:</p>
                 <ul>
                     <li><strong>Bağ-Kur Primi Durur:</strong> 5510 sayılı kanun gereği 4A sigortası önceliklidir. 4A'lı olduğunuz sürece Bağ-Kur primi ödemezsiniz (SGK Muafiyeti).</li>
@@ -521,9 +521,9 @@ class SalaryCalculator {
             `,
       "Emeklilik Hakları: SGK vs Bağ-Kur Karşılaştırması": `
                 <h4>Emeklilik Maaşı Hesaplama Formülü (Her İki Sistemde Aynı)</h4>
-                <div style="background-color: #f0f9ff; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5em; border-left: 4px solid #0ea5e9;">
+                <div class="bg-sky-50 p-4 rounded-lg mb-6 border-l-4 border-sky-400">
                      <pre><code><strong>Emekli Maaşı = (Toplam Prim Gün Sayısı × Ortalama PEK × Yaş Katsayısı) ÷ 365</strong></code></pre>
-                     <p style="margin-top: 0.5em; font-size: 0.9em;"><strong>Yaş Katsayısı:</strong> 65 yaşında %100, her ay erken emeklilikte %0.5 azalır</p>
+                     <p class="mt-2 text-[0.9em]"><strong>Yaş Katsayısı:</strong> 65 yaşında %100, her ay erken emeklilikte %0.5 azalır</p>
                 </div>
                    
                 <h4>🚨 Kritik Fark: Prim Oranları ve Gerçek Ödemeler</h4>
@@ -547,35 +547,35 @@ class SalaryCalculator {
                 </ul>
                    
                 <h4>💰 Pratik Örnek: 100.000 TL PEK Üzerinden</h4>
-                <table style="width: 100%; border-collapse: collapse; margin: 1em 0;">
-                     <tr style="background-color: #f9fafb; font-weight: bold;">
-                          <th style="border: 1px solid #d1d5db; padding: 8px; text-align: left;">Kriter</th>
-                          <th style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">SGK (4a)</th>
-                          <th style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">Bağ-Kur (4b)</th>
+                <table class="w-full border-collapse my-4">
+                     <tr class="bg-gray-50 font-bold">
+                          <th class="border border-gray-300 p-2 text-left">Kriter</th>
+                          <th class="border border-gray-300 p-2 text-center">SGK (4a)</th>
+                          <th class="border border-gray-300 p-2 text-center">Bağ-Kur (4b)</th>
                      </tr>
                      <tr>
-                          <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Toplam Sistem Primi</strong></td>
-                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺32.750 (%32.75)</td>
-                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺29.500 (%29.5)</td>
+                          <td class="border border-gray-300 p-2"><strong>Toplam Sistem Primi</strong></td>
+                          <td class="border border-gray-300 p-2 text-center">₺32.750 (%32.75)</td>
+                          <td class="border border-gray-300 p-2 text-center">₺29.500 (%29.5)</td>
                      </tr>
-                     <tr style="background-color: #fef3c7;">
-                          <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Kişinin Ödediği</strong></td>
-                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺15.000 (%15)</td>
-                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺29.500 (%29.5)</td>
+                     <tr class="bg-yellow-100">
+                          <td class="border border-gray-300 p-2"><strong>Kişinin Ödediği</strong></td>
+                          <td class="border border-gray-300 p-2 text-center">₺15.000 (%15)</td>
+                          <td class="border border-gray-300 p-2 text-center">₺29.500 (%29.5)</td>
                      </tr>
                      <tr>
-                          <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>İşverenin Ödediği</strong></td>
-                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺17.750 (%17.75)</td>
-                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺0</td>
+                          <td class="border border-gray-300 p-2"><strong>İşverenin Ödediği</strong></td>
+                          <td class="border border-gray-300 p-2 text-center">₺17.750 (%17.75)</td>
+                          <td class="border border-gray-300 p-2 text-center">₺0</td>
                      </tr>
-                     <tr style="background-color: #dcfce7;">
-                          <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Beklenen Emekli Maaşı</strong></td>
-                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">Teorik olarak aynı*</td>
-                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">Teorik olarak aynı*</td>
+                     <tr class="bg-green-100">
+                          <td class="border border-gray-300 p-2"><strong>Beklenen Emekli Maaşı</strong></td>
+                          <td class="border border-gray-300 p-2 text-center">Teorik olarak aynı*</td>
+                          <td class="border border-gray-300 p-2 text-center">Teorik olarak aynı*</td>
                      </tr>
                 </table>
                    
-                <p style="font-size: 0.8em; color: #666; margin-top: 0.5em;"><strong>*Not:</strong> Aynı PEK ve aynı prim gün sayısında teorik olarak aynı emekli maaşı alırsınız.</p>
+                <p class="text-xs text-gray-500 mt-2"><strong>*Not:</strong> Aynı PEK ve aynı prim gün sayısında teorik olarak aynı emekli maaşı alırsınız.</p>
                    
                 <h4>⚠️ Gerçek Hayattaki Farklar ve Riskler</h4>
                    
@@ -605,22 +605,22 @@ class SalaryCalculator {
                      <li><strong>Borçlanma Planı:</strong> Eksik prim günlerinizi stratejik olarak borçlanarak tamamlayın</li>
                 </ol>
                    
-                <div style="background-color: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0;">
-                     <h6 style="margin-top: 0; color: #0c4a6e;"><strong>🔄 Beklenen Yasal Düzenleme (2025):</strong></h6>
-                     <p style="margin-bottom: 0; font-size: 0.9em; color: #164e63;">Bağ-Kur'lular için gerekli olan 9000 prim gününün, SGK'lılar gibi 7200 güne düşürülmesine yönenek yasal düzenleme beklentisi yüksektir. Bu reform gerçekleşirse, iki sistem arasındaki en büyük dezavantajlardan biri ortadan kalkacaktır.</p>
+                <div class="bg-sky-50 border border-sky-400 rounded-lg p-4 my-4">
+                     <h6 class="mt-0 text-sky-900"><strong>🔄 Beklenen Yasal Düzenleme (2025):</strong></h6>
+                     <p class="mb-0 text-[0.9em] text-sky-800">Bağ-Kur'lular için gerekli olan 9000 prim gününün, SGK'lılar gibi 7200 güne düşürülmesine yönenek yasal düzenleme beklentisi yüksektir. Bu reform gerçekleşirse, iki sistem arasındaki en büyük dezavantajlardan biri ortadan kalkacaktır.</p>
                 </div>
                    
-                <div style="background-color: #fef3c7; border: 1px solid #fbbf24; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0;">
+                <div class="bg-yellow-100 border border-yellow-400 rounded-lg p-4 my-4">
                      <p><strong>💡 Sonuç:</strong> Aynı PEK seviyesinde teorik olarak aynı emekli maaşı alırsınız, ancak Bağ-Kur'da kişisel disiplin çok kritiktir. SGK'nın otomatik güvencesi vs Bağ-Kur'un esnekliği arasında bilinçli bir tercih yapmalısınız.</p>
                 </div>
                `,
       "Şahıs Şirketi ve Hizmet İhracatı Rehberi": `
-                <div style="background-color: #f0f9ff; border: 2px solid #0ea5e9; border-radius: 0.75rem; padding: 1.5rem; margin: 2rem 0;">
-                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-                        <div style="background-color: #0ea5e9; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; margin-right: 0.5rem; font-weight: bold;">⚖️</div>
-                        <h3 style="margin: 0; color: #0c4a6e;">Önemli Hukuki Uyarı</h3>
+                <div class="bg-sky-50 border-2 border-sky-400 rounded-xl p-6 my-8">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-sky-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 font-bold">⚖️</div>
+                        <h3 class="m-0 text-sky-900">Önemli Hukuki Uyarı</h3>
                     </div>
-                    <p style="margin: 0; font-size: 0.9em; color: #164e63;"><strong>Bu bölüm sadece genel bilgi amaçlıdır ve profesyonel vergi/hukuk danışmanlığı yerine geçmez.</strong> Kişisel durumunuza özgü kararlar almadan önce mutlaka uzman bir mali müşavir ve/veya vergi hukuku uzmanından danışmanlık alınız. Vergi mevzuatı sürekli değişmektedir ve bireysel durumlar farklılık gösterebilir.</p>
+                    <p class="m-0 text-[0.9em] text-sky-800"><strong>Bu bölüm sadece genel bilgi amaçlıdır ve profesyonel vergi/hukuk danışmanlığı yerine geçmez.</strong> Kişisel durumunuza özgü kararlar almadan önce mutlaka uzman bir mali müşavir ve/veya vergi hukuku uzmanından danışmanlık alınız. Vergi mevzuatı sürekli değişmektedir ve bireysel durumlar farklılık gösterebilir.</p>
                 </div>
 
                 <h4>📋 Bölüm 1: İkili Statü Yönetimi - SGK + Bağ-Kur Kombinasyonu</h4>
@@ -628,9 +628,9 @@ class SalaryCalculator {
                 <h5><strong>1.1. Sigortalılık Çakışması Prensibinin Anlaşılması</strong></h5>
                 <p>5510 sayılı Sosyal Sigortalar Kanunu'nun 53. maddesi gereği, bir kişinin aynı anda hem 4/a (SGK işçi sigortası) hem de 4/b (Bağ-Kur) kapsamında sigortalı olması gereken durumlarda, <strong>4/a statüsü önceliklidir</strong>.</p>
                 
-                <div style="background-color: #dcfce7; border-left: 4px solid #16a34a; padding: 1rem; margin: 1rem 0;">
-                    <h6 style="margin-top: 0;"><strong>Pratik Avantaj:</strong></h6>
-                    <p style="margin-bottom: 0;">Mevcut SGK'lı işiniz devam ederken şahıs şirketi kurduğunuzda, yasal olarak Bağ-Kur primi ödeme yükümlülüğünüz bulunmaz. Bu, aylık yaklaşık <strong>7.671 TL</strong> (2025 minimum Bağ-Kur primi) tasarruf demektir.</p>
+                <div class="bg-green-100 border-l-4 border-green-600 p-4 my-4">
+                    <h6 class="mt-0"><strong>Pratik Avantaj:</strong></h6>
+                    <p class="mb-0">Mevcut SGK'lı işiniz devam ederken şahıs şirketi kurduğunuzda, yasal olarak Bağ-Kur primi ödeme yükümlülüğünüz bulunmaz. Bu, aylık yaklaşık <strong>7.671 TL</strong> (2025 minimum Bağ-Kur primi) tasarruf demektir.</p>
                 </div>
                 
                 <h5><strong>1.2. Kritik Prosedür: Bağ-Kur Muafiyet Başvurusu</strong></h5>
@@ -641,7 +641,7 @@ class SalaryCalculator {
                     <li>Bu adım atlanırsa geriye dönük borç ve ceza riski oluşur</li>
                 </ul>
                 
-                <div style="background-color: #fef3c7; border: 1px solid #fbbf24; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0;">
+                <div class="bg-yellow-100 border border-yellow-400 rounded-lg p-4 my-4">
                     <p><strong>⚠️ Önemli:</strong> SGK'lı işiniz sona erdiği anda Bağ-Kur yükümlülüğü otomatik başlar. Bu potansiyel maliyeti finansal planlamanızda mutlaka hesaba katın.</p>
                 </div>
 
@@ -659,31 +659,31 @@ class SalaryCalculator {
                 </ol>
                 
                 <h6><strong>Finansal Etki Örneği:</strong></h6>
-                <table style="width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 0.9em;">
-                    <tr style="background-color: #f9fafb; font-weight: bold;">
-                        <th style="border: 1px solid #d1d5db; padding: 8px;">Senaryo</th>
-                        <th style="border: 1px solid #d1d5db; padding: 8px;">İstisna Yok</th>
-                        <th style="border: 1px solid #d1d5db; padding: 8px;">%80 İstisna</th>
+                <table class="w-full border-collapse my-4 text-[0.9em]">
+                    <tr class="bg-gray-50 font-bold">
+                        <th class="border border-gray-300 p-2">Senaryo</th>
+                        <th class="border border-gray-300 p-2">İstisna Yok</th>
+                        <th class="border border-gray-300 p-2">%80 İstisna</th>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">Net Kâr</td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">1.200.000 TL</td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">1.200.000 TL</td>
+                        <td class="border border-gray-300 p-2">Net Kâr</td>
+                        <td class="border border-gray-300 p-2">1.200.000 TL</td>
+                        <td class="border border-gray-300 p-2">1.200.000 TL</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">Vergi Matrahı</td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">1.200.000 TL</td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">240.000 TL</td>
+                        <td class="border border-gray-300 p-2">Vergi Matrahı</td>
+                        <td class="border border-gray-300 p-2">1.200.000 TL</td>
+                        <td class="border border-gray-300 p-2">240.000 TL</td>
                     </tr>
-                    <tr style="background-color: #fef3c7;">
-                        <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Gelir Vergisi</strong></td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>~345.900 TL</strong></td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>~58.500 TL</strong></td>
+                    <tr class="bg-yellow-100">
+                        <td class="border border-gray-300 p-2"><strong>Gelir Vergisi</strong></td>
+                        <td class="border border-gray-300 p-2"><strong>~345.900 TL</strong></td>
+                        <td class="border border-gray-300 p-2"><strong>~58.500 TL</strong></td>
                     </tr>
-                    <tr style="background-color: #dcfce7;">
-                        <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Vergi Tasarrufu</strong></td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">-</td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>287.400 TL</strong></td>
+                    <tr class="bg-green-100">
+                        <td class="border border-gray-300 p-2"><strong>Vergi Tasarrufu</strong></td>
+                        <td class="border border-gray-300 p-2">-</td>
+                        <td class="border border-gray-300 p-2"><strong>287.400 TL</strong></td>
                     </tr>
                 </table>
                 
@@ -703,50 +703,50 @@ class SalaryCalculator {
                 <p>Vergi matrahınızı yasal yollarla optimize etmenin en etkili yolu, işle ilgili tüm harcamaları doğru belgeleyerek gider göstermektir.</p>
                 
                 <h5><strong>3.1. Teknoloji ve Altyapı Giderleri</strong></h5>
-                <table style="width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 0.9em;">
-                    <tr style="background-color: #f9fafb; font-weight: bold;">
-                        <th style="border: 1px solid #d1d5db; padding: 8px; text-align: left;">Gider Türü</th>
-                        <th style="border: 1px solid #d1d5db; padding: 8px; text-align: left;">İndirilebilirlik</th>
-                        <th style="border: 1px solid #d1d5db; padding: 8px; text-align: left;">Örnekler</th>
+                <table class="w-full border-collapse my-4 text-[0.9em]">
+                    <tr class="bg-gray-50 font-bold">
+                        <th class="border border-gray-300 p-2 text-left">Gider Türü</th>
+                        <th class="border border-gray-300 p-2 text-left">İndirilebilirlik</th>
+                        <th class="border border-gray-300 p-2 text-left">Örnekler</th>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Yazılım ve Abonelikler</strong></td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">%100 gider</td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">IDE lisansları, SaaS araçları, cloud servisleri</td>
+                        <td class="border border-gray-300 p-2"><strong>Yazılım ve Abonelikler</strong></td>
+                        <td class="border border-gray-300 p-2">%100 gider</td>
+                        <td class="border border-gray-300 p-2">IDE lisansları, SaaS araçları, cloud servisleri</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Donanım</strong></td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">Amortismana tabi</td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">Bilgisayar, monitör, sunucu, ağ cihazları</td>
+                        <td class="border border-gray-300 p-2"><strong>Donanım</strong></td>
+                        <td class="border border-gray-300 p-2">Amortismana tabi</td>
+                        <td class="border border-gray-300 p-2">Bilgisayar, monitör, sunucu, ağ cihazları</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Hosting ve Domain</strong></td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">%100 gider</td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">Web barındırma, alan adı, SSL sertifikası</td>
+                        <td class="border border-gray-300 p-2"><strong>Hosting ve Domain</strong></td>
+                        <td class="border border-gray-300 p-2">%100 gider</td>
+                        <td class="border border-gray-300 p-2">Web barındırma, alan adı, SSL sertifikası</td>
                     </tr>
                 </table>
                 
                 <h5><strong>3.2. Ev Ofis (Home Office) Giderleri</strong></h5>
-                <table style="width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 0.9em;">
-                    <tr style="background-color: #f9fafb; font-weight: bold;">
-                        <th style="border: 1px solid #d1d5db; padding: 8px; text-align: left;">Gider Kalemi</th>
-                        <th style="border: 1px solid #d1d5db; padding: 8px; text-align: left;">Kiralık Konut</th>
-                        <th style="border: 1px solid #d1d5db; padding: 8px; text-align: left;">Kendi Mülkü</th>
+                <table class="w-full border-collapse my-4 text-[0.9em]">
+                    <tr class="bg-gray-50 font-bold">
+                        <th class="border border-gray-300 p-2 text-left">Gider Kalemi</th>
+                        <th class="border border-gray-300 p-2 text-left">Kiralık Konut</th>
+                        <th class="border border-gray-300 p-2 text-left">Kendi Mülkü</th>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Kira Bedeli</strong></td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">%100 gider yazılabilir</td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">Uygulanmaz</td>
+                        <td class="border border-gray-300 p-2"><strong>Kira Bedeli</strong></td>
+                        <td class="border border-gray-300 p-2">%100 gider yazılabilir</td>
+                        <td class="border border-gray-300 p-2">Uygulanmaz</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Faturalar</strong></td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">%50 (elektrik, su, gaz, internet)</td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">%50 (elektrik, su, gaz, internet)</td>
+                        <td class="border border-gray-300 p-2"><strong>Faturalar</strong></td>
+                        <td class="border border-gray-300 p-2">%50 (elektrik, su, gaz, internet)</td>
+                        <td class="border border-gray-300 p-2">%50 (elektrik, su, gaz, internet)</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Aidat</strong></td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">%50 gider yazılabilir</td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;">%50 gider yazılabilir</td>
+                        <td class="border border-gray-300 p-2"><strong>Aidat</strong></td>
+                        <td class="border border-gray-300 p-2">%50 gider yazılabilir</td>
+                        <td class="border border-gray-300 p-2">%50 gider yazılabilir</td>
                     </tr>
                 </table>
                 
@@ -757,9 +757,9 @@ class SalaryCalculator {
                     <li><strong>Şahsi Araç:</strong> Özel sınırlamalar ve oranlar uygulanır</li>
                 </ul>
                 
-                <div style="background-color: #fef2f2; border: 1px solid #ef4444; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0;">
-                    <h6 style="margin-top: 0; color: #dc2626;"><strong>🚫 Şahsi Araç Gider Sınırları (2025):</strong></h6>
-                    <ul style="margin-bottom: 0;">
+                <div class="bg-red-50 border border-red-500 rounded-lg p-4 my-4">
+                    <h6 class="mt-0 text-red-700"><strong>🚫 Şahsi Araç Gider Sınırları (2025):</strong></h6>
+                    <ul class="mb-0">
                         <li><strong>Kiralama:</strong> Aylık 37.000 TL'ye kadar</li>
                         <li><strong>İşletme Giderleri:</strong> Toplam harcamanın sadece %70'i</li>
                         <li><strong>Satın Alma:</strong> 1.100.000 TL üzerinden amortisman sınırı</li>
@@ -782,9 +782,9 @@ class SalaryCalculator {
 
                 <h4>⚠️ Bölüm 4: Gider Olamayacak Harcamalar</h4>
                 
-                <div style="background-color: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem; margin: 1rem 0;">
-                    <h6 style="margin-top: 0;"><strong>Kesinlikle Gider Gösterilemez:</strong></h6>
-                    <ul style="margin-bottom: 0;">
+                <div class="bg-red-50 border-l-4 border-red-500 p-4 my-4">
+                    <h6 class="mt-0"><strong>Kesinlikle Gider Gösterilemez:</strong></h6>
+                    <ul class="mb-0">
                         <li>Ödenen gelir vergisi ve geçici vergiler</li>
                         <li>Vergi cezaları ve gecikme faizleri</li>
                         <li>Kişisel nitelikteki harcamalar (giyim, market, özel yemekler)</li>
@@ -812,9 +812,9 @@ class SalaryCalculator {
 
                 <h4>🎯 Bölüm 6: Stratejik Eylem Planı</h4>
                 
-                <div style="background-color: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0;">
-                    <h6 style="margin-top: 0;"><strong>Öncelikli Adımlar:</strong></h6>
-                    <ol style="margin-bottom: 0;">
+                <div class="bg-sky-50 border border-sky-400 rounded-lg p-4 my-4">
+                    <h6 class="mt-0"><strong>Öncelikli Adımlar:</strong></h6>
+                    <ol class="mb-0">
                         <li><strong>Uzman Mali Müşavir:</strong> Teknoloji ve hizmet ihracatı deneyimli danışman seçin</li>
                         <li><strong>Bağ-Kur Muafiyeti:</strong> SGK statünüzü bildirerek muafiyet başvurusu yapın</li>
                         <li><strong>Ayrı Banka Hesabı:</strong> Şirket adına ticari hesap açın</li>
@@ -823,73 +823,73 @@ class SalaryCalculator {
                     </ol>
                 </div>
                 
-                <div style="background-color: #fef3c7; border: 1px solid #fbbf24; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0;">
-                    <p style="margin: 0;"><strong>💡 Önemli Hatırlatma:</strong> Bu rehber genel bilgilendirme amaçlıdır. Kişisel durumunuza özel kararlar için mutlaka profesyonel danışmanlık alın. Vergi mevzuatı sürekli değişir ve bireysel şartlar farklılık gösterebilir.</p>
+                <div class="bg-yellow-100 border border-yellow-400 rounded-lg p-4 my-4">
+                    <p class="m-0"><strong>💡 Önemli Hatırlatma:</strong> Bu rehber genel bilgilendirme amaçlıdır. Kişisel durumunuza özel kararlar için mutlaka profesyonel danışmanlık alın. Vergi mevzuatı sürekli değişir ve bireysel şartlar farklılık gösterebilir.</p>
                 </div>
             `,
       "4A'dan 4B'ye Geçiş: Yükümlülükler ve Zaman Çizelgesi": `
         <p>Maaşlı bir işten (4A) ayrılıp tamamen kendi işinizin (4B - Şahıs Şirketi) başına geçme kararı, finansal ve yasal yükümlülüklerin zamanlamasını doğru anlamayı gerektirir. Bu bölüm, geçiş sürecindeki kritik adımları ve mali sorumluluklarınızın ne zaman başladığını netleştirmek için tasarlanmıştır.</p>
 
-        <h4 style="margin-top: 1.5rem;">Temel Prensip: Yükümlülüklerin Tetiklenmesi</h4>
+  <h4 class="mt-6">Temel Prensip: Yükümlülüklerin Tetiklenmesi</h4>
         <p>Unutulmaması gereken en önemli kural şudur: Bağ-Kur (4B) sigortalılığı ve buna bağlı prim ödeme yükümlülüğü, mevcut 4A sigortanızın sona ermesiyle tetiklenir. Ancak, şirketinizin yasal varlığı ve muhasebe sorumluluklarınız bu tarihten önce başlamalıdır.</p>
 
-        <h5 style="margin-top: 1rem;">1. Mali Müşavirlik Yükümlülüğü</h5>
+  <h5 class="mt-4">1. Mali Müşavirlik Yükümlülüğü</h5>
         <p><strong>Başlangıç Zamanı:</strong> Şirket kuruluşundan <strong>hemen önce</strong>.<br/>Türkiye'de bir şahıs şirketi kurmak için vergi dairesine kayıt yaptırmadan önce bir Serbest Muhasebeci Mali Müşavir (SMMM) ile anlaşma yapmanız yasal bir zorunluluktur. Bu nedenle, mali müşavirinize ödeyeceğiniz ücret, 4A'lı işinizden ayrılmadan önce başlayan ilk gideriniz olacaktır. Bu adımı proaktif olarak planlamalısınız.</p>
 
-        <h5 style="margin-top: 1rem;">2. Bağ-Kur (4B) Prim Yükümlülüğü</h5>
+  <h5 class="mt-4">2. Bağ-Kur (4B) Prim Yükümlülüğü</h5>
         <p><strong>Başlangıç Zamanı:</strong> 4A sigortalılığınızın sona erdiği günü <strong>takip eden ilk gün</strong>.<br/>5510 sayılı kanun gereği, 4A sigortanız kesildiği anda sistem sizi otomatik olarak 4B'li (Bağ-Kur) olarak tescil eder. Örneğin, 31 Mayıs'ta işten ayrıldıysanız, 1 Haziran itibarıyla Bağ-Kur sigortalılığınız ve prim borcunuz işlemeye başlar. Haziran ayının primi, Temmuz ayının sonuna kadar ödenmelidir.</p>
 
-        <h4 style="margin-top: 1.5rem;">Geçiş Süreci Zaman Çizelgesi</h4>
+  <h4 class="mt-6">Geçiş Süreci Zaman Çizelgesi</h4>
         <p>Aşağıdaki tablo, adımları ve zamanlamayı özetlemektedir:</p>
-        <table style="width:100%;margin-top:1rem;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">
-          <thead style="background:#f3f4f6;">
+  <table class="w-full mt-4 bg-gray-50 border border-gray-200 rounded-lg overflow-hidden">
+          <thead class="bg-gray-100">
             <tr>
-              <th style="padding:8px;border-bottom:1px solid #e5e7eb;">Yükümlülük</th>
-              <th style="padding:8px;border-bottom:1px solid #e5e7eb;">Başlangıç Zamanı</th>
-              <th style="padding:8px;border-bottom:1px solid #e5e7eb;">Önemli Notlar ve Eylem Planı</th>
+              <th class="p-2 border-b border-gray-200">Yükümlülük</th>
+              <th class="p-2 border-b border-gray-200">Başlangıç Zamanı</th>
+              <th class="p-2 border-b border-gray-200">Önemli Notlar ve Eylem Planı</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td style="padding:8px;">Mali Müşavir Sözleşmesi</td>
-              <td style="padding:8px;">Şirket kuruluşundan önce.</td>
-              <td style="padding:8px;">İlk maliyet, 4A maaşınız devam ederken ortaya çıkar. Bütçenize ekleyin.</td>
+              <td class="p-2">Mali Müşavir Sözleşmesi</td>
+              <td class="p-2">Şirket kuruluşundan önce.</td>
+              <td class="p-2">İlk maliyet, 4A maaşınız devam ederken ortaya çıkar. Bütçenize ekleyin.</td>
             </tr>
             <tr>
-              <td style="padding:8px;">Şirket Kuruluşu</td>
-              <td style="padding:8px;">4A işten ayrılmadan hemen önce.</td>
-              <td style="padding:8px;">İş sürekliliği ve ilk faturanızı kesebilmek için kritik adımdır.</td>
+              <td class="p-2">Şirket Kuruluşu</td>
+              <td class="p-2">4A işten ayrılmadan hemen önce.</td>
+              <td class="p-2">İş sürekliliği ve ilk faturanızı kesebilmek için kritik adımdır.</td>
             </tr>
             <tr>
-              <td style="padding:8px;">Bağ-Kur (4B) Sigortalılığı</td>
-              <td style="padding:8px;">4A sigortalılığının bittiği günü takip eden ilk gün.</td>
-              <td style="padding:8px;">Otomatik olarak başlar. SGK'ya ayrıca bir bildirim gerekmez, sistemler entegredir.</td>
+              <td class="p-2">Bağ-Kur (4B) Sigortalılığı</td>
+              <td class="p-2">4A sigortalılığının bittiği günü takip eden ilk gün.</td>
+              <td class="p-2">Otomatik olarak başlar. SGK'ya ayrıca bir bildirim gerekmez, sistemler entegredir.</td>
             </tr>
             <tr>
-              <td style="padding:8px;">İlk Bağ-Kur Prim Ödemesi</td>
-              <td style="padding:8px;">Başlangıç ayını takip eden ayın sonu.</td>
-              <td style="padding:8px;">Örn: Haziran'da başladıysanız, ilk ödeme Temmuz sonuna kadardır.</td>
+              <td class="p-2">İlk Bağ-Kur Prim Ödemesi</td>
+              <td class="p-2">Başlangıç ayını takip eden ayın sonu.</td>
+              <td class="p-2">Örn: Haziran'da başladıysanız, ilk ödeme Temmuz sonuna kadardır.</td>
             </tr>
             <tr>
-              <td style="padding:8px;">İlk KDV Beyannamesi</td>
-              <td style="padding:8px;">Faaliyete başlanan ayı takip eden ayın 28'i.</td>
-              <td style="padding:8px;">Fatura kesmeye başladığınız ilk aydan itibaren sorumluluk başlar.</td>
+              <td class="p-2">İlk KDV Beyannamesi</td>
+              <td class="p-2">Faaliyete başlanan ayı takip eden ayın 28'i.</td>
+              <td class="p-2">Fatura kesmeye başladığınız ilk aydan itibaren sorumluluk başlar.</td>
             </tr>
             <tr>
-              <td style="padding:8px;">İlk Muhtasar Beyanname</td>
-              <td style="padding:8px;">Faaliyete başlanan ayı takip eden ayın 26'sı.</td>
-              <td style="padding:8px;">Kiranız veya personeliniz varsa geçerlidir.</td>
+              <td class="p-2">İlk Muhtasar Beyanname</td>
+              <td class="p-2">Faaliyete başlanan ayı takip eden ayın 26'sı.</td>
+              <td class="p-2">Kiranız veya personeliniz varsa geçerlidir.</td>
             </tr>
           </tbody>
         </table>
-        <div style="background-color: #fefce8; border-left: 4px solid #f59e0b; padding: 1rem; margin-top: 1.5rem;">
-            <h6 style="margin-top: 0;"><strong>Stratejik Tavsiye: "Çifte Statü" Dönemi</strong></h6>
-            <p style="margin-bottom: 0;">Finansal riski en aza indirmek için, mümkünse 4A'lı işinizden ayrılmadan önce şahıs şirketinizi kurun. Bu sayede, "SGK Muafiyeti" seçeneğinden yararlanarak Bağ-Kur primi ödemeden ilk müşterilerinizi bulabilir ve gelir akışı oluşturabilirsiniz. Bu, tam zamanlı geçişi çok daha güvenli hale getirir.</p>
+  <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mt-6">
+            <h6 class="mt-0"><strong>Stratejik Tavsiye: "Çifte Statü" Dönemi</strong></h6>
+            <p class="mb-0">Finansal riski en aza indirmek için, mümkünse 4A'lı işinizden ayrılmadan önce şahıs şirketinizi kurun. Bu sayede, "SGK Muafiyeti" seçeneğinden yararlanarak Bağ-Kur primi ödemeden ilk müşterilerinizi bulabilir ve gelir akışı oluşturabilirsiniz. Bu, tam zamanlı geçişi çok daha güvenli hale getirir.</p>
         </div>
       `,
       "Hesaplamaların Arkasındaki Matematik": `
                 <h4>Sabit Değerler ve Anlamları</h4>
-                <div style="background-color: #f0f9ff; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5em; border-left: 4px solid #0ea5e9;">
+                <div class="bg-sky-50 p-4 rounded-lg mb-6 border-l-4 border-sky-400">
                      <h5><strong>SGK Oranları (2025):</strong></h5>
                      <ul>
                           <li><code>0.15</code> = SGK İşçi Payı (%14 SGK + %1 İşsizlik)</li>
@@ -918,7 +918,7 @@ class SalaryCalculator {
                                 <li>800.001-4.300.000 TL: %35</li>
                                 <li>4.300.001 TL+: %40</li>
                                </ul>
-                               <p style="font-size: 0.8em; color: #666; margin-top: 0.5em;"><strong>Not:</strong> Model B (Şahıs Şirketi) ücret dışı kazanç olduğu için bu tarifeyi kullanır.</p>
+                               <p class="text-xs text-gray-500 mt-2"><strong>Not:</strong> Model B (Şahıs Şirketi) ücret dışı kazanç olduğu için bu tarifeyi kullanır.</p>
                           </li>
                      </ul>
                     
@@ -939,7 +939,7 @@ class SalaryCalculator {
          </ul>
                 </div>
                    
-                <hr style="margin: 2em 0; border: 1px solid #e5e7eb;">
+                <hr class="my-8 border border-gray-200">
                    
                 <h4>Model A: Maaşlı Çalışan (SGK)</h4>
                    
@@ -959,11 +959,11 @@ class SalaryCalculator {
                      <li><pre><code><strong>Net Maaş = Brüt Maaş - SGK İşçi Payı - Gelir Vergisi - Damga Vergisi</strong></code></pre></li>
                 </ul>
                    
-                <hr style="margin: 2em 0; border: 1px solid #e5e7eb;">
+                <hr class="my-8 border border-gray-200">
                    
                 <h4>Model B: Şahıs Şirketi Sahibi (Bağ-Kur)</h4>
 
-                <hr style="margin: 2em 0; border: 1px solid #e5e7eb;">
+                <hr class="my-8 border border-gray-200">
                 <h4>Giderlerin Vergiye Etkisi: Vergi Kalkanı Mekanizması</h4>
                 <div>
                   <h4>Giderler Net Gelirinizi Nasıl Etkiler?</h4>
@@ -973,8 +973,8 @@ class SalaryCalculator {
                       <li><strong>Vergi Matrahını Düşürür:</strong> Daha düşük kâr, üzerinden vergi hesaplanacak olan matrahın da daha düşük olması demektir.</li>
                       <li><strong>Ödenecek Vergiyi Azaltır:</strong> Düşük matrah üzerinden hesaplanan gelir vergisi tutarı da doğal olarak azalır.</li>
                   </ol>
-                  <div style="background-color: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 1rem; margin-top: 1rem;">
-                      <h5 style="margin-top:0;">Somut Örnek:</h5>
+                  <div class="bg-sky-50 border-l-4 border-sky-400 p-4 mt-4">
+                      <h5 class="mt-0">Somut Örnek:</h5>
                       <p>Eğer %27'lik vergi dilimindeyseniz, yaptığınız <strong>10.000 TL</strong>'lik bir gider, ödeyeceğiniz vergiyi yaklaşık <strong>2.700 TL</strong> azaltır. Yani bu harcamanın size olan net maliyeti aslında <strong>7.300 TL</strong>'dir. Bu nedenle, işle ilgili tüm harcamalarınızı doğru bir şekilde belgelendirip gider olarak göstermek, net gelirinizi optimize etmenin en önemli yoludur.</p>
                   </div>
                 </div>
@@ -1858,7 +1858,7 @@ class SalaryCalculator {
           <div class="mt-4 border-t pt-3">
             <h4 class="text-sm font-semibold text-gray-700 text-center mb-3">📋 Kesintiler</h4>
             <div class="mb-3">
-              <button type="button" class="text-blue-700 text-sm font-semibold flex items-center gap-1 mx-auto" style="outline:none;" onclick="this.nextElementSibling.classList.toggle('hidden');this.querySelector('span').textContent = this.nextElementSibling.classList.contains('hidden') ? '[+]' : '[-]';">
+              <button type="button" class="text-blue-700 text-sm font-semibold flex items-center gap-1 mx-auto outline-none" onclick="this.nextElementSibling.classList.toggle('hidden');this.querySelector('span').textContent = this.nextElementSibling.classList.contains('hidden') ? '[+]' : '[-]';">
                 <span>[-]</span> Gider Detayları
               </button>
               <div class="mt-2" id="gider-detaylari-panel">
@@ -2012,7 +2012,7 @@ class SalaryCalculator {
                 <div class="mt-4">
                     <p class="text-sm text-gray-500 text-center">Gelire Oranla Net Kârlılık</p>
                     <div class="level-bar-container mt-2">
-                        <div class="level-bar level-${scoreLevel}" style="width: ${score}%;">${scoreText}</div>
+                      <div class="level-bar level-${scoreLevel}" style="width: ${score}%">${scoreText}</div>
                     </div>
                 </div>
                 ${tesvikNotlari}
