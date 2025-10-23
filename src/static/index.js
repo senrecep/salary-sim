@@ -413,18 +413,19 @@ class SalaryCalculator {
       "Model B'nin Gizli Sorumlulukları ve Riskleri": `
                 <p>Şahıs şirketi kurmak önemli finansal avantajlar sunsa da, maaşlı çalışanın alışık olmadığı bazı "gizli" sorumluluklar ve riskler içerir. Bu konuları önceden bilmek, sürprizlerle karşılaşmadan sağlam bir finansal plan yapmanızı sağlar.</p>
                 
-                <h4 style="margin-top: 1.5rem;">1. KDV Yönetimi: "Emanet Para" Prensibi</h4>
-                <p>Kestiğiniz her faturaya eklediğiniz %20 KDV, sizin geliriniz değildir. Bu para, devlet adına müşteriden tahsil ettiğiniz ve bir sonraki ay vergi dairesine ödemek zorunda olduğunuz <strong>emanet bir paradır</strong>. Bu tutarı kendi nakit akışınıza dahil etmek, yeni girişimcilerin yaptığı en yaygın ve en tehlikeli hatadır.</p>
-                <div style="background-color: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 1rem; margin: 1em 0;">
-                    <strong>Pratik Tavsiye:</strong> Şirketiniz için ayrı bir banka hesabı açın ve faturalardan gelen KDV tutarını bu hesaba dokunmadan biriktirin. Bu, bir sonraki ayın vergi ödemesi geldiğinde nakit sıkışıklığı yaşamanızı önler.
+                <h4 class="mt-6 font-bold text-lg text-yellow-800">1. KDV ve Geçici Vergi Yükümlülükleri</h4>
+                <div class="bg-yellow-100 border-l-4 border-yellow-400 p-4 my-4 rounded">
+                  <span class="font-bold text-yellow-900">⚠️ Kritik Uyarı:</span> Şahıs şirketi olarak kestiğiniz <span class="font-semibold">her faturada</span> çoğu hizmet için <span class="font-semibold">%20 KDV</span> eklemek zorundasınız. Bu KDV, sizin geliriniz değildir; devlet adına tahsil ettiğiniz ve <span class="font-semibold">her ay</span> beyan edip ödemeniz gereken <span class="font-semibold">emanet paradır</span>.<br><br>
+                  <span class="font-semibold">KDV'yi nakit akışınıza dahil etmeyin!</span> KDV'yi ayrı bir hesapta tutmak, vergi zamanı nakit sıkışıklığı yaşamamanız için şarttır.<br><br>
+                  <span class="font-semibold">Geçici Vergi:</span> Yıllık gelir vergisi, yıl sonunda tek seferde ödenmez. Her yıl <span class="font-semibold">Mayıs, Ağustos ve Kasım</span> aylarında, son 3 aylık kârınıza göre <span class="font-semibold">geçici vergi</span> ödersiniz. Bu büyük, toplu ödemelere hazırlıklı olun. Simülatör, bu yükümlülükleri <span class="font-semibold">nakit akışınızda dikkate almanız</span> için uyarı verir.
                 </div>
 
-                <h4 style="margin-top: 1.5rem;">2. Kaybedilen Sosyal Haklar ve Telafi Stratejileri</h4>
-                <p>4A'lı bir çalışanın işvereni tarafından finanse edilen ve genellikle fark edilmeyen bazı önemli sosyal hakları vardır. 4B'li olduğunuzda bu haklar ortadan kalkar ve bunları kendiniz telafi etmelisiniz.</p>
-                <ul>
-                    <li><strong>Kıdem Tazminatı:</strong> 4A'lıların yasal hakkı olan kıdem tazminatı, 4B'liler için mevcut değildir. Bu hakkı telafi etmek için, aylık KDV hariç hasılatınızın en az <strong>%8.33'ünü (1/12'sini)</strong> bir yatırım hesabında "Kişisel Kıdem Fonu" olarak biriktirmeniz şiddetle tavsiye edilir.</li>
-                    <li><strong>İş Göremezlik Ödeneği (Rapor Parası):</strong> 4A'lılar grip gibi genel hastalıklarda rapor parası alırken, 4B'liler iş kazası ve analık halleri dışında <strong>rapor parası alamaz</strong>. Bu, hastalandığınızda hem gelirinizin durması hem de devletten destek alamamanız anlamına gelen bir "çifte darbe"dir. Bu riske karşı en az 3-6 aylık temel giderlerinizi karşılayacak bir <strong>"Acil Durum Fonu"</strong> oluşturmanız kritik öneme sahiptir.</li>
-                </ul>
+        <h4 style="margin-top: 1.5rem;">2. Kaybedilen Sosyal Haklar ve Telafi Stratejileri</h4>
+        <p>4A'lı bir çalışanın işvereni tarafından finanse edilen ve genellikle fark edilmeyen bazı önemli sosyal hakları vardır. 4B'li olduğunuzda bu haklar ortadan kalkar ve bunları kendiniz telafi etmelisiniz.</p>
+        <ul>
+          <li><strong>Kıdem Tazminatı:</strong> 4A'lıların yasal hakkı olan kıdem tazminatı, 4B'liler için mevcut değildir. <b>Bu hakkı telafi etmek için, her ay KDV hariç hasılatınızın en az <u>%8,33'ünü (1/12'sini)</u> "Kişisel Kıdem Fonu" olarak biriktirin.</b> Simülatör, bu tutarı isteğe bağlı olarak net gelirden düşerek daha gerçekçi bir harcanabilir gelir gösterebilir.</li>
+          <li><strong>Acil Durum Fonu:</strong> 4B'liler genel hastalıklarda <b>rapor parası alamaz</b>. <b>En az 3-6 aylık temel yaşam ve işletme giderinizi karşılayacak bir "Acil Durum Fonu" oluşturun.</b> Bu fon, hastalık, müşteri kaybı veya ekonomik kriz gibi beklenmedik durumlarda finansal güvenliğiniz için zorunludur.</li>
+        </ul>
 
                 <h4 style="margin-top: 1.5rem;">3. Hibrit Çalışma ve Statü Değişiklikleri</h4>
                 <p>Şahıs şirketinizi açık tutarken tekrar 4A'lı olarak maaşlı bir işe başlayabilirsiniz. Bu durumda bilmeniz gerekenler:</p>
