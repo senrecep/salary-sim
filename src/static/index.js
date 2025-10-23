@@ -616,13 +616,13 @@ class SalaryCalculator {
                 <h5><strong>2.2. KDV İstisnası</strong></h5>
                 <p>Hizmet ihracatı %0 KDV ile "İstisna Faturası" olarak düzenlenir. Bu size %20'lik fiyat rekabeti avantajı sağlar ve nakit akışını basitleştirir.</p>
                 
-        <h5><strong>2.3. Genç Girişimci Desteği (29 Yaş Altı İçin)</strong></h5>
-        <p>Eğer uygunluk şartlarını sağlıyorsanız, katmanlı vergi avantajı elde edebilirsiniz:</p>
-        <ul>
-          <li><strong>1. Katman:</strong> Yıllık 330.000 TL'ye kadar %100 gelir vergisi istisnası (3 yıl)</li>
-          <li><strong>2. Katman:</strong> Bu sınırı aşan kısım %80 hizmet ihracatı istisnasına tabi</li>
-          <li><strong>Bağ-Kur Prim Desteği:</strong> 1 yıl boyunca minimum prim devlet tarafından karşılanır (2025 için 26.005,50 TL x 12 x 0.295 = 92.059 TL)</li>
-        </ul>
+              <h5><strong>2.3. Genç Girişimci Desteği (29 Yaş Altı İçin)</strong></h5>
+              <p>Eğer uygunluk şartlarını sağlıyorsanız, katmanlı vergi avantajı elde edebilirsiniz:</p>
+              <ul>
+                <li><strong>1. Katman:</strong> Yıllık 330.000 TL'ye kadar %100 gelir vergisi istisnası (3 yıl)</li>
+                <li><strong>2. Katman:</strong> Bu sınırı aşan kısım %80 hizmet ihracatı istisnasına tabi</li>
+                <li><strong>Bağ-Kur Prim Desteği:</strong> 1 yıl boyunca minimum prim devlet tarafından karşılanır (2025 için 26.005,50 TL x 12 x 0.295 = 92.059 TL)</li>
+              </ul>
 
                 <h4>📊 Bölüm 3: İndirilebilir Gider Kataloğu</h4>
                 
