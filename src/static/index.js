@@ -1,7 +1,3 @@
-/**
- * Maaş Karşılaştırma Simülatörü
- * SGK vs Bağ-Kur karşılaştırması için gelişmiş hesaplama sistemi
- */
 
 class SalaryCalculator {
   // Event binding for Model B expense details table
@@ -469,7 +465,7 @@ class SalaryCalculator {
                 
                 <h4>a) Genç Girişimci Desteği (GVK Mükerrer Md. 20)</h4>
                 <ul>
-                    <li><strong>Gelir Vergisi İstisnası:</strong> 3 yıl boyunca, yıllık kazancın <strong>150.000 TL'lik kısmı gelir vergisinden muaftır</strong> (2025 yılı için).</li>
+                    <li><strong>Gelir Vergisi İstisnası:</strong> 3 yıl boyunca, yıllık kazancın <strong>330.000 TL'lik kısmı gelir vergisinden muaftır</strong> (2025 yılı için).</li>
                     <li><strong>Bağ-Kur Prim Desteği:</strong> 1 yıl boyunca, devlet sizin adınıza minimum Bağ-Kur primini öder. Eğer daha yüksek bir seviyeden prim öderseniz, aradaki farkı siz karşılarsınız. Bu destek yıllık yaklaşık <strong>92.059 TL'lik</strong> bir nakit avantajıdır (312.066 × 0.295).</li>
                     <li><strong>Yaş Şartı:</strong> 18 yaşını doldurmuş, 29 yaşını geçmemiş olmak gerekir.</li>
                     <li><strong>İlk Mükellefiyet:</strong> İlk kez gelir vergisi mükellefi olmak şarttır.</li>
