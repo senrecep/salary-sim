@@ -321,6 +321,7 @@ class SalaryCalculator {
   }
 
   initializeReportContent() {
+
     return {
       "Simülatör Kullanım Kılavuzu": `
                 <h4>Bu Simülatör Ne Yapar?</h4>
@@ -341,6 +342,78 @@ class SalaryCalculator {
                     <li><strong>Sonuçları Karşılaştırın:</strong> İki model arasındaki net gelir, prim gideri ve vergi yükü farkını inceleyin.</li>
                 </ol>
             `,
+
+                  "İşveren Maliyeti Modu Hakkında Uyarı": `
+        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 my-4 rounded">
+          <span class="font-bold text-blue-900">ℹ️ Bilgilendirme:</span> "İşveren Maliyeti" (TCE) modunda, Model B'de hasılatınız işverenin toplam maliyetine eşitlenir. Bu, gerçek dünyada nadiren %100 oranında gerçekleşir ve en iyi senaryoyu yansıtır. Pazarlık gücünüz, müşteri portföyünüz ve piyasa koşulları bu oranın altına düşebilir. Kendi işinizi kurarken bu iyimserliği göz önünde bulundurun.
+        </div>
+      `,
+      "Bağ-Kur 7200 Gün Reformu ve Emeklilik Şartları": `
+        <div class="bg-green-50 border-l-4 border-green-400 p-4 my-4 rounded">
+          <span class="font-bold text-green-900">🔄 Beklenen Yasal Değişiklik:</span> Bağ-Kur'lular için gerekli olan <b>9000 prim günü</b> şartının, SGK'lılar gibi <b>7200 güne</b> düşürülmesine yönelik yasal düzenleme 2025'te gündemdedir. Bu reform gerçekleşirse, serbest meslek sahiplerinin emeklilikteki en büyük dezavantajı ortadan kalkacak ve iki sistem neredeyse eşitlenecektir. <b>Uzun vadeli planlarınızda bu değişikliği dikkate alın.</b>
+        </div>
+      `,
+      "Ne Zaman Şirketleşmeli? Şahıs vs. Limited": `
+        <div class="bg-purple-50 border-l-4 border-purple-400 p-4 my-4 rounded">
+          <span class="font-bold text-purple-900">💡 Bilgilendirme:</span> Şahıs şirketi, küçük ve orta ölçekli girişimler için hızlı ve düşük maliyetli bir başlangıç sunar. Ancak geliriniz arttıkça, artan oranlı gelir vergisi (%15-%40) nedeniyle vergi yükünüz hızla artar. <b>Limited/Anonim şirketlerde</b> ise sabit kurumlar vergisi (%25) uygulanır, ancak temettü çekmek için ek vergi ödersiniz. <br><br>
+          <b>Genel kural:</b> Yıllık net kârınız 2 milyon TL'yi aşıyorsa, şirketleşmeyi (limited/anonim) düşünmeye başlayın. Şahıs şirketi, belirli bir eşiğe kadar avantajlıdır; sonrasında vergi planlaması için şirketleşme gereklidir.
+        </div>
+      `,
+      "Finansal Sorumluluk Matrisi: Maaşlı vs. Serbest Çalışan": `
+        <div class="overflow-x-auto">
+        <table class="min-w-full text-xs text-left border border-gray-200 bg-white rounded">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="p-2 border">Finansal Görev/Fayda</th>
+              <th class="p-2 border">Model A: Maaşlı Çalışan (4a)</th>
+              <th class="p-2 border">Model B: Serbest Çalışan (4b)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-2 border">Gelir Vergisi Beyanı</td>
+              <td class="p-2 border">İşveren tarafından yönetilir ve ödenir</td>
+              <td class="p-2 border">Birey tarafından yönetilir ve ödenir (Üç Aylık ve Yıllık)</td>
+            </tr>
+            <tr>
+              <td class="p-2 border">KDV Yönetimi</td>
+              <td class="p-2 border">Uygulanmaz</td>
+              <td class="p-2 border">Birey tarafından yönetilir ve ödenir (Aylık)</td>
+            </tr>
+            <tr>
+              <td class="p-2 border">Sosyal Güvenlik Primleri</td>
+              <td class="p-2 border">İşveren tarafından ödenir (çalışan katkısıyla)</td>
+              <td class="p-2 border">Tamamen Birey tarafından ödenir (Aylık)</td>
+            </tr>
+            <tr>
+              <td class="p-2 border">Kıdem Tazminatı</td>
+              <td class="p-2 border">Yasal hak, İşveren tarafından finanse edilir</td>
+              <td class="p-2 border">Yasal hak yok, Birey tarafından kendi kendine finanse edilmelidir</td>
+            </tr>
+            <tr>
+              <td class="p-2 border">Ücretli Hastalık İzni</td>
+              <td class="p-2 border">Yasal hak, İşveren/SGK tarafından finanse edilir</td>
+              <td class="p-2 border">Hak yok (iş kazaları hariç), Bireyin birikimleriyle karşılanmalıdır</td>
+            </tr>
+            <tr>
+              <td class="p-2 border">İşsizlik Sigortası</td>
+              <td class="p-2 border">Kapsam dahilinde</td>
+              <td class="p-2 border">Kapsam dışı</td>
+            </tr>
+            <tr>
+              <td class="p-2 border">İşletme Giderleri</td>
+              <td class="p-2 border">Genellikle indirilemez</td>
+              <td class="p-2 border">Tamamen Birey tarafından indirilebilir</td>
+            </tr>
+            <tr>
+              <td class="p-2 border">İdari Yük</td>
+              <td class="p-2 border">Düşük</td>
+              <td class="p-2 border">Yüksek (Faturalama, defter tutma, vergi beyanları)</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      `,
       "Model A: Maaşlı Çalışan (SGK - 4a) Detayları": `
                 <p>Bu model, bir işverene hizmet akdiyle bağlı olarak çalışmayı ve sosyal güvencenin 4a (SGK) kapsamında sağlanmasını ifade eder. Finansal yapı, brüt maaş üzerinden yapılan yasal kesintilerle belirlenir.</p>
                 <h4>Gelir ve Kesintiler</h4>
