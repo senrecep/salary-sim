@@ -24,8 +24,6 @@ app.get('/api/exchange-rate', async (req, res) => {
       'https://api.exchangerate-api.com/v4/latest/USD',
       'https://open.er-api.com/v6/latest/USD', 
       'https://api.fxratesapi.com/latest?base=USD&symbols=TRY',
-      'https://api.exchangerate.host/latest?base=USD&symbols=TRY',
-      'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/try.json',
       
       // Backup HTTP APIs
       'http://api.exchangerate-api.com/v4/latest/USD',
