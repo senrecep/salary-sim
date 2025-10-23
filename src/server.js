@@ -133,8 +133,19 @@ app.get('/api/exchange-rate', async (req, res) => {
     });
   } catch (error) {
     console.error('❌ Exchange rate API error:', error.message);
-    // Fallback to default rate
-    const fallbackRate = 34.20;
+    // Hata durumunda, cache'de eski bir değer varsa onu döndür
+    if (exchangeRateCache.rate !== null) {
+      console.warn(`💱 [Exchange Rate] API ERROR, returning cached value: 1 USD = ${exchangeRateCache.rate} TRY (fetched at ${new Date(exchangeRateCache.lastFetched).toISOString()})`);
+      return res.json({
+        success: true,
+        usd_try: exchangeRateCache.rate,
+        timestamp: new Date(exchangeRateCache.lastFetched).toISOString(),
+        source: 'cache',
+        error: error.message
+      });
+    }
+    // Hiç cache yoksa fallback olarak 42 döndür
+    const fallbackRate = 42;
     res.json({
       success: true,
       usd_try: fallbackRate,
@@ -191,10 +202,26 @@ app.get('/api/github-stars', async (req, res) => {
       throw new Error('Invalid stars count');
     }
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      error: error.message
-    });
+    // Hata durumunda, cache'de eski bir değer varsa onu döndür
+    if (githubStarsCache.count !== null) {
+      console.warn(`⭐ [GitHub Stars] API ERROR, returning cached value: ${githubStarsCache.count} stars (fetched at ${new Date(githubStarsCache.lastFetched).toISOString()})`);
+      return res.json({
+        success: true,
+        stars: githubStarsCache.count,
+        cached: true,
+        error: error.message,
+        timestamp: new Date(githubStarsCache.lastFetched).toISOString()
+      });
+    } else {
+      // Hiç cache yoksa 0 döndür
+      return res.json({
+        success: true,
+        stars: 0,
+        cached: false,
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+    }
   }
 });
 
