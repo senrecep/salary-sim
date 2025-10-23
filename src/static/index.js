@@ -318,6 +318,66 @@ class SalaryCalculator {
 
   initializeReportContent() {
     return {
+      "4A'dan 4B'ye Geçiş: Yükümlülükler ve Zaman Çizelgesi": `
+        <p>Maaşlı bir işten (4A) ayrılıp tamamen kendi işinizin (4B - Şahıs Şirketi) başına geçme kararı, finansal ve yasal yükümlülüklerin zamanlamasını doğru anlamayı gerektirir. Bu bölüm, geçiş sürecindeki kritik adımları ve mali sorumluluklarınızın ne zaman başladığını netleştirmek için tasarlanmıştır.</p>
+
+        <h4 style="margin-top: 1.5rem;">Temel Prensip: Yükümlülüklerin Tetiklenmesi</h4>
+        <p>Unutulmaması gereken en önemli kural şudur: Bağ-Kur (4B) sigortalılığı ve buna bağlı prim ödeme yükümlülüğü, mevcut 4A sigortanızın sona ermesiyle tetiklenir. Ancak, şirketinizin yasal varlığı ve muhasebe sorumluluklarınız bu tarihten önce başlamalıdır.</p>
+
+        <h5 style="margin-top: 1rem;">1. Mali Müşavirlik Yükümlülüğü</h5>
+        <p><strong>Başlangıç Zamanı:</strong> Şirket kuruluşundan <strong>hemen önce</strong>.<br/>Türkiye'de bir şahıs şirketi kurmak için vergi dairesine kayıt yaptırmadan önce bir Serbest Muhasebeci Mali Müşavir (SMMM) ile anlaşma yapmanız yasal bir zorunluluktur. Bu nedenle, mali müşavirinize ödeyeceğiniz ücret, 4A'lı işinizden ayrılmadan önce başlayan ilk gideriniz olacaktır. Bu adımı proaktif olarak planlamalısınız.</p>
+
+        <h5 style="margin-top: 1rem;">2. Bağ-Kur (4B) Prim Yükümlülüğü</h5>
+        <p><strong>Başlangıç Zamanı:</strong> 4A sigortalılığınızın sona erdiği günü <strong>takip eden ilk gün</strong>.<br/>5510 sayılı kanun gereği, 4A sigortanız kesildiği anda sistem sizi otomatik olarak 4B'li (Bağ-Kur) olarak tescil eder. Örneğin, 31 Mayıs'ta işten ayrıldıysanız, 1 Haziran itibarıyla Bağ-Kur sigortalılığınız ve prim borcunuz işlemeye başlar. Haziran ayının primi, Temmuz ayının sonuna kadar ödenmelidir.</p>
+
+        <h4 style="margin-top: 1.5rem;">Geçiş Süreci Zaman Çizelgesi</h4>
+        <p>Aşağıdaki tablo, adımları ve zamanlamayı özetlemektedir:</p>
+        <table style="width:100%;margin-top:1rem;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">
+          <thead style="background:#f3f4f6;">
+            <tr>
+              <th style="padding:8px;border-bottom:1px solid #e5e7eb;">Yükümlülük</th>
+              <th style="padding:8px;border-bottom:1px solid #e5e7eb;">Başlangıç Zamanı</th>
+              <th style="padding:8px;border-bottom:1px solid #e5e7eb;">Önemli Notlar ve Eylem Planı</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:8px;">Mali Müşavir Sözleşmesi</td>
+              <td style="padding:8px;">Şirket kuruluşundan önce.</td>
+              <td style="padding:8px;">İlk maliyet, 4A maaşınız devam ederken ortaya çıkar. Bütçenize ekleyin.</td>
+            </tr>
+            <tr>
+              <td style="padding:8px;">Şirket Kuruluşu</td>
+              <td style="padding:8px;">4A işten ayrılmadan hemen önce.</td>
+              <td style="padding:8px;">İş sürekliliği ve ilk faturanızı kesebilmek için kritik adımdır.</td>
+            </tr>
+            <tr>
+              <td style="padding:8px;">Bağ-Kur (4B) Sigortalılığı</td>
+              <td style="padding:8px;">4A sigortalılığının bittiği günü takip eden ilk gün.</td>
+              <td style="padding:8px;">Otomatik olarak başlar. SGK'ya ayrıca bir bildirim gerekmez, sistemler entegredir.</td>
+            </tr>
+            <tr>
+              <td style="padding:8px;">İlk Bağ-Kur Prim Ödemesi</td>
+              <td style="padding:8px;">Başlangıç ayını takip eden ayın sonu.</td>
+              <td style="padding:8px;">Örn: Haziran'da başladıysanız, ilk ödeme Temmuz sonuna kadardır.</td>
+            </tr>
+            <tr>
+              <td style="padding:8px;">İlk KDV Beyannamesi</td>
+              <td style="padding:8px;">Faaliyete başlanan ayı takip eden ayın 28'i.</td>
+              <td style="padding:8px;">Fatura kesmeye başladığınız ilk aydan itibaren sorumluluk başlar.</td>
+            </tr>
+            <tr>
+              <td style="padding:8px;">İlk Muhtasar Beyanname</td>
+              <td style="padding:8px;">Faaliyete başlanan ayı takip eden ayın 26'sı.</td>
+              <td style="padding:8px;">Kiranız veya personeliniz varsa geçerlidir.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="background-color: #fefce8; border-left: 4px solid #f59e0b; padding: 1rem; margin-top: 1.5rem;">
+            <h6 style="margin-top: 0;"><strong>Stratejik Tavsiye: "Çifte Statü" Dönemi</strong></h6>
+            <p style="margin-bottom: 0;">Finansal riski en aza indirmek için, mümkünse 4A'lı işinizden ayrılmadan önce şahıs şirketinizi kurun. Bu sayede, "SGK Muafiyeti" seçeneğinden yararlanarak Bağ-Kur primi ödemeden ilk müşterilerinizi bulabilir ve gelir akışı oluşturabilirsiniz. Bu, tam zamanlı geçişi çok daha güvenli hale getirir.</p>
+        </div>
+      `,
       "Simülatör Kullanım Kılavuzu": `
                 <h4>Bu Simülatör Ne Yapar?</h4>
                 <p>Bu araç, Türkiye'de çalışanların iki temel kariyer modelini finansal olarak karşılaştırmasını sağlar: <strong>Maaşlı Çalışan</strong> ve <strong>Freelance/Şahıs Şirketi Sahibi</strong>.</p>
@@ -1582,8 +1642,8 @@ class SalaryCalculator {
                             )}</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500">İşverene Toplam Maliyeti</p>
-                            <p class="text-xl font-semibold text-blue-700">${this.formatCurrency(
+                            <p class="text-sm font-semibold text-blue-700">İşverene Toplam Maliyet</p>
+                            <p class="text-2xl font-bold text-blue-600">${this.formatCurrency(
                               displayTCE,
                               this.state.currentCurrency
                             )}</p>
