@@ -616,13 +616,13 @@ class SalaryCalculator {
                 <h5><strong>2.2. KDV İstisnası</strong></h5>
                 <p>Hizmet ihracatı %0 KDV ile "İstisna Faturası" olarak düzenlenir. Bu size %20'lik fiyat rekabeti avantajı sağlar ve nakit akışını basitleştirir.</p>
                 
-                <h5><strong>2.3. Genç Girişimci Desteği (29 Yaş Altı İçin)</strong></h5>
-                <p>Eğer uygunluk şartlarını sağlıyorsanız, katmanlı vergi avantajı elde edebilirsiniz:</p>
-                <ul>
-                    <li><strong>1. Katman:</strong> Yıllık 150.000 TL'ye kadar %100 gelir vergisi istisnası (3 yıl)</li>
-                    <li><strong>2. Katman:</strong> Bu sınırı aşan kısım %80 hizmet ihracatı istisnasına tabi</li>
-                    <li><strong>Bağ-Kur Prim Desteği:</strong> 1 yıl boyunca minimum prim devlet tarafından karşılanır</li>
-                </ul>
+        <h5><strong>2.3. Genç Girişimci Desteği (29 Yaş Altı İçin)</strong></h5>
+        <p>Eğer uygunluk şartlarını sağlıyorsanız, katmanlı vergi avantajı elde edebilirsiniz:</p>
+        <ul>
+          <li><strong>1. Katman:</strong> Yıllık 330.000 TL'ye kadar %100 gelir vergisi istisnası (3 yıl)</li>
+          <li><strong>2. Katman:</strong> Bu sınırı aşan kısım %80 hizmet ihracatı istisnasına tabi</li>
+          <li><strong>Bağ-Kur Prim Desteği:</strong> 1 yıl boyunca minimum prim devlet tarafından karşılanır (2025 için 26.005,50 TL x 12 x 0.295 = 92.059 TL)</li>
+        </ul>
 
                 <h4>📊 Bölüm 3: İndirilebilir Gider Kataloğu</h4>
                 
@@ -857,12 +857,12 @@ class SalaryCalculator {
                           <li><code>0.295</code> = İndirimli Bağ-Kur Primi (%29.5, düzenli ödemede %34.5'ten %29.5'e düşer)</li>
                      </ul>
                     
-                     <h5><strong>Vergi İstisnaları:</strong></h5>
-                     <ul>
-                          <li><code>312.066 TL</code> = Asgari Ücret Gelir Vergisi İstisnası (yıllık, sadece ücret gelirleri)</li>
-                          <li><code>150.000 TL</code> = Genç Girişimci Gelir Vergisi İstisnası (yıllık, 2025)</li>
-                          <li><code>0.80</code> = Hizmet İhracatı İndirim Oranı (%80 istisna, limit yok)</li>
-                     </ul>
+         <h5><strong>Vergi İstisnaları:</strong></h5>
+         <ul>
+           <li><code>312.066 TL</code> = Asgari Ücret Gelir Vergisi İstisnası (yıllık, sadece ücret gelirleri)</li>
+           <li><code>330.000 TL</code> = Genç Girişimci Gelir Vergisi İstisnası (yıllık, 2025)</li>
+           <li><code>0.80</code> = Hizmet İhracatı İndirim Oranı (%80 istisna, limit yok)</li>
+         </ul>
                 </div>
                    
                 <hr style="margin: 2em 0; border: 1px solid #e5e7eb;">
@@ -916,7 +916,7 @@ class SalaryCalculator {
                 <h5><strong>Vergi Matrahı Hesaplama Sırası:</strong></h5>
                 <ol>
                      <li><pre><code>Başlangıç Matrahı = Kâr - Hesaplanan Bağ-Kur Primi</code></pre></li>
-                     <li><pre><code>Genç Girişimci İstisnası: Matrah = max(0, Matrah - 150.000)</code></pre></li>
+                     <li><pre><code>Genç Girişimci İstisnası: Matrah = max(0, Matrah - 330.000)</code></pre></li>
                      <li><strong>Hizmet İhracatı İstisnası (%80 İndirim):</strong>
                           <ul>
                                <li><pre><code>İstisna Tutarı = Matrah × 0.80</code></pre></li>
@@ -934,7 +934,7 @@ class SalaryCalculator {
                      </li>
                      <li><strong>Genç Girişimci Desteği ile:</strong>
                           <pre><code>Hesaplanan Prim = Bağ-Kur PEK × 0.295</code></pre>
-                          <pre><code>Minimum Prim Desteği = 312.066 × 0.295 = 92.059 TL</code></pre>
+                          <pre><code>Minimum Prim Desteği = 26.005,50 × 12 × 0.295 = 92.059 TL</code></pre>
                           <pre><code>Ödenecek Prim = max(0, Hesaplanan Prim - 92.059)</code></pre>
                           <p><small>(Devlet minimum primi karşılar, fazlası kişi tarafından ödenir)</small></p>
                      </li>
