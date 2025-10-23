@@ -153,10 +153,10 @@ let githubStarsCache = {
   lastFetched: 0
 };
 
-// GitHub Stars API endpoint (cache for 10 minutes)
+// GitHub Stars API endpoint (cache for 1 minute)
 app.get('/api/github-stars', async (req, res) => {
   const now = Date.now();
-  const cacheDuration = 10 * 60 * 1000; // 10 minutes
+  const cacheDuration = 60 * 1000; // 1 minute (GitHub unauthenticated rate limit: 60/hour)
   if (githubStarsCache.count !== null && (now - githubStarsCache.lastFetched) < cacheDuration) {
     console.log(`⭐ [GitHub Stars] Cache HIT: ${githubStarsCache.count} stars (fetched at ${new Date(githubStarsCache.lastFetched).toISOString()})`);
     return res.json({
