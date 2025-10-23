@@ -82,22 +82,26 @@ class SalaryCalculator {
     };
 
     this.constants = {
-      YILLIK_MIN_BAGKUR_KAZANCI: 312066,
-      YILLIK_MAX_BAGKUR_KAZANCI: 2340495,
       AYLIK_BRUT_ASGARI_UCRET: 26005.5,
-      AYLIK_PEK_TAVAN: 195041.4,
+      YILLIK_MIN_BAGKUR_KAZANCI: null, // asgari ücret x 12
+      YILLIK_MAX_BAGKUR_KAZANCI: null, // asgari ücret x 7.5 x 12
+      AYLIK_PEK_TAVAN: null, // asgari ücret x 7.5
       DAMGA_VERGISI_ORANI: 0.00759,
       SGK_ISCI_PAYI_ORANI: 0.15,
       SGK_ISVEREN_IMALAT_ORANI: 0.155,
-      SGK_ISVEREN_DIGER_ORANI: 0.165, // Legacy rate - kept for compatibility
-      SGK_ISVEREN_STANDART_ORANI: 0.2075, // Standard rate without incentive
-      SGK_ISVEREN_TESVIKLI_ORANI: 0.1575, // 5-point Hazine incentive rate (default for TCE)
-      ISSIZLIK_ISVEREN_PAYI_ORANI: 0.02, // Unemployment insurance employer share
-      TOPLAM_ISVEREN_PRIM_ORANI: 0.1775, // Combined employer premium rate (0.1575 + 0.02)
+      SGK_ISVEREN_DIGER_ORANI: 0.165,
+      SGK_ISVEREN_STANDART_ORANI: 0.2075,
+      SGK_ISVEREN_TESVIKLI_ORANI: 0.1575,
+      ISSIZLIK_ISVEREN_PAYI_ORANI: 0.02,
+      TOPLAM_ISVEREN_PRIM_ORANI: 0.1775,
       BAGKUR_INDIRIMLI_ORAN: 0.295,
-      GENC_GIRISIMCI_ISTISNA_TUTARI: 150000, // 2025 revaluation amount
+      GENC_GIRISIMCI_ISTISNA_TUTARI: 330000,
       HIZMET_IHRACATI_INDIRIM_ORANI: 0.8,
     };
+    // Asgari ücrete bağlı alanlar dinamik olarak hesaplanır
+    this.constants.YILLIK_MIN_BAGKUR_KAZANCI = this.constants.AYLIK_BRUT_ASGARI_UCRET * 12;
+    this.constants.AYLIK_PEK_TAVAN = this.constants.AYLIK_BRUT_ASGARI_UCRET * 7.5;
+    this.constants.YILLIK_MAX_BAGKUR_KAZANCI = this.constants.AYLIK_PEK_TAVAN * 12;
 
     this.elements = this.initializeElements();
     this.reportContent = this.initializeReportContent();
