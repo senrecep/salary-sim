@@ -318,66 +318,6 @@ class SalaryCalculator {
 
   initializeReportContent() {
     return {
-      "4A'dan 4B'ye Geçiş: Yükümlülükler ve Zaman Çizelgesi": `
-        <p>Maaşlı bir işten (4A) ayrılıp tamamen kendi işinizin (4B - Şahıs Şirketi) başına geçme kararı, finansal ve yasal yükümlülüklerin zamanlamasını doğru anlamayı gerektirir. Bu bölüm, geçiş sürecindeki kritik adımları ve mali sorumluluklarınızın ne zaman başladığını netleştirmek için tasarlanmıştır.</p>
-
-        <h4 style="margin-top: 1.5rem;">Temel Prensip: Yükümlülüklerin Tetiklenmesi</h4>
-        <p>Unutulmaması gereken en önemli kural şudur: Bağ-Kur (4B) sigortalılığı ve buna bağlı prim ödeme yükümlülüğü, mevcut 4A sigortanızın sona ermesiyle tetiklenir. Ancak, şirketinizin yasal varlığı ve muhasebe sorumluluklarınız bu tarihten önce başlamalıdır.</p>
-
-        <h5 style="margin-top: 1rem;">1. Mali Müşavirlik Yükümlülüğü</h5>
-        <p><strong>Başlangıç Zamanı:</strong> Şirket kuruluşundan <strong>hemen önce</strong>.<br/>Türkiye'de bir şahıs şirketi kurmak için vergi dairesine kayıt yaptırmadan önce bir Serbest Muhasebeci Mali Müşavir (SMMM) ile anlaşma yapmanız yasal bir zorunluluktur. Bu nedenle, mali müşavirinize ödeyeceğiniz ücret, 4A'lı işinizden ayrılmadan önce başlayan ilk gideriniz olacaktır. Bu adımı proaktif olarak planlamalısınız.</p>
-
-        <h5 style="margin-top: 1rem;">2. Bağ-Kur (4B) Prim Yükümlülüğü</h5>
-        <p><strong>Başlangıç Zamanı:</strong> 4A sigortalılığınızın sona erdiği günü <strong>takip eden ilk gün</strong>.<br/>5510 sayılı kanun gereği, 4A sigortanız kesildiği anda sistem sizi otomatik olarak 4B'li (Bağ-Kur) olarak tescil eder. Örneğin, 31 Mayıs'ta işten ayrıldıysanız, 1 Haziran itibarıyla Bağ-Kur sigortalılığınız ve prim borcunuz işlemeye başlar. Haziran ayının primi, Temmuz ayının sonuna kadar ödenmelidir.</p>
-
-        <h4 style="margin-top: 1.5rem;">Geçiş Süreci Zaman Çizelgesi</h4>
-        <p>Aşağıdaki tablo, adımları ve zamanlamayı özetlemektedir:</p>
-        <table style="width:100%;margin-top:1rem;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">
-          <thead style="background:#f3f4f6;">
-            <tr>
-              <th style="padding:8px;border-bottom:1px solid #e5e7eb;">Yükümlülük</th>
-              <th style="padding:8px;border-bottom:1px solid #e5e7eb;">Başlangıç Zamanı</th>
-              <th style="padding:8px;border-bottom:1px solid #e5e7eb;">Önemli Notlar ve Eylem Planı</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding:8px;">Mali Müşavir Sözleşmesi</td>
-              <td style="padding:8px;">Şirket kuruluşundan önce.</td>
-              <td style="padding:8px;">İlk maliyet, 4A maaşınız devam ederken ortaya çıkar. Bütçenize ekleyin.</td>
-            </tr>
-            <tr>
-              <td style="padding:8px;">Şirket Kuruluşu</td>
-              <td style="padding:8px;">4A işten ayrılmadan hemen önce.</td>
-              <td style="padding:8px;">İş sürekliliği ve ilk faturanızı kesebilmek için kritik adımdır.</td>
-            </tr>
-            <tr>
-              <td style="padding:8px;">Bağ-Kur (4B) Sigortalılığı</td>
-              <td style="padding:8px;">4A sigortalılığının bittiği günü takip eden ilk gün.</td>
-              <td style="padding:8px;">Otomatik olarak başlar. SGK'ya ayrıca bir bildirim gerekmez, sistemler entegredir.</td>
-            </tr>
-            <tr>
-              <td style="padding:8px;">İlk Bağ-Kur Prim Ödemesi</td>
-              <td style="padding:8px;">Başlangıç ayını takip eden ayın sonu.</td>
-              <td style="padding:8px;">Örn: Haziran'da başladıysanız, ilk ödeme Temmuz sonuna kadardır.</td>
-            </tr>
-            <tr>
-              <td style="padding:8px;">İlk KDV Beyannamesi</td>
-              <td style="padding:8px;">Faaliyete başlanan ayı takip eden ayın 28'i.</td>
-              <td style="padding:8px;">Fatura kesmeye başladığınız ilk aydan itibaren sorumluluk başlar.</td>
-            </tr>
-            <tr>
-              <td style="padding:8px;">İlk Muhtasar Beyanname</td>
-              <td style="padding:8px;">Faaliyete başlanan ayı takip eden ayın 26'sı.</td>
-              <td style="padding:8px;">Kiranız veya personeliniz varsa geçerlidir.</td>
-            </tr>
-          </tbody>
-        </table>
-        <div style="background-color: #fefce8; border-left: 4px solid #f59e0b; padding: 1rem; margin-top: 1.5rem;">
-            <h6 style="margin-top: 0;"><strong>Stratejik Tavsiye: "Çifte Statü" Dönemi</strong></h6>
-            <p style="margin-bottom: 0;">Finansal riski en aza indirmek için, mümkünse 4A'lı işinizden ayrılmadan önce şahıs şirketinizi kurun. Bu sayede, "SGK Muafiyeti" seçeneğinden yararlanarak Bağ-Kur primi ödemeden ilk müşterilerinizi bulabilir ve gelir akışı oluşturabilirsiniz. Bu, tam zamanlı geçişi çok daha güvenli hale getirir.</p>
-        </div>
-      `,
       "Simülatör Kullanım Kılavuzu": `
                 <h4>Bu Simülatör Ne Yapar?</h4>
                 <p>Bu araç, Türkiye'de çalışanların iki temel kariyer modelini finansal olarak karşılaştırmasını sağlar: <strong>Maaşlı Çalışan</strong> ve <strong>Freelance/Şahıs Şirketi Sahibi</strong>.</p>
@@ -398,45 +338,46 @@ class SalaryCalculator {
                 </ol>
             `,
       "Model A: Maaşlı Çalışan (SGK - 4a) Detayları": `
-                <p>Bu model, bir işverene hizmet akdiyle bağlı olarak çalışmayı ve sosyal güvencenin 4a (SGK) kapsamında sağlanmasını ifade eder. Finansal yapı, brüt maaş üzerinden yapılan yasal kesintilerle belirlenir.</p>
-                
-                <h4>Gelir ve Kesintiler</h4>
-                <ul>
-                    <li><strong>Brüt Maaş:</strong> İşverenle anlaşılan, kesintiler yapılmamış toplam ücret. Bu tutar aynı zamanda SGK'ya bildirilen Prime Esas Kazanç'tır (PEK).</li>
-                    <li><strong>SGK Primi İşçi Payı (%15):</strong> %14 SGK primi ve %1 işsizlik sigortası primi olmak üzere brüt maaştan kesilir.</li>
-                    <li><strong>SGK Primi İşveren Payı (%17.75):</strong> Yasal olarak %20.75 olan SGK işveren payı, 5 puanlık Hazine teşviki ile %15.75'e düşer. Buna %2'lik işsizlik sigortası işveren payı da eklenince, işverenin brüt maaşa ek olarak ödediği toplam oran %17.75 olur.</li>
-                    <li><strong>İşverene Toplam Maliyet:</strong> Brüt Maaş + SGK İşveren Payı (%15.75) + İşsizlik Sigortası İşveren Payı (%2). Bu, bir çalışanın işverene olan gerçek ekonomik maliyetidir.</li>
-                    <li><strong>Gelir Vergisi Matrahı:</strong> Brüt maaştan SGK işçi primi (%15) düşüldükten sonra kalan tutardır (PEK tavanı uygulanır).</li>
-                    <li><strong>Gelir Vergisi:</strong> Matrah üzerinden, Gelir Vergisi Kanunu'ndaki artan oranlı tarifeye (%15'ten başlar) göre hesaplanır. Yıl içinde kümülatif matrah arttıkça vergi oranı da yükselir. Asgari ücret gelir vergisi istisnası uygulanır.</li>
-                    <li><strong>Damga Vergisi:</strong> Asgari ücreti aşan brüt maaş kısmı üzerinden binde 7,59 oranında kesilir.</li>
-                    <li><strong>Net Maaş:</strong> Brüt maaştan işçi payı primleri, gelir vergisi ve damga vergisi kesintileri yapıldıktan sonra çalışanın eline geçen tutardır.</li>
-                </ul>
-                
-                <h4>Avantajları ve Dezavantajları</h4>
-                <ul>
-                    <li><strong>Avantajlar:</strong> Finansal öngörülebilirlik, düşük operasyonel sorumluluk (beyanları işveren yapar), kapsamlı kısa vadeli güvenceler (rapor parası, işsizlik maaşı vb.).</li>
-                    <li><strong>Dezavantajlar:</strong> Daha düşük net gelir potansiyeli, artan oranlı vergi dilimlerinin yıl içinde net maaşı düşürmesi, giderleri vergiden düşme imkanının olmaması.</li>
-                </ul>
-            `,
+                <p>Bu model, bir işverene hizmet akdiyle bağlı olarak çalışmayı ve sosyal güvencenin 4a (SGK) kapsamında sağlanmasını ifade eder. Finansal yapı, brüt maaş üzerinden yapılan yasal kesintilerle belirlenir.</p>
+                <h4>Gelir ve Kesintiler</h4>
+                <ul>
+                    <li><strong>Brüt Maaş:</strong> İşverenle anlaşılan, kesintiler yapılmamış toplam ücret. Bu tutar aynı zamanda SGK'ya bildirilen Prime Esas Kazanç'tır (PEK).</li>
+                     <li><strong>SGK Primi İşçi Payı (%15):</strong> %14 SGK primi ve %1 işsizlik sigortası primi olmak üzere brüt maaştan kesilir.</li>
+                     <li><strong>SGK Primi İşveren Payı (%17.75):</strong> Yasal olarak %20.75 olan SGK işveren payı, 5 puanlık Hazine teşviki ile %15.75'e düşer. Buna %2'lik işsizlik sigortası işveren payı da eklenince, işverenin brüt maaşa ek olarak ödediği toplam oran %17.75 olur.</li>
+                     <li><strong>İşverene Toplam Maliyet:</strong> Brüt Maaş + SGK İşveren Payı (%15.75) + İşsizlik Sigortası İşveren Payı (%2). Bu, bir çalışanın işverene olan gerçek ekonomik maliyetidir.</li>
+                     <li><strong>Gelir Vergisi Matrahı:</strong> Brüt maaştan SGK işçi primi (%15) düşüldükten sonra kalan tutardır (PEK tavanı uygulanır).</li>
+                     <li><strong>Gelir Vergisi:</strong> Matrah üzerinden, Gelir Vergisi Kanunu'ndaki artan oranlı tarifeye (%15'ten başlar) göre hesaplanır. Yıl içinde kümülatif matrah arttıkça vergi oranı da yükselir. Asgari ücret gelir vergisi istisnası uygulanır.</li>
+                     <li><strong>Damga Vergisi:</strong> Asgari ücreti aşan brüt maaş kısmı üzerinden binde 7,59 oranında kesilir.</li>
+                     <li><strong>Net Maaş:</strong> Brüt maaştan işçi payı primleri, gelir vergisi ve damga vergisi kesintileri yapıldıktan sonra çalışanın eline geçen tutardır.</li>
+                </ul>
+                   
+              <h4>Avantajları ve Dezavantajları</h4>
+          <div class="space-y-2 text-sm">
+              <p><strong>Avantajlar:</strong> Çok daha yüksek net gelir potansiyeli, vergi teşviklerinden yararlanma, işle ilgili tüm giderleri vergiden düşme, emeklilik primini belirlemede esneklik.</p>
+              <p><strong>Dezavantajlar:</strong> Daha yüksek operasyonel sorumluluk (fatura kesme, beyan takibi), gelirde dalgalanma riski, kıdem ve ihbar tazminatı gibi yasal güvencelerin olmaması, genel hastalıklarda rapor parası alınamaması.</p>
+          </div>
+               `,
       "Model B: Şahıs Şirketi Sahibi (Bağ-Kur - 4b) Detayları": `
-                <p>Bu model, kendi adınıza bir şahıs şirketi (serbest meslek mükellefiyeti) kurarak mal veya hizmet satmayı ve sosyal güvencenin 4b (Bağ-Kur) kapsamında sağlanmasını ifade eder. Gelir, fatura edilen hasılattan giderler, primler ve vergiler düşülerek hesaplanır.</p>
-                
-                <h4>Gelir ve Giderler</h4>
-                <ul>
-                    <li><strong>Hasılat:</strong> Müşterilerinize kestiğiniz faturaların KDV hariç toplam tutarıdır. Simülatör bu değeri, seçiminize göre Model A'daki Brüt Maaş'a veya İşverene Toplam Maliyet'e eşitler.</li>
-                    <li><strong>Giderler:</strong> İşi yapmak için katlanılan ve belgelendirilen tüm masraflar (ekipman, donanım, ofis, eğitim, yazılım vb.). Giderler, kârı ve dolayısıyla ödenecek vergiyi azaltır.</li>
-                    <li><strong>Bağ-Kur Prime Esas Kazanç (PEK):</strong> Emekliliğinizi ve alacağınız sağlık hizmetlerini belirleyen tutardır. Bu tutarı yasal limitler dahilinde siz belirlersiniz. Emeklilik haklarınızın SGK'lı bir çalışanla eşdeğer olması için PEK'i, o çalışanın brüt maaşına eşitlemeniz önerilir.</li>
-                    <li><strong>Bağ-Kur Primi:</strong> Belirlediğiniz PEK üzerinden %34,5 oranında hesaplanır. Düzenli ödemede 5 puan indirimle %29,5 olur. Sorumluluğu tamamen size aittir ve ödenen primin tamamı vergi matrahından düşülebilir.</li>
-                    <li><strong>Gelir Vergisi:</strong> İlgili teşvikler (Genç Girişimci, Hizmet İhracatı) düşüldükten sonra kalan nihai matrah üzerinden artan oranlı tarifeye göre hesaplanır.</li>
-                    <li><strong>Net Gelir:</strong> (Hasılat - Giderler - Ödenen Bağ-Kur Primi - Gelir Vergisi) sonrası kalan tutardır.</li>
-                </ul>
-                
-                <h4>Avantajları ve Dezavantajları</h4>
-                <ul>
-                    <li><strong>Avantajlar:</strong> Çok daha yüksek net gelir potansiyeli, vergi teşviklerinden yararlanma, işle ilgili tüm giderleri vergiden düşme, emeklilik primini belirlemede esneklik.</li>
-                    <li><strong>Dezavantajlar:</strong> Daha yüksek operasyonel sorumluluk (fatura kesme, beyan takibi), gelirde dalgalanma riski, Bağ-Kur'un kısa vadeli güvencelerinin 4a'ya göre daha sınırlı olması.</li>
-                </ul>
-            `,
+                <p>Bu model, kendi adınıza bir şahıs şirketi (serbest meslek mükellefiyeti) kurarak mal veya hizmet satmayı ve sosyal güvencenin 4b (Bağ-Kur) kapsamında sağlanmasını ifade eder. Gelir, fatura edilen hasılattan giderler, primler ve vergiler düşülerek hesaplanır.</p>
+                   
+                <h4>Gelir ve Giderler</h4>
+                <ul>
+                     <li><strong>Hasılat:</strong> Müşterilerinize kestiğiniz faturaların KDV hariç toplam tutarıdır. Simülatör bu değeri, seçiminize göre Model A'daki Brüt Maaş'a veya İşverene Toplam Maliyet'e eşitler.</li>
+                     <li><strong>Giderler:</strong> İşi yapmak için katlanılan ve belgelendirilen tüm masraflar (ekipman, donanım, ofis, eğitim, yazılım vb.). Giderler, kârı ve dolayısıyla ödenecek vergiyi azaltır.</li>
+                     <li><strong>Bağ-Kur Prime Esas Kazanç (PEK):</strong> Emekliliğinizi ve alacağınız sağlık hizmetlerini belirleyen tutardır. Bu tutarı yasal limitler dahilinde siz belirlersiniz. Emeklilik haklarınızın SGK'lı bir çalışanla eşdeğer olması için PEK'i, o çalışanın brüt maaşına eşitlemeniz önerilir.</li>
+                     <li><strong>Bağ-Kur Primi:</strong> Belirlediğiniz PEK üzerinden %34,5 oranında hesaplanır. Düzenli ödemede 5 puan indirimle %29,5 olur. Sorumluluğu tamamen size aittir ve ödenen primin tamamı vergi matrahından düşülebilir.</li>
+                     <li><strong>Gelir Vergisi:</strong> İlgili teşvikler (Genç Girişimci, Hizmet İhracatı) düşüldükten sonra kalan nihai matrah üzerinden artan oranlı tarifeye göre hesaplanır.</li>
+                     <li><strong>Net Gelir:</strong> (Hasılat - Giderler - Ödenen Bağ-Kur Primi - Gelir Vergisi) sonrası kalan tutardır.</li>
+                </ul>
+                   
+                <h4>Avantajları ve Dezavantajları</h4>
+                <ul>
+                     <li><strong>Avantajlar:</strong> Çok daha yüksek net gelir potansiyeli, vergi teşviklerinden yararlanma, işle ilgili tüm giderleri vergiden düşme, emeklilik primini belirlemede esneklik.</li>
+                     <li><strong>Dezavantajlar:</strong> Daha yüksek operasyonel sorumluluk (fatura kesme, beyan takibi), gelirde dalgalanma riski, Bağ-Kur'un kısa vadeli güvencelerinin 4a'ya göre daha sınırlı olması.</li>
+                    <li><strong>Kıdem tazminatı ve ihbar tazminatı gibi yasal güvencelerin olmaması.</li>
+                    <li>İş kazası ve analık halleri dışında, genel hastalık durumlarında iş göremezlik ödeneği (rapor parası) alınamaması.</li> 
+                </ul>
+               `,
       "Model B İçin Kritik Avantajlar: Giderler ve Teşvikler": `
                 <h3>Gider Yönetimi: Vergi Matrahını Optimize Etme Sanatı</h3>
                 <p>Bir girişimci olarak en büyük avantajlarınızdan biri, işle ilgili harcamalarınızı yasal olarak gelirinizden düşerek daha az vergi ödemektir. Mesleğinize göre düşebileceğiniz temel giderler:</p>
@@ -465,6 +406,29 @@ class SalaryCalculator {
                     <li><strong>%5 Kurumlar Vergisi İndirimi:</strong> Hizmet ihracatı kazançları için ek olarak %5 puanlık kurumlar vergisi indirimi de uygulanır.</li>
                 </ul>
             `,
+      "Model B'nin Gizli Sorumlulukları ve Riskleri": `
+                <p>Şahıs şirketi kurmak önemli finansal avantajlar sunsa da, maaşlı çalışanın alışık olmadığı bazı "gizli" sorumluluklar ve riskler içerir. Bu konuları önceden bilmek, sürprizlerle karşılaşmadan sağlam bir finansal plan yapmanızı sağlar.</p>
+                
+                <h4 style="margin-top: 1.5rem;">1. KDV Yönetimi: "Emanet Para" Prensibi</h4>
+                <p>Kestiğiniz her faturaya eklediğiniz %20 KDV, sizin geliriniz değildir. Bu para, devlet adına müşteriden tahsil ettiğiniz ve bir sonraki ay vergi dairesine ödemek zorunda olduğunuz <strong>emanet bir paradır</strong>. Bu tutarı kendi nakit akışınıza dahil etmek, yeni girişimcilerin yaptığı en yaygın ve en tehlikeli hatadır.</p>
+                <div style="background-color: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 1rem; margin: 1em 0;">
+                    <strong>Pratik Tavsiye:</strong> Şirketiniz için ayrı bir banka hesabı açın ve faturalardan gelen KDV tutarını bu hesaba dokunmadan biriktirin. Bu, bir sonraki ayın vergi ödemesi geldiğinde nakit sıkışıklığı yaşamanızı önler.
+                </div>
+
+                <h4 style="margin-top: 1.5rem;">2. Kaybedilen Sosyal Haklar ve Telafi Stratejileri</h4>
+                <p>4A'lı bir çalışanın işvereni tarafından finanse edilen ve genellikle fark edilmeyen bazı önemli sosyal hakları vardır. 4B'li olduğunuzda bu haklar ortadan kalkar ve bunları kendiniz telafi etmelisiniz.</p>
+                <ul>
+                    <li><strong>Kıdem Tazminatı:</strong> 4A'lıların yasal hakkı olan kıdem tazminatı, 4B'liler için mevcut değildir. Bu hakkı telafi etmek için, aylık KDV hariç hasılatınızın en az <strong>%8.33'ünü (1/12'sini)</strong> bir yatırım hesabında "Kişisel Kıdem Fonu" olarak biriktirmeniz şiddetle tavsiye edilir.</li>
+                    <li><strong>İş Göremezlik Ödeneği (Rapor Parası):</strong> 4A'lılar grip gibi genel hastalıklarda rapor parası alırken, 4B'liler iş kazası ve analık halleri dışında <strong>rapor parası alamaz</strong>. Bu, hastalandığınızda hem gelirinizin durması hem de devletten destek alamamanız anlamına gelen bir "çifte darbe"dir. Bu riske karşı en az 3-6 aylık temel giderlerinizi karşılayacak bir <strong>"Acil Durum Fonu"</strong> oluşturmanız kritik öneme sahiptir.</li>
+                </ul>
+
+                <h4 style="margin-top: 1.5rem;">3. Hibrit Çalışma ve Statü Değişiklikleri</h4>
+                <p>Şahıs şirketinizi açık tutarken tekrar 4A'lı olarak maaşlı bir işe başlayabilirsiniz. Bu durumda bilmeniz gerekenler:</p>
+                <ul>
+                    <li><strong>Bağ-Kur Primi Durur:</strong> 5510 sayılı kanun gereği 4A sigortası önceliklidir. 4A'lı olduğunuz sürece Bağ-Kur primi ödemezsiniz (SGK Muafiyeti).</li>
+                    <li><strong>Şirket Giderleri Devam Eder:</strong> Şirketinizi yasal olarak kapatmadığınız (terk-i faaliyet bildirimi yapmadığınız) sürece, şirket "faal" kabul edilir. Hiç fatura kesmeseniz bile, mali müşavirinize aylık ücretini ödemeye ve boş beyannameler için damga vergilerini karşılamaya devam etmeniz gerekir. Şirketi kapatmanın da kendine ait bir prosedürü ve maliyeti olduğunu unutmayın.</li>
+                </ul>
+            `,
       "Önemli Kavram: Bağ-Kur Prim Kazancı vs. Prim Gideri": `
                 <h4>Bu İki Kavram Neden Farklı?</h4>
                 <p>Simülatördeki en önemli ayrım, 'Bağ-Kur Prim Kazancı' ile 'Toplam Prim Gideri' arasındaki farktır. Bu farkı anlamak, Model B'nin finansal yapısını çözmek için anahtardır.</p>
@@ -478,100 +442,100 @@ class SalaryCalculator {
                 <p>Eğer 'Bağ-Kur Prim Kazancı'nı 100.000 TL olarak belirlerseniz, bu 100.000 TL brüt maaş üzerinden emekli olmayı hedeflediğiniz anlamına gelir. Bu hedef için her ay cebinizden çıkacak olan prim ödemesi ise yaklaşık 29.500 TL olacaktır.</p>
             `,
       "Emeklilik Hakları: SGK vs Bağ-Kur Karşılaştırması": `
-                <h4>Emeklilik Maaşı Hesaplama Formülü (Her İki Sistemde Aynı)</h4>
-                <div style="background-color: #f0f9ff; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5em; border-left: 4px solid #0ea5e9;">
-                    <pre><code><strong>Emekli Maaşı = (Toplam Prim Gün Sayısı × Ortalama PEK × Yaş Katsayısı) ÷ 365</strong></code></pre>
-                    <p style="margin-top: 0.5em; font-size: 0.9em;"><strong>Yaş Katsayısı:</strong> 65 yaşında %100, her ay erken emeklilikte %0.5 azalır</p>
-                </div>
-                
-                <h4>🚨 Kritik Fark: Prim Oranları ve Gerçek Ödemeler</h4>
-                
-                <h5><strong>SGK (4a) - Maaşlı Çalışan:</strong></h5>
-                <ul>
-                    <li><strong>Toplam Sistem Primi:</strong> %32.75 (İşçi %15 + İşveren %17.75)</li>
-                    <li><strong>Kişisel Maliyet:</strong> Sadece %15 (işçi payı) çalışanın maaşından kesilir.</li>
-                    <li><strong>İşveren Katkısı:</strong> %17.75'lik kısım işveren tarafından karşılanır.</li>
-                    <li><strong>Prim Güvenilirliği:</strong> Otomatik kesinti, eksik ödeme riski yok.</li>
-                    <li><strong>Emeklilik Yaşı:</strong> Koşullara göre değişir (Simülatörde 65 yaş baz alınmıştır).</li>
-                </ul>
-                
-                <h5><strong>Bağ-Kur (4b) - Şahıs Şirketi Sahibi:</strong></h5>
-                <ul>
-                    <li><strong>Toplam Prim Oranı:</strong> %29.5 (düzenli ödemede, normal %34.5)</li>
-                    <li><strong>Kişisel Maliyet:</strong> %29.5'in tamamı kişi tarafından ödenir.</li>
-                    <li><strong>Devlet Katkısı:</strong> Yok (Genç Girişimci desteği hariç).</li>
-                    <li><strong>Prim Güvenilirliği:</strong> Kişisel sorumluluk, gecikme/eksik ödeme riski var.</li>
-                    <li><strong>Emeklilik Yaşı:</strong> Koşullara göre değişir (Simülatörde 65 yaş baz alınmıştır).</li>
-                </ul>
-                
-                <h4>💰 Pratik Örnek: 100.000 TL PEK Üzerinden</h4>
-                <table style="width: 100%; border-collapse: collapse; margin: 1em 0;">
-                    <tr style="background-color: #f9fafb; font-weight: bold;">
-                        <th style="border: 1px solid #d1d5db; padding: 8px; text-align: left;">Kriter</th>
-                        <th style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">SGK (4a)</th>
-                        <th style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">Bağ-Kur (4b)</th>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Toplam Sistem Primi</strong></td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺32.750 (%32.75)</td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺29.500 (%29.5)</td>
-                    </tr>
-                    <tr style="background-color: #fef3c7;">
-                        <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Kişinin Ödediği</strong></td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺15.000 (%15)</td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺29.500 (%29.5)</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>İşverenin Ödediği</strong></td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺17.750 (%17.75)</td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺0</td>
-                    </tr>
-                    <tr style="background-color: #dcfce7;">
-                        <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Beklenen Emekli Maaşı</strong></td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">Teorik olarak aynı*</td>
-                        <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">Teorik olarak aynı*</td>
-                    </tr>
-                </table>
-                
-                <p style="font-size: 0.8em; color: #666; margin-top: 0.5em;"><strong>*Not:</strong> Aynı PEK ve aynı prim gün sayısında teorik olarak aynı emekli maaşı alırsınız.</p>
-                
-                <h4>⚠️ Gerçek Hayattaki Farklar ve Riskler</h4>
-                
-                <h5><strong>Bağ-Kur'da Dikkat Edilmesi Gerekenler:</strong></h5>
-                <ul>
-                    <li><strong>Ödeme Düzeni:</strong> Eksik veya geç ödenen primler emeklilik haklarınızı azaltır</li>
-                    <li><strong>PEK Tutarlılığı:</strong> Her yıl aynı seviyede PEK belirlemeniz önemli (SGK'da otomatik)</li>
-                    <li><strong>Enflasyon Koruması:</strong> PEK'inizi yıllık enflasyona göre artırmanız gerekir</li>
-                    <li><strong>Borçlanma İmkanı:</strong> SGK'ya göre daha sınırlı borçlanma seçenekleri</li>
-                </ul>
-                
-                <h5><strong>SGK'da Avantajlar:</strong></h5>
-                <ul>
-                    <li><strong>Otomatik Sistem:</strong> İşveren sorumluluğunda, eksik ödeme riski yok</li>
-                    <li><strong>İlave Güvenceler:</strong> İşsizlik maaşı, kısa vadeli güvenceler</li>
-                    <li><strong>Yasal Koruma:</strong> İş Kanunu koruması, kıdem-ihbar tazminatı</li>
-                    <li><strong>Sağlık Güvenceleri:</strong> Daha kapsamlı tedavi hakları</li>
-                </ul>
-                
-                <h4>🎯 Emeklilik Eşitliği İçin Öneriler</h4>
-                
-                <ol>
-                    <li><strong>PEK Eşitlemesi:</strong> Bağ-Kur PEK'inizi, SGK'daki brüt maaşınıza eşit tutun</li>
-                    <li><strong>Düzenli Ödeme:</strong> %29.5 indirimli orandan yararlanmak için zamanında ödeyin</li>
-                    <li><strong>Prim Farkı Yatırımı:</strong> SGK'ya göre az ödediğiniz primi (₺4.000 fark) bireysel emeklilikte değerlendirin</li>
-                    <li><strong>Yıllık Güncelleme:</strong> Her yıl PEK'inizi enflasyon + gerçek ücret artışına göre yükseltin</li>
-                    <li><strong>Borçlanma Planı:</strong> Eksik prim günlerinizi stratejik olarak borçlanarak tamamlayın</li>
-                </ol>
-                
-                <div style="background-color: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0;">
-                    <h6 style="margin-top: 0; color: #0c4a6e;"><strong>🔄 Beklenen Yasal Düzenleme (2025):</strong></h6>
-                    <p style="margin-bottom: 0; font-size: 0.9em; color: #164e63;">Bağ-Kur'lular için gerekli olan 9000 prim gününün, SGK'lılar gibi 7200 güne düşürülmesine yönenek yasal düzenleme beklentisi yüksektir. Bu reform gerçekleşirse, iki sistem arasındaki en büyük dezavantajlardan biri ortadan kalkacaktır.</p>
-                </div>
-                
-                <div style="background-color: #fef3c7; border: 1px solid #fbbf24; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0;">
-                    <p><strong>💡 Sonuç:</strong> Aynı PEK seviyesinde teorik olarak aynı emekli maaşı alırsınız, ancak Bağ-Kur'da kişisel disiplin çok kritiktir. SGK'nın otomatik güvencesi vs Bağ-Kur'un esnekliği arasında bilinçli bir tercih yapmalısınız.</p>
-                </div>
-            `,
+                <h4>Emeklilik Maaşı Hesaplama Formülü (Her İki Sistemde Aynı)</h4>
+                <div style="background-color: #f0f9ff; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5em; border-left: 4px solid #0ea5e9;">
+                     <pre><code><strong>Emekli Maaşı = (Toplam Prim Gün Sayısı × Ortalama PEK × Yaş Katsayısı) ÷ 365</strong></code></pre>
+                     <p style="margin-top: 0.5em; font-size: 0.9em;"><strong>Yaş Katsayısı:</strong> 65 yaşında %100, her ay erken emeklilikte %0.5 azalır</p>
+                </div>
+                   
+                <h4>🚨 Kritik Fark: Prim Oranları ve Gerçek Ödemeler</h4>
+                   
+                <h5><strong>SGK (4a) - Maaşlı Çalışan:</strong></h5>
+                <ul>
+                     <li><strong>Toplam Sistem Primi:</strong> %32.75 (İşçi %15 + İşveren %17.75)</li>
+                     <li><strong>Kişisel Maliyet:</strong> Sadece %15 (işçi payı) çalışanın maaşından kesilir.</li>
+                     <li><strong>İşveren Katkısı:</strong> %17.75'lik kısım işveren tarafından karşılanır.</li>
+                     <li><strong>Prim Güvenilirliği:</strong> Otomatik kesinti, eksik ödeme riski yok.</li>
+                     <li><strong>Emeklilik Yaşı:</strong> Koşullara göre değişir (Simülatörde 65 yaş baz alınmıştır).</li>
+                </ul>
+                   
+                <h5><strong>Bağ-Kur (4b) - Şahıs Şirketi Sahibi:</strong></h5>
+                <ul>
+                     <li><strong>Toplam Prim Oranı:</strong> %29.5 (düzenli ödemede, normal %34.5)</li>
+                     <li><strong>Kişisel Maliyet:</strong> %29.5'in tamamı kişi tarafından ödenir.</li>
+                     <li><strong>Devlet Katkısı:</strong> Yok (Genç Girişimci desteği hariç).</li>
+                     <li><strong>Prim Güvenilirliği:</strong> Kişisel sorumluluk, gecikme/eksik ödeme riski var.</li>
+                     <li><strong>Emeklilik Yaşı:</strong> Koşullara göre değişir (Simülatörde 65 yaş baz alınmıştır).</li>
+                </ul>
+                   
+                <h4>💰 Pratik Örnek: 100.000 TL PEK Üzerinden</h4>
+                <table style="width: 100%; border-collapse: collapse; margin: 1em 0;">
+                     <tr style="background-color: #f9fafb; font-weight: bold;">
+                          <th style="border: 1px solid #d1d5db; padding: 8px; text-align: left;">Kriter</th>
+                          <th style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">SGK (4a)</th>
+                          <th style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">Bağ-Kur (4b)</th>
+                     </tr>
+                     <tr>
+                          <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Toplam Sistem Primi</strong></td>
+                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺32.750 (%32.75)</td>
+                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺29.500 (%29.5)</td>
+                     </tr>
+                     <tr style="background-color: #fef3c7;">
+                          <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Kişinin Ödediği</strong></td>
+                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺15.000 (%15)</td>
+                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺29.500 (%29.5)</td>
+                     </tr>
+                     <tr>
+                          <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>İşverenin Ödediği</strong></td>
+                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺17.750 (%17.75)</td>
+                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">₺0</td>
+                     </tr>
+                     <tr style="background-color: #dcfce7;">
+                          <td style="border: 1px solid #d1d5db; padding: 8px;"><strong>Beklenen Emekli Maaşı</strong></td>
+                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">Teorik olarak aynı*</td>
+                          <td style="border: 1px solid #d1d5db; padding: 8px; text-align: center;">Teorik olarak aynı*</td>
+                     </tr>
+                </table>
+                   
+                <p style="font-size: 0.8em; color: #666; margin-top: 0.5em;"><strong>*Not:</strong> Aynı PEK ve aynı prim gün sayısında teorik olarak aynı emekli maaşı alırsınız.</p>
+                   
+                <h4>⚠️ Gerçek Hayattaki Farklar ve Riskler</h4>
+                   
+                <h5><strong>Bağ-Kur'da Dikkat Edilmesi Gerekenler:</strong></h5>
+                <ul>
+                     <li><strong>Ödeme Düzeni:</strong> Eksik veya geç ödenen primler emeklilik haklarınızı azaltır</li>
+                     <li><strong>PEK Tutarlılığı:</strong> Her yıl aynı seviyede PEK belirlemeniz önemli (SGK'da otomatik)</li>
+                     <li><strong>Enflasyon Koruması:</strong> PEK'inizi yıllık enflasyona göre artırmanız gerekir</li>
+                     <li><strong>Borçlanma İmkanı:</strong> SGK'ya göre daha sınırlı borçlanma seçenekleri</li>
+                </ul>
+                   
+                <h5><strong>SGK'da Avantajlar:</strong></h5>
+                <ul>
+                     <li><strong>Otomatik Sistem:</strong> İşveren sorumluluğunda, eksik ödeme riski yok</li>
+                     <li><strong>İlave Güvenceler:</strong> İşsizlik maaşı, kısa vadeli güvenceler</li>
+                     <li><strong>Yasal Koruma:</strong> İş Kanunu koruması, kıdem-ihbar tazminatı</li>
+                     <li><strong>Sağlık Güvenceleri:</strong> Daha kapsamlı tedavi hakları</li>
+                </ul>
+                   
+                <h4>🎯 Emeklilik Eşitliği İçin Öneriler</h4>
+                   
+                <ol>
+                     <li><strong>PEK Eşitlemesi:</strong> Bağ-Kur PEK'inizi, SGK'daki brüt maaşınıza eşit tutun</li>
+                     <li><strong>Düzenli Ödeme:</strong> %29.5 indirimli orandan yararlanmak için zamanında ödeyin</li>
+                     <li><strong>Prim Farkı Yatırımı:</strong> SGK'ya göre az ödediğiniz primi (₺4.000 fark) bireysel emeklilikte değerlendirin</li>
+                     <li><strong>Yıllık Güncelleme:</strong> Her yıl PEK'inizi enflasyon + gerçek ücret artışına göre yükseltin</li>
+                     <li><strong>Borçlanma Planı:</strong> Eksik prim günlerinizi stratejik olarak borçlanarak tamamlayın</li>
+                </ol>
+                   
+                <div style="background-color: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0;">
+                     <h6 style="margin-top: 0; color: #0c4a6e;"><strong>🔄 Beklenen Yasal Düzenleme (2025):</strong></h6>
+                     <p style="margin-bottom: 0; font-size: 0.9em; color: #164e63;">Bağ-Kur'lular için gerekli olan 9000 prim gününün, SGK'lılar gibi 7200 güne düşürülmesine yönenek yasal düzenleme beklentisi yüksektir. Bu reform gerçekleşirse, iki sistem arasındaki en büyük dezavantajlardan biri ortadan kalkacaktır.</p>
+                </div>
+                   
+                <div style="background-color: #fef3c7; border: 1px solid #fbbf24; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0;">
+                     <p><strong>💡 Sonuç:</strong> Aynı PEK seviyesinde teorik olarak aynı emekli maaşı alırsınız, ancak Bağ-Kur'da kişisel disiplin çok kritiktir. SGK'nın otomatik güvencesi vs Bağ-Kur'un esnekliği arasında bilinçli bir tercih yapmalısınız.</p>
+                </div>
+               `,
       "Şahıs Şirketi ve Hizmet İhracatı Rehberi": `
                 <div style="background-color: #f0f9ff; border: 2px solid #0ea5e9; border-radius: 0.75rem; padding: 1.5rem; margin: 2rem 0;">
                     <div style="display: flex; align-items: center; margin-bottom: 1rem;">
@@ -785,80 +749,140 @@ class SalaryCalculator {
                     <p style="margin: 0;"><strong>💡 Önemli Hatırlatma:</strong> Bu rehber genel bilgilendirme amaçlıdır. Kişisel durumunuza özel kararlar için mutlaka profesyonel danışmanlık alın. Vergi mevzuatı sürekli değişir ve bireysel şartlar farklılık gösterebilir.</p>
                 </div>
             `,
+      "4A'dan 4B'ye Geçiş: Yükümlülükler ve Zaman Çizelgesi": `
+        <p>Maaşlı bir işten (4A) ayrılıp tamamen kendi işinizin (4B - Şahıs Şirketi) başına geçme kararı, finansal ve yasal yükümlülüklerin zamanlamasını doğru anlamayı gerektirir. Bu bölüm, geçiş sürecindeki kritik adımları ve mali sorumluluklarınızın ne zaman başladığını netleştirmek için tasarlanmıştır.</p>
+
+        <h4 style="margin-top: 1.5rem;">Temel Prensip: Yükümlülüklerin Tetiklenmesi</h4>
+        <p>Unutulmaması gereken en önemli kural şudur: Bağ-Kur (4B) sigortalılığı ve buna bağlı prim ödeme yükümlülüğü, mevcut 4A sigortanızın sona ermesiyle tetiklenir. Ancak, şirketinizin yasal varlığı ve muhasebe sorumluluklarınız bu tarihten önce başlamalıdır.</p>
+
+        <h5 style="margin-top: 1rem;">1. Mali Müşavirlik Yükümlülüğü</h5>
+        <p><strong>Başlangıç Zamanı:</strong> Şirket kuruluşundan <strong>hemen önce</strong>.<br/>Türkiye'de bir şahıs şirketi kurmak için vergi dairesine kayıt yaptırmadan önce bir Serbest Muhasebeci Mali Müşavir (SMMM) ile anlaşma yapmanız yasal bir zorunluluktur. Bu nedenle, mali müşavirinize ödeyeceğiniz ücret, 4A'lı işinizden ayrılmadan önce başlayan ilk gideriniz olacaktır. Bu adımı proaktif olarak planlamalısınız.</p>
+
+        <h5 style="margin-top: 1rem;">2. Bağ-Kur (4B) Prim Yükümlülüğü</h5>
+        <p><strong>Başlangıç Zamanı:</strong> 4A sigortalılığınızın sona erdiği günü <strong>takip eden ilk gün</strong>.<br/>5510 sayılı kanun gereği, 4A sigortanız kesildiği anda sistem sizi otomatik olarak 4B'li (Bağ-Kur) olarak tescil eder. Örneğin, 31 Mayıs'ta işten ayrıldıysanız, 1 Haziran itibarıyla Bağ-Kur sigortalılığınız ve prim borcunuz işlemeye başlar. Haziran ayının primi, Temmuz ayının sonuna kadar ödenmelidir.</p>
+
+        <h4 style="margin-top: 1.5rem;">Geçiş Süreci Zaman Çizelgesi</h4>
+        <p>Aşağıdaki tablo, adımları ve zamanlamayı özetlemektedir:</p>
+        <table style="width:100%;margin-top:1rem;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">
+          <thead style="background:#f3f4f6;">
+            <tr>
+              <th style="padding:8px;border-bottom:1px solid #e5e7eb;">Yükümlülük</th>
+              <th style="padding:8px;border-bottom:1px solid #e5e7eb;">Başlangıç Zamanı</th>
+              <th style="padding:8px;border-bottom:1px solid #e5e7eb;">Önemli Notlar ve Eylem Planı</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:8px;">Mali Müşavir Sözleşmesi</td>
+              <td style="padding:8px;">Şirket kuruluşundan önce.</td>
+              <td style="padding:8px;">İlk maliyet, 4A maaşınız devam ederken ortaya çıkar. Bütçenize ekleyin.</td>
+            </tr>
+            <tr>
+              <td style="padding:8px;">Şirket Kuruluşu</td>
+              <td style="padding:8px;">4A işten ayrılmadan hemen önce.</td>
+              <td style="padding:8px;">İş sürekliliği ve ilk faturanızı kesebilmek için kritik adımdır.</td>
+            </tr>
+            <tr>
+              <td style="padding:8px;">Bağ-Kur (4B) Sigortalılığı</td>
+              <td style="padding:8px;">4A sigortalılığının bittiği günü takip eden ilk gün.</td>
+              <td style="padding:8px;">Otomatik olarak başlar. SGK'ya ayrıca bir bildirim gerekmez, sistemler entegredir.</td>
+            </tr>
+            <tr>
+              <td style="padding:8px;">İlk Bağ-Kur Prim Ödemesi</td>
+              <td style="padding:8px;">Başlangıç ayını takip eden ayın sonu.</td>
+              <td style="padding:8px;">Örn: Haziran'da başladıysanız, ilk ödeme Temmuz sonuna kadardır.</td>
+            </tr>
+            <tr>
+              <td style="padding:8px;">İlk KDV Beyannamesi</td>
+              <td style="padding:8px;">Faaliyete başlanan ayı takip eden ayın 28'i.</td>
+              <td style="padding:8px;">Fatura kesmeye başladığınız ilk aydan itibaren sorumluluk başlar.</td>
+            </tr>
+            <tr>
+              <td style="padding:8px;">İlk Muhtasar Beyanname</td>
+              <td style="padding:8px;">Faaliyete başlanan ayı takip eden ayın 26'sı.</td>
+              <td style="padding:8px;">Kiranız veya personeliniz varsa geçerlidir.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="background-color: #fefce8; border-left: 4px solid #f59e0b; padding: 1rem; margin-top: 1.5rem;">
+            <h6 style="margin-top: 0;"><strong>Stratejik Tavsiye: "Çifte Statü" Dönemi</strong></h6>
+            <p style="margin-bottom: 0;">Finansal riski en aza indirmek için, mümkünse 4A'lı işinizden ayrılmadan önce şahıs şirketinizi kurun. Bu sayede, "SGK Muafiyeti" seçeneğinden yararlanarak Bağ-Kur primi ödemeden ilk müşterilerinizi bulabilir ve gelir akışı oluşturabilirsiniz. Bu, tam zamanlı geçişi çok daha güvenli hale getirir.</p>
+        </div>
+      `,
       "Hesaplamaların Arkasındaki Matematik": `
-                <h4>Sabit Değerler ve Anlamları</h4>
-                <div style="background-color: #f0f9ff; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5em; border-left: 4px solid #0ea5e9;">
-                    <h5><strong>SGK Oranları (2025):</strong></h5>
-                    <ul>
-                        <li><code>0.15</code> = SGK İşçi Payı (%14 SGK + %1 İşsizlik)</li>
-                        <li><code>0.1575</code> = SGK İşveren Payı (Teşvikli, %20.75 - 5 puan)</li>
-                        <li><code>0.02</code> = İşsizlik Sigortası İşveren Payı</li>
-                        <li><code>0.1775</code> = Toplam İşveren Prim Oranı (%15.75 + %2)</li>
-                    </ul>
-                    
-                    <h5><strong>Vergi Oranları:</strong></h5>
-                    <ul>
-                        <li><code>0.00759</code> = Damga Vergisi Oranı (Binde 7.59)</li>
-                        <li><strong>Gelir Vergisi Dilimleri - Ücretli Çalışanlar (2025):</strong>
-                            <ul>
-                                <li>0-158.000 TL: %15</li>
-                                <li>158.001-330.000 TL: %20</li>
-                                <li>330.001-1.200.000 TL: %27</li>
-                                <li>1.200.001-4.300.000 TL: %35</li>
-                                <li>4.300.001 TL+: %40</li>
-                            </ul>
-                        </li>
-                        <li><strong>Gelir Vergisi Dilimleri - Ücret Dışı Kazançlar (2025):</strong>
-                            <ul>
-                                <li>0-158.000 TL: %15</li>
-                                <li>158.001-330.000 TL: %20</li>
-                                <li>330.001-800.000 TL: %27</li>
-                                <li>800.001-4.300.000 TL: %35</li>
-                                <li>4.300.001 TL+: %40</li>
-                            </ul>
-                            <p style="font-size: 0.8em; color: #666; margin-top: 0.5em;"><strong>Not:</strong> Model B (Şahıs Şirketi) ücret dışı kazanç olduğu için bu tarifeyi kullanır.</p>
-                        </li>
-                    </ul>
-                    
-                    <h5><strong>Bağ-Kur Değerleri (2025):</strong></h5>
-                    <ul>
-                        <li><code>26.005,50 TL</code> = Aylık Minimum Bağ-Kur Kazancı</li>
-                        <li><code>312.066 TL</code> = Yıllık Minimum Bağ-Kur Kazancı</li>
-                        <li><code>195.041,40 TL</code> = Aylık Maximum Bağ-Kur Kazancı (PEK Tavanı)</li>
-                        <li><code>2.340.495 TL</code> = Yıllık Maximum Bağ-Kur Kazancı (Tavan)</li>
-                        <li><code>0.295</code> = İndirimli Bağ-Kur Primi (%29.5, düzenli ödemede %34.5'ten %29.5'e düşer)</li>
-                    </ul>
-                    
-                    <h5><strong>Vergi İstisnaları:</strong></h5>
-                    <ul>
-                        <li><code>312.066 TL</code> = Asgari Ücret Gelir Vergisi İstisnası (yıllık, sadece ücret gelirleri)</li>
-                        <li><code>150.000 TL</code> = Genç Girişimci Gelir Vergisi İstisnası (yıllık, 2025)</li>
-                        <li><code>0.80</code> = Hizmet İhracatı İndirim Oranı (%80 istisna, limit yok)</li>
-                    </ul>
-                </div>
-                
-                <hr style="margin: 2em 0; border: 1px solid #e5e7eb;">
-                
-                <h4>Model A: Maaşlı Çalışan (SGK)</h4>
-                
-                <h5><strong>İşverene Toplam Maliyet:</strong></h5>
-                <ul>
-                    <li><pre><code>SGK Matrahı = min(Brüt Maaş, PEK Tavanı)</code></pre></li>
-                    <li><pre><code>İşveren Primleri = SGK Matrahı × 0.1775</code></pre></li>
-                    <li><pre><code><strong>Toplam Maliyet = Brüt Maaş + İşveren Primleri</strong></code></pre></li>
-                </ul>
-                
-                <h5><strong>Net Maaş:</strong></h5>
-                <ul>
-                    <li><pre><code>SGK İşçi Payı = SGK Matrahı × 0.15</code></pre></li>
-                    <li><pre><code>GV Matrahı = SGK Matrahı - SGK İşçi Payı</code></pre></li>
-                    <li><pre><code>Gelir Vergisi = Artan Oranlı Tarifeye Göre Hesaplanır (Asgari Ücret İstisnası ile)</code></pre></li>
-                    <li><pre><code>Damga Vergisi = max(0, (Brüt Maaş - Yıllık Asgari Ücret)) × 0.00759</code></pre></li>
-                    <li><pre><code><strong>Net Maaş = Brüt Maaş - SGK İşçi Payı - Gelir Vergisi - Damga Vergisi</strong></code></pre></li>
-                </ul>
-                
-                <hr style="margin: 2em 0; border: 1px solid #e5e7eb;">
-                
+                <h4>Sabit Değerler ve Anlamları</h4>
+                <div style="background-color: #f0f9ff; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5em; border-left: 4px solid #0ea5e9;">
+                     <h5><strong>SGK Oranları (2025):</strong></h5>
+                     <ul>
+                          <li><code>0.15</code> = SGK İşçi Payı (%14 SGK + %1 İşsizlik)</li>
+                          <li><code>0.1575</code> = SGK İşveren Payı (Teşvikli, %20.75 - 5 puan)</li>
+                          <li><code>0.02</code> = İşsizlik Sigortası İşveren Payı</li>
+                          <li><code>0.1775</code> = Toplam İşveren Prim Oranı (%15.75 + %2)</li>
+                     </ul>
+                    
+                     <h5><strong>Vergi Oranları:</strong></h5>
+                     <ul>
+                          <li><code>0.00759</code> = Damga Vergisi Oranı (Binde 7.59)</li>
+                          <li><strong>Gelir Vergisi Dilimleri - Ücretli Çalışanlar (2025):</strong>
+                               <ul>
+                                <li>0-158.000 TL: %15</li>
+                                <li>158.001-330.000 TL: %20</li>
+                                <li>330.001-1.200.000 TL: %27</li>
+                                <li>1.200.001-4.300.000 TL: %35</li>
+                                <li>4.300.001 TL+: %40</li>
+                               </ul>
+                          </li>
+                          <li><strong>Gelir Vergisi Dilimleri - Ücret Dışı Kazançlar (2025):</strong>
+                               <ul>
+                                <li>0-158.000 TL: %15</li>
+                                <li>158.001-330.000 TL: %20</li>
+                                <li>330.001-800.000 TL: %27</li>
+                                <li>800.001-4.300.000 TL: %35</li>
+                                <li>4.300.001 TL+: %40</li>
+                               </ul>
+                               <p style="font-size: 0.8em; color: #666; margin-top: 0.5em;"><strong>Not:</strong> Model B (Şahıs Şirketi) ücret dışı kazanç olduğu için bu tarifeyi kullanır.</p>
+                          </li>
+                     </ul>
+                    
+                     <h5><strong>Bağ-Kur Değerleri (2025):</strong></h5>
+                     <ul>
+                          <li><code>26.005,50 TL</code> = Aylık Minimum Bağ-Kur Kazancı</li>
+                          <li><code>312.066 TL</code> = Yıllık Minimum Bağ-Kur Kazancı</li>
+                          <li><code>195.041,40 TL</code> = Aylık Maximum Bağ-Kur Kazancı (PEK Tavanı)</li>
+                          <li><code>2.340.495 TL</code> = Yıllık Maximum Bağ-Kur Kazancı (Tavan)</li>
+                          <li><code>0.295</code> = İndirimli Bağ-Kur Primi (%29.5, düzenli ödemede %34.5'ten %29.5'e düşer)</li>
+                     </ul>
+                    
+                     <h5><strong>Vergi İstisnaları:</strong></h5>
+                     <ul>
+                          <li><code>312.066 TL</code> = Asgari Ücret Gelir Vergisi İstisnası (yıllık, sadece ücret gelirleri)</li>
+                          <li><code>150.000 TL</code> = Genç Girişimci Gelir Vergisi İstisnası (yıllık, 2025)</li>
+                          <li><code>0.80</code> = Hizmet İhracatı İndirim Oranı (%80 istisna, limit yok)</li>
+                     </ul>
+                </div>
+                   
+                <hr style="margin: 2em 0; border: 1px solid #e5e7eb;">
+                   
+                <h4>Model A: Maaşlı Çalışan (SGK)</h4>
+                   
+                <h5><strong>İşverene Toplam Maliyet:</strong></h5>
+                <ul>
+                     <li><pre><code>SGK Matrahı = min(Brüt Maaş, PEK Tavanı)</code></pre></li>
+                     <li><pre><code>İşveren Primleri = SGK Matrahı × 0.1775</code></pre></li>
+                     <li><pre><code><strong>Toplam Maliyet = Brüt Maaş + İşveren Primleri</strong></code></pre></li>
+                </ul>
+                   
+                <h5><strong>Net Maaş:</strong></h5>
+                <ul>
+                     <li><pre><code>SGK İşçi Payı = SGK Matrahı × 0.15</code></pre></li>
+                     <li><pre><code>GV Matrahı = SGK Matrahı - SGK İşçi Payı</code></pre></li>
+                     <li><pre><code>Gelir Vergisi = Artan Oranlı Tarifeye Göre Hesaplanır (Asgari Ücret İstisnası ile)</code></pre></li>
+                     <li><pre><code>Damga Vergisi = max(0, (Brüt Maaş - Yıllık Asgari Ücret)) × 0.00759</code></pre></li>
+                     <li><pre><code><strong>Net Maaş = Brüt Maaş - SGK İşçi Payı - Gelir Vergisi - Damga Vergisi</strong></code></pre></li>
+                </ul>
+                   
+                <hr style="margin: 2em 0; border: 1px solid #e5e7eb;">
+                   
                 <h4>Model B: Şahıs Şirketi Sahibi (Bağ-Kur)</h4>
 
                 <hr style="margin: 2em 0; border: 1px solid #e5e7eb;">
@@ -876,46 +900,46 @@ class SalaryCalculator {
                       <p>Eğer %27'lik vergi dilimindeyseniz, yaptığınız <strong>10.000 TL</strong>'lik bir gider, ödeyeceğiniz vergiyi yaklaşık <strong>2.700 TL</strong> azaltır. Yani bu harcamanın size olan net maliyeti aslında <strong>7.300 TL</strong>'dir. Bu nedenle, işle ilgili tüm harcamalarınızı doğru bir şekilde belgelendirip gider olarak göstermek, net gelirinizi optimize etmenin en önemli yoludur.</p>
                   </div>
                 </div>
-                
-                <h5><strong>Temel Değerler:</strong></h5>
-                <ul>
-                    <li><pre><code>Hasılat = (Seçime göre) Model A Brüt Maaş VEYA Model A Toplam Maliyet</code></pre></li>
-                    <li><pre><code>Kâr = Hasılat - Şirket Giderleri</code></pre></li>
-                    <li><pre><code>Bağ-Kur PEK = Slider ile seçilen 'Prim Kazancı'</code></pre></li>
-                    <li><pre><code>Hesaplanan Prim Gideri = Bağ-Kur PEK × 0.295</code></pre></li>
-                </ul>
-                
-                <h5><strong>Vergi Matrahı Hesaplama Sırası:</strong></h5>
-                <ol>
-                    <li><pre><code>Başlangıç Matrahı = Kâr - Hesaplanan Bağ-Kur Primi</code></pre></li>
-                    <li><pre><code>Genç Girişimci İstisnası: Matrah = max(0, Matrah - 150.000)</code></pre></li>
-                    <li><strong>Hizmet İhracatı İstisnası (%80 İndirim):</strong>
-                        <ul>
-                            <li><pre><code>İstisna Tutarı = Matrah × 0.80</code></pre></li>
-                            <li><pre><code>Final Matrah = Matrah - İstisna Tutarı</code></pre></li>
-                            <li><small>Not: 2025 yılında limit bulunmamaktadır</small></li>
-                        </ul>
-                    </li>
-                    <li><pre><code><strong>Gelir Vergisi = Ücret Dışı Kazanç Tarife(Final Matrah)</strong></code></pre></li>
-                </ol>
-                
-                <h5><strong>Ödenecek Prim (Genç Girişimci Desteği ile):</strong></h5>
-                <ul>
-                    <li><strong>Normal Durum:</strong>
-                        <pre><code>Ödenecek Prim = Bağ-Kur PEK × 0.295</code></pre>
-                    </li>
-                    <li><strong>Genç Girişimci Desteği ile:</strong>
-                        <pre><code>Hesaplanan Prim = Bağ-Kur PEK × 0.295</code></pre>
-                        <pre><code>Minimum Prim Desteği = 312.066 × 0.295 = 92.059 TL</code></pre>
-                        <pre><code>Ödenecek Prim = max(0, Hesaplanan Prim - 92.059)</code></pre>
-                        <p><small>(Devlet minimum primi karşılar, fazlası kişi tarafından ödenir)</small></p>
-                    </li>
-                </ul>
-                
-                <h5><strong>Final Hesaplama:</strong></h5>
-                <pre><code><strong>Net Gelir = Kâr - Ödenecek Prim - Gelir Vergisi</strong></code></pre>
-                <p><small><strong>Not:</strong> "Ödenecek Prim" yukarıdaki Genç Girişimci desteği hesaplamasına göre belirlenir.</small></p>
-            `,
+                   
+                <h5><strong>Temel Değerler:</strong></h5>
+                <ul>
+                     <li><pre><code>Hasılat = (Seçime göre) Model A Brüt Maaş VEYA Model A Toplam Maliyet</code></pre></li>
+                     <li><pre><code>Kâr = Hasılat - Şirket Giderleri</code></pre></li>
+                     <li><pre><code>Bağ-Kur PEK = Slider ile seçilen 'Prim Kazancı'</code></pre></li>
+                     <li><pre><code>Hesaplanan Prim Gideri = Bağ-Kur PEK × 0.295</code></pre></li>
+                </ul>
+                   
+                <h5><strong>Vergi Matrahı Hesaplama Sırası:</strong></h5>
+                <ol>
+                     <li><pre><code>Başlangıç Matrahı = Kâr - Hesaplanan Bağ-Kur Primi</code></pre></li>
+                     <li><pre><code>Genç Girişimci İstisnası: Matrah = max(0, Matrah - 150.000)</code></pre></li>
+                     <li><strong>Hizmet İhracatı İstisnası (%80 İndirim):</strong>
+                          <ul>
+                               <li><pre><code>İstisna Tutarı = Matrah × 0.80</code></pre></li>
+                               <li><pre><code>Final Matrah = Matrah - İstisna Tutarı</code></pre></li>
+                               <li><small>Not: 2025 yılında limit bulunmamaktadır</small></li>
+                          </ul>
+                     </li>
+                     <li><pre><code><strong>Gelir Vergisi = Ücret Dışı Kazanç Tarife(Final Matrah)</strong></code></pre></li>
+                </ol>
+                   
+                <h5><strong>Ödenecek Prim (Genç Girişimci Desteği ile):</strong></h5>
+                <ul>
+                     <li><strong>Normal Durum:</strong>
+                          <pre><code>Ödenecek Prim = Bağ-Kur PEK × 0.295</code></pre>
+                     </li>
+                     <li><strong>Genç Girişimci Desteği ile:</strong>
+                          <pre><code>Hesaplanan Prim = Bağ-Kur PEK × 0.295</code></pre>
+                          <pre><code>Minimum Prim Desteği = 312.066 × 0.295 = 92.059 TL</code></pre>
+                          <pre><code>Ödenecek Prim = max(0, Hesaplanan Prim - 92.059)</code></pre>
+                          <p><small>(Devlet minimum primi karşılar, fazlası kişi tarafından ödenir)</small></p>
+                     </li>
+                </ul>
+                   
+                <h5><strong>Final Hesaplama:</strong></h5>
+                <pre><code><strong>Net Gelir = Kâr - Ödenecek Prim - Gelir Vergisi</strong></code></pre>
+                <p><small><strong>Not:</strong> "Ödenecek Prim" yukarıdaki Genç Girişimci desteği hesaplamasına göre belirlenir.</small></p>
+               `,
     };
   }
 
