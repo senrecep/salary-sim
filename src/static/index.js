@@ -341,7 +341,8 @@ class SalaryCalculator {
 
                   "İşveren Maliyeti Modu Hakkında Uyarı": `
         <div class="bg-blue-50 border-l-4 border-blue-400 p-4 my-4 rounded">
-          <span class="font-bold text-blue-900">ℹ️ Bilgilendirme:</span> "İşveren Maliyeti" (TCE) modunda, Model B'de hasılatınız işverenin toplam maliyetine eşitlenir. Bu, gerçek dünyada nadiren %100 oranında gerçekleşir ve en iyi senaryoyu yansıtır. Pazarlık gücünüz, müşteri portföyünüz ve piyasa koşulları bu oranın altına düşebilir. Kendi işinizi kurarken bu iyimserliği göz önünde bulundurun.
+          <span class="font-bold text-blue-900">ℹ️ Bilgilendirme:</span> "İşveren Maliyeti" (TCE) modunda, Model B'de hasılatınız işverenin toplam maliyetine eşitlenir. Bu, gerçek dünyada nadiren %100 oranında gerçekleşir ve en iyi senaryoyu yansıtır. Pazarlık gücünüz, müşteri portföyünüz ve piyasa koşulları bu oranın altına düşebilir. Kendi işinizi kurarken bu iyimserliği göz önünde bulundurun.<br><br>
+          <span class="font-semibold">Pratikte, bir pozisyon için ayrılan toplam bütçenin %85-95'ini hedeflemek, müzakereler için daha gerçekçi bir başlangıç noktası olabilir. Ancak, güçlü bir pazarlık ve değer önerisiyle %100'e yakın bir oran da elde edebilirsiniz.</span>
         </div>
       `,
       "Bağ-Kur 7200 Gün Reformu ve Emeklilik Şartları": `
@@ -1605,6 +1606,7 @@ class SalaryCalculator {
         )} vergi tasarrufu (%80 istisna)</p>`;
       }
 
+
       let netGelirEtiketi = timeLabel + " Net Gelir";
       if (
         title.includes("Model A") &&
@@ -1614,6 +1616,7 @@ class SalaryCalculator {
       ) {
         netGelirEtiketi = timeLabel + " Ortalama Net Gelir";
       }
+
 
       let sgkDetayHTML = "";
       if (sgkDetaylari && title.includes("Model A")) {
@@ -1972,7 +1975,7 @@ class SalaryCalculator {
                 </div>`;
       }
 
-      return `<div class="card p-6">
+  return `<div class="card p-6">
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">${title}</h3>
                 <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                     <div>
