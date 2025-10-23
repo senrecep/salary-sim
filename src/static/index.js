@@ -4,15 +4,81 @@
  */
 
 class SalaryCalculator {
+  // Event binding for Model B expense details table
+  bindGiderDetaylariEvents() {
+    // Bind checkbox and input events for each expense item
+    const giderKalemleri = [
+      {
+        enabledKey: "isDegiskenGiderEnabled",
+        valueKey: "baseAylikDegiskenGiderTRY",
+        checkboxId: "degiskenGiderCheck",
+        inputId: "degiskenGiderInput",
+      },
+      {
+        enabledKey: "isMuhasebeciGiderEnabled",
+        valueKey: "baseAylikMuhasebeciUcretiTRY",
+        checkboxId: "muhasebeciGiderCheck",
+        inputId: "muhasebeciGiderInput",
+      },
+      {
+        enabledKey: "isDamgaVergisiEnabled",
+        valueKey: "baseAylikDamgaVergileriTRY",
+        checkboxId: "damgaVergisiCheck",
+        inputId: "damgaVergisiInput",
+      },
+      {
+        enabledKey: "isDigerGiderlerEnabled",
+        valueKey: "baseAylikDigerSabitGiderlerTRY",
+        checkboxId: "digerGiderlerCheck",
+        inputId: "digerGiderlerInput",
+      },
+    ];
+
+    giderKalemleri.forEach((kalem) => {
+      const check = document.getElementById(kalem.checkboxId);
+      const input = document.getElementById(kalem.inputId);
+      if (check) {
+        check.onchange = (e) => {
+          this.state[kalem.enabledKey] = check.checked;
+          this.updateUI();
+        };
+      }
+      if (input) {
+        // Only update state on blur (when editing is finished)
+        input.onblur = (e) => {
+          let val = parseFloat(
+            input.value.replace(/[^\d.,-]/g, "").replace(",", ".")
+          );
+          if (isNaN(val) || val < 0) val = 0;
+          this.state[kalem.valueKey] = val;
+          this.updateUI();
+        };
+        // Also trigger blur on Enter key
+        input.onkeydown = (e) => {
+          if (e.key === "Enter") {
+            input.blur();
+          }
+        };
+      }
+    });
+  }
   constructor() {
     this.state = {
       currentMode: "monthly",
       currentCurrency: "TRY",
       usdRate: 42,
       baseAylikNetMaasTRY: 0,
-      baseAylikGiderTRY: 0,
       baseAylikBagkurPekTRY: 0,
       comparisonBasis: "grossEquivalence", // Default comparison mode
+      // Default values for expense items
+      isDegiskenGiderEnabled: true,
+      baseAylikDegiskenGiderTRY: 5000,
+      isMuhasebeciGiderEnabled: true,
+      baseAylikMuhasebeciUcretiTRY: 2000,
+      isDamgaVergisiEnabled: true,
+      baseAylikDamgaVergileriTRY: 500,
+      isDigerGiderlerEnabled: false,
+      baseAylikDigerSabitGiderlerTRY: 0,
     };
 
     this.constants = {
@@ -44,7 +110,6 @@ class SalaryCalculator {
     return {
       netMaasInput: document.getElementById("netMaasInput"),
       hesaplananBrutInput: document.getElementById("hesaplananBrutInput"),
-      giderInput: document.getElementById("giderInput"),
       bagkurPrimiInput: document.getElementById("bagkurPrimiInput"),
       matchSgkPrimCheck: document.getElementById("matchSgkPrim"),
       sgkMuafiyetiCheck: document.getElementById("sgkMuafiyeti"),
@@ -293,7 +358,7 @@ class SalaryCalculator {
                     <li><strong>Dezavantajlar:</strong> Daha düşük net gelir potansiyeli, artan oranlı vergi dilimlerinin yıl içinde net maaşı düşürmesi, giderleri vergiden düşme imkanının olmaması.</li>
                 </ul>
             `,
-"Model B: Şahıs Şirketi Sahibi (Bağ-Kur - 4b) Detayları": `
+      "Model B: Şahıs Şirketi Sahibi (Bağ-Kur - 4b) Detayları": `
                 <p>Bu model, kendi adınıza bir şahıs şirketi (serbest meslek mükellefiyeti) kurarak mal veya hizmet satmayı ve sosyal güvencenin 4b (Bağ-Kur) kapsamında sağlanmasını ifade eder. Gelir, fatura edilen hasılattan giderler, primler ve vergiler düşülerek hesaplanır.</p>
                 
                 <h4>Gelir ve Giderler</h4>
@@ -352,7 +417,7 @@ class SalaryCalculator {
                 <h4>Örnek:</h4>
                 <p>Eğer 'Bağ-Kur Prim Kazancı'nı 100.000 TL olarak belirlerseniz, bu 100.000 TL brüt maaş üzerinden emekli olmayı hedeflediğiniz anlamına gelir. Bu hedef için her ay cebinizden çıkacak olan prim ödemesi ise yaklaşık 29.500 TL olacaktır.</p>
             `,
-     "Emeklilik Hakları: SGK vs Bağ-Kur Karşılaştırması": `
+      "Emeklilik Hakları: SGK vs Bağ-Kur Karşılaştırması": `
                 <h4>Emeklilik Maaşı Hesaplama Formülü (Her İki Sistemde Aynı)</h4>
                 <div style="background-color: #f0f9ff; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5em; border-left: 4px solid #0ea5e9;">
                     <pre><code><strong>Emekli Maaşı = (Toplam Prim Gün Sayısı × Ortalama PEK × Yaş Katsayısı) ÷ 365</strong></code></pre>
@@ -734,7 +799,23 @@ class SalaryCalculator {
                 
                 <hr style="margin: 2em 0; border: 1px solid #e5e7eb;">
                 
-                <h4>Model B: Şahıs Şirketi Sahibi (Bağ-Kur)</h4>
+                <h4>Model B: Şahıs Şirketi Sahibi (Bağ-Kur)</h4>
+
+                <hr style="margin: 2em 0; border: 1px solid #e5e7eb;">
+                <h4>Giderlerin Vergiye Etkisi: Vergi Kalkanı Mekanizması</h4>
+                <div>
+                  <h4>Giderler Net Gelirinizi Nasıl Etkiler?</h4>
+                  <p>Bir şahıs şirketinde yaptığınız her yasal harcama, sizin için bir <strong>"vergi kalkanı"</strong> görevi görür. Bu, giderlerin sadece kârınızı değil, aynı zamanda ödeyeceğiniz vergiyi de azalttığı anlamına gelir. Mekanizma şu şekilde işler:</p>
+                  <ol>
+                      <li><strong>Kârı Azaltır:</strong> Giderleriniz, toplam hasılatınızdan düşülerek vergilendirilecek olan kârınızı azaltır.</li>
+                      <li><strong>Vergi Matrahını Düşürür:</strong> Daha düşük kâr, üzerinden vergi hesaplanacak olan matrahın da daha düşük olması demektir.</li>
+                      <li><strong>Ödenecek Vergiyi Azaltır:</strong> Düşük matrah üzerinden hesaplanan gelir vergisi tutarı da doğal olarak azalır.</li>
+                  </ol>
+                  <div style="background-color: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 1rem; margin-top: 1rem;">
+                      <h5 style="margin-top:0;">Somut Örnek:</h5>
+                      <p>Eğer %27'lik vergi dilimindeyseniz, yaptığınız <strong>10.000 TL</strong>'lik bir gider, ödeyeceğiniz vergiyi yaklaşık <strong>2.700 TL</strong> azaltır. Yani bu harcamanın size olan net maliyeti aslında <strong>7.300 TL</strong>'dir. Bu nedenle, işle ilgili tüm harcamalarınızı doğru bir şekilde belgelendirip gider olarak göstermek, net gelirinizi optimize etmenin en önemli yoludur.</p>
+                  </div>
+                </div>
                 
                 <h5><strong>Temel Değerler:</strong></h5>
                 <ul>
@@ -1035,6 +1116,24 @@ class SalaryCalculator {
   // UI Methods
   updateUI() {
     try {
+      // --- Gider input focus/caret koruma başlangıcı ---
+      // Gider inputlarının id'leri
+      const giderInputIds = [
+        "degiskenGiderInput",
+        "muhasebeciGiderInput",
+        "damgaVergisiInput",
+        "digerGiderlerInput",
+      ];
+      // Aktif inputu ve caret pozisyonunu bul
+      let activeInputId = null;
+      let caretPos = null;
+      const activeElem = document.activeElement;
+      if (activeElem && giderInputIds.includes(activeElem.id)) {
+        activeInputId = activeElem.id;
+        caretPos = activeElem.selectionStart;
+      }
+      // --- Gider input focus/caret koruma sonu ---
+
       const yillikNetMaas = this.state.baseAylikNetMaasTRY * 12;
 
       // Early return if no valid input
@@ -1144,13 +1243,27 @@ class SalaryCalculator {
       // Determine revenue base based on comparison mode
       let yillikHasilat;
       if (this.state.comparisonBasis === "tceEquivalence") {
-        // Use Total Cost to Employer as revenue base
         yillikHasilat = tceData.totalCost;
       } else {
-        // Default: Use gross salary as revenue base
         yillikHasilat = yillikBrutMaasYeni;
       }
-      const karB = yillikHasilat - yillikGiderTRY;
+
+      // Gelişmiş gider modülü: aktif giderleri topla
+      let toplamYillikGiderler = 0;
+      if (this.state.isDegiskenGiderEnabled) {
+        toplamYillikGiderler += this.state.baseAylikDegiskenGiderTRY * 12;
+      }
+      if (this.state.isMuhasebeciGiderEnabled) {
+        toplamYillikGiderler += this.state.baseAylikMuhasebeciUcretiTRY * 12;
+      }
+      if (this.state.isDamgaVergisiEnabled) {
+        toplamYillikGiderler += this.state.baseAylikDamgaVergileriTRY * 12;
+      }
+      if (this.state.isDigerGiderlerEnabled) {
+        toplamYillikGiderler += this.state.baseAylikDigerSabitGiderlerTRY * 12;
+      }
+
+      const karB = yillikHasilat - toplamYillikGiderler;
 
       const yillikBagkurPrimiHesaplanan =
         yillikBagkurKazanciTRY * this.constants.BAGKUR_INDIRIMLI_ORAN;
@@ -1196,12 +1309,12 @@ class SalaryCalculator {
       // Create detailed breakdown for Model B
       const gelirVergisiDilimiB = this.getTaxBracket(vergiMatrahiB, true).label;
       const detailedBreakdownB = {
-        sirketGideri: yillikGiderTRY,
+        sirketGideri: toplamYillikGiderler,
         bagkurPrimi: odenecekBagkurPrimi,
         gelirVergisi: yillikGelirVergisiB,
         gelirVergisiDilimi: gelirVergisiDilimiB,
         toplamKesinti:
-          yillikGiderTRY + odenecekBagkurPrimi + yillikGelirVergisiB,
+          toplamYillikGiderler + odenecekBagkurPrimi + yillikGelirVergisiB,
       };
 
       this.elements.resultsPanel.innerHTML += this.createResultCard(
@@ -1217,6 +1330,25 @@ class SalaryCalculator {
         null, // tceData
         detailedBreakdownB
       );
+
+      // Gider detayları tablosu renderlandıktan sonra eventleri bağla
+      this.bindGiderDetaylariEvents();
+
+      // --- Gider input focus/caret geri yükleme ---
+      if (activeInputId) {
+        const yeniInput = document.getElementById(activeInputId);
+        if (yeniInput) {
+          yeniInput.focus();
+          if (caretPos !== null && yeniInput.setSelectionRange) {
+            // caretPos büyükse inputun uzunluğuna sabitle
+            const len = yeniInput.value.length;
+            yeniInput.setSelectionRange(
+              Math.min(caretPos, len),
+              Math.min(caretPos, len)
+            );
+          }
+        }
+      }
 
       // Update Bağ-Kur value based on current gross salary if retirement equivalency is selected
       // Update input fields with correct annual gross salary (fixes dual-engine inconsistency)
@@ -1545,24 +1677,96 @@ class SalaryCalculator {
 
       // Add detailed breakdown section for Model B
       if (detailedBreakdown && title.includes("Model B")) {
+        // Gider kalemlerinin toplamını göster (aylık)
+        const giderToplamiAylik =
+          (this.state.isDegiskenGiderEnabled
+            ? this.state.baseAylikDegiskenGiderTRY
+            : 0) +
+          (this.state.isMuhasebeciGiderEnabled
+            ? this.state.baseAylikMuhasebeciUcretiTRY
+            : 0) +
+          (this.state.isDamgaVergisiEnabled
+            ? this.state.baseAylikDamgaVergileriTRY
+            : 0) +
+          (this.state.isDigerGiderlerEnabled
+            ? this.state.baseAylikDigerSabitGiderlerTRY
+            : 0);
+
         detailedBreakdownHTML = `
-                <div class="mt-4 border-t pt-3">
-                    <h4 class="text-sm font-semibold text-gray-700 text-center mb-3">📋 Kesintiler</h4>
-                    <div class="grid grid-cols-3 gap-3 text-sm">
-                        <div class="bg-green-50 p-3 rounded-lg border border-green-200">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-gray-600">Şirket Gideri</span>
-                                <span class="font-semibold text-green-600">${this.formatCurrency(
-                                  this.state.currentCurrency === "TRY"
-                                    ? detailedBreakdown.sirketGideri / divisor
-                                    : detailedBreakdown.sirketGideri /
-                                        divisor /
-                                        this.state.usdRate,
-                                  this.state.currentCurrency
-                                )}</span>
-                            </div>
-                            <div class="text-xs text-gray-500">Değişken</div>
-                        </div>
+          <div class="mt-4 border-t pt-3">
+            <h4 class="text-sm font-semibold text-gray-700 text-center mb-3">📋 Kesintiler</h4>
+            <div class="mb-3">
+              <button type="button" class="text-blue-700 text-sm font-semibold flex items-center gap-1 mx-auto" style="outline:none;" onclick="this.nextElementSibling.classList.toggle('hidden');this.querySelector('span').textContent = this.nextElementSibling.classList.contains('hidden') ? '[+]' : '[-]';">
+                <span>[-]</span> Gider Detayları
+              </button>
+              <div class="mt-2" id="gider-detaylari-panel">
+                <div class="overflow-x-auto">
+                  <table class="min-w-full text-xs border rounded-lg bg-white">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th class="p-2 border-b text-left">Aktif</th>
+                        <th class="p-2 border-b text-left">Etiket</th>
+                        <th class="p-2 border-b text-left">Girdi Alanı</th>
+                        <th class="p-2 border-b text-left">Bilgi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="p-2 border-b"><input type="checkbox" id="degiskenGiderCheck" ${
+                          this.state.isDegiskenGiderEnabled ? "checked" : ""
+                        }></td>
+                        <td class="p-2 border-b">Değişken Giderler</td>
+                        <td class="p-2 border-b"><input type="number" id="degiskenGiderInput" value="${
+                          this.state.baseAylikDegiskenGiderTRY
+                        }" class="w-20 border rounded p-1 text-xs"> (Aylık, TRY)</td>
+                        <td class="p-2 border-b" title="Donanım, yazılım, seyahat gibi işinizle doğrudan ilgili, miktarı değişebilen harcamalarınız."><span class="cursor-help">Donanım, yazılım, seyahat gibi işinizle doğrudan ilgili, miktarı değişebilen harcamalarınız.</span></td>
+                      </tr>
+                      <tr>
+                        <td class="p-2 border-b"><input type="checkbox" id="muhasebeciGiderCheck" ${
+                          this.state.isMuhasebeciGiderEnabled ? "checked" : ""
+                        }></td>
+                        <td class="p-2 border-b">Muhasebeci Ücreti</td>
+                        <td class="p-2 border-b"><input type="number" id="muhasebeciGiderInput" value="${
+                          this.state.baseAylikMuhasebeciUcretiTRY
+                        }" class="w-20 border rounded p-1 text-xs"> (Aylık, TRY)</td>
+                        <td class="p-2 border-b" title="Mali müşavirinize ödediğiniz aylık standart hizmet bedeli. (Ortalama: 1.500-2.500 TL)"><span class="cursor-help">Mali müşavirinize ödediğiniz aylık standart hizmet bedeli. (Ortalama: 1.500-2.500 TL)</span></td>
+                      </tr>
+                      <tr>
+                        <td class="p-2 border-b"><input type="checkbox" id="damgaVergisiCheck" ${
+                          this.state.isDamgaVergisiEnabled ? "checked" : ""
+                        }></td>
+                        <td class="p-2 border-b">Damga Vergileri</td>
+                        <td class="p-2 border-b"><input type="number" id="damgaVergisiInput" value="${
+                          this.state.baseAylikDamgaVergileriTRY
+                        }" class="w-20 border rounded p-1 text-xs"> (Aylık Ortalama, TRY)</td>
+                        <td class="p-2 border-b" title="Yıl boyunca ödenen KDV, Muhtasar, Geçici ve Yıllık Gelir Vergisi beyannamelerinin zorunlu damga vergilerinin aylık ortalamasıdır."><span class="cursor-help">Yıl boyunca ödenen KDV, Muhtasar, Geçici ve Yıllık Gelir Vergisi beyannamelerinin zorunlu damga vergilerinin aylık ortalamasıdır.</span></td>
+                      </tr>
+                      <tr>
+                        <td class="p-2 border-b"><input type="checkbox" id="digerGiderlerCheck" ${
+                          this.state.isDigerGiderlerEnabled ? "checked" : ""
+                        }></td>
+                        <td class="p-2 border-b">Diğer Sabit Giderler</td>
+                        <td class="p-2 border-b"><input type="number" id="digerGiderlerInput" value="${
+                          this.state.baseAylikDigerSabitGiderlerTRY
+                        }" class="w-20 border rounded p-1 text-xs"> (Aylık Ortalama, TRY)</td>
+                        <td class="p-2 border-b" title="Yıllık oda aidatı, e-imza yenileme gibi diğer zorunlu idari masrafların aylık ortalamasıdır."><span class="cursor-help">Yıllık oda aidatı, e-imza yenileme gibi diğer zorunlu idari masrafların aylık ortalamasıdır.</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-3 text-sm">
+              <div class="bg-green-50 p-3 rounded-lg border border-green-200">
+                <div class="flex justify-between items-center mb-1">
+                  <span class="text-gray-600">Şirket Gideri</span>
+                  <span class="font-semibold text-green-700">${this.formatCurrency(
+                    giderToplamiAylik,
+                    "TRY"
+                  )}</span>
+                </div>
+                <div class="text-xs text-gray-500">Değişken</div>
+              </div>
                         <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="text-gray-600">Bağ-Kur Primi</span>
@@ -1667,13 +1871,6 @@ class SalaryCalculator {
       ? netMaasVal / 12
       : netMaasVal;
 
-    const giderVal = parseFloat(this.elements.giderInput.value);
-    this.state.baseAylikGiderTRY = isNaN(giderVal)
-      ? 0
-      : this.state.currentMode === "yearly"
-      ? giderVal / 12
-      : giderVal;
-
     const bagkurVal = parseFloat(this.elements.bagkurPrimiInput.value);
     this.state.baseAylikBagkurPekTRY = isNaN(bagkurVal)
       ? 0
@@ -1688,9 +1885,7 @@ class SalaryCalculator {
     this.elements.netMaasInput.value = Math.round(
       this.state.baseAylikNetMaasTRY * timeMultiplier
     );
-    this.elements.giderInput.value = Math.round(
-      this.state.baseAylikGiderTRY * timeMultiplier
-    );
+    // giderInput removed
 
     // Correct gross salary calculation - dual-engine inconsistency resolved
     let yillikBrut;
@@ -1862,7 +2057,6 @@ class SalaryCalculator {
   bindEvents() {
     // Input change events
     [
-      this.elements.giderInput,
       this.elements.sgkMuafiyetiCheck,
       this.elements.gencGirisimciCheck,
       this.elements.hizmetIhracatiCheck,
@@ -2016,7 +2210,6 @@ class SalaryCalculator {
     });
 
     this.elements.netMaasInput.value = 100000;
-    this.elements.giderInput.value = 10000;
 
     if (this.elements.zamEtkisiCheck) {
       this.elements.zamEtkisiCheck.checked = false;
