@@ -1,3 +1,18 @@
+// GitHub yıldız sayısını backend'den çek (cache'li)
+fetch('/api/github-stars')
+  .then(response => response.json())
+  .then(data => {
+    const starElem = document.getElementById('github-stars');
+    if (data.success && typeof data.stars === 'number') {
+      if (starElem) starElem.textContent = `★ ${data.stars}`;
+    } else {
+      if (starElem) starElem.textContent = '★ ?';
+    }
+  })
+  .catch(() => {
+    const starElem = document.getElementById('github-stars');
+    if (starElem) starElem.textContent = '★ ?';
+  });
 
 class SalaryCalculator {
   // Event binding for Model B expense details table
@@ -1917,7 +1932,7 @@ class SalaryCalculator {
                 </div>
               </div>
             </div>
-            <div class="grid grid-cols-3 gap-3 text-sm">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
               <div class="bg-green-50 p-3 rounded-lg border border-green-200">
                 <div class="flex justify-between items-center mb-1">
                   <span class="text-gray-600">Şirket Gideri</span>

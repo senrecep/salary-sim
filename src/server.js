@@ -1,3 +1,4 @@
+
 const express = require('express');
 const cors = require('cors');
 const fetch = require('node-fetch');
@@ -13,18 +14,33 @@ app.use(express.json());
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'static')));
 
+// --- Exchange Rate Cache ---
+let exchangeRateCache = {
+  rate: null,
+  lastFetched: 0
+};
+
 // Exchange rate API endpoint
 app.get('/api/exchange-rate', async (req, res) => {
+  const now = Date.now();
+  const cacheDuration = 5 * 60 * 1000; // 5 minutes
+  if (exchangeRateCache.rate !== null && (now - exchangeRateCache.lastFetched) < cacheDuration) {
+    console.log(`💱 [Exchange Rate] Cache HIT: 1 USD = ${exchangeRateCache.rate} TRY (fetched at ${new Date(exchangeRateCache.lastFetched).toISOString()})`);
+    return res.json({
+      success: true,
+      usd_try: exchangeRateCache.rate,
+      timestamp: new Date(exchangeRateCache.lastFetched).toISOString(),
+      source: 'cache'
+    });
+  }
+  console.log('💱 [Exchange Rate] Cache MISS: Fetching from APIs...');
   try {
-    console.log('Fetching exchange rate...');
-    
     // Try multiple free APIs for reliability (HTTPS priority, no auth required)
     const apis = [
       // Primary HTTPS APIs
       'https://api.exchangerate-api.com/v4/latest/USD',
       'https://open.er-api.com/v6/latest/USD', 
       'https://api.fxratesapi.com/latest?base=USD&symbols=TRY',
-      
       // Backup HTTP APIs
       'http://api.exchangerate-api.com/v4/latest/USD',
       'http://api.fxratesapi.com/latest?base=USD&symbols=TRY'
@@ -69,7 +85,6 @@ app.get('/api/exchange-rate', async (req, res) => {
 
     // Handle different API response formats
     let tryRate = null;
-    
     // Standard format: { rates: { TRY: value } }
     if (data.rates?.TRY) {
       tryRate = data.rates.TRY;
@@ -107,22 +122,19 @@ app.get('/api/exchange-rate', async (req, res) => {
     }
 
     const roundedRate = Math.round(tryRate * 10000) / 10000;
-
+    exchangeRateCache.rate = roundedRate;
+    exchangeRateCache.lastFetched = now;
+    console.log(`💱 [Exchange Rate] Cache UPDATED: 1 USD = ${roundedRate} TRY (fetched at ${new Date(now).toISOString()})`);
     res.json({
       success: true,
       usd_try: roundedRate,
-      timestamp: new Date().toISOString(),
+      timestamp: new Date(now).toISOString(),
       source: 'live'
     });
-
-    console.log(`💱 Exchange rate: 1 USD = ${roundedRate} TRY`);
-
   } catch (error) {
     console.error('❌ Exchange rate API error:', error.message);
-    
     // Fallback to default rate
     const fallbackRate = 34.20;
-    
     res.json({
       success: true,
       usd_try: fallbackRate,
@@ -130,8 +142,59 @@ app.get('/api/exchange-rate', async (req, res) => {
       source: 'fallback',
       error: error.message
     });
-
     console.log(`🔄 Using fallback rate: 1 USD = ${fallbackRate} TRY`);
+  }
+});
+
+
+// --- GitHub Stars Cache ---
+let githubStarsCache = {
+  count: null,
+  lastFetched: 0
+};
+
+// GitHub Stars API endpoint (cache for 10 minutes)
+app.get('/api/github-stars', async (req, res) => {
+  const now = Date.now();
+  const cacheDuration = 10 * 60 * 1000; // 10 minutes
+  if (githubStarsCache.count !== null && (now - githubStarsCache.lastFetched) < cacheDuration) {
+    console.log(`⭐ [GitHub Stars] Cache HIT: ${githubStarsCache.count} stars (fetched at ${new Date(githubStarsCache.lastFetched).toISOString()})`);
+    return res.json({
+      success: true,
+      stars: githubStarsCache.count,
+      cached: true,
+      timestamp: new Date(githubStarsCache.lastFetched).toISOString()
+    });
+  }
+  console.log('⭐ [GitHub Stars] Cache MISS: Fetching from GitHub API...');
+  try {
+    const response = await fetch('https://api.github.com/repos/senrecep/salary-sim', {
+      headers: {
+        'User-Agent': 'SalarySimulator/1.0',
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    if (!response.ok) throw new Error('GitHub API error: ' + response.status);
+    const data = await response.json();
+    const stars = data.stargazers_count;
+    if (typeof stars === 'number' && stars >= 0) {
+      githubStarsCache.count = stars;
+      githubStarsCache.lastFetched = now;
+      console.log(`⭐ [GitHub Stars] Cache UPDATED: ${stars} stars (fetched at ${new Date(now).toISOString()})`);
+      return res.json({
+        success: true,
+        stars,
+        cached: false,
+        timestamp: new Date(now).toISOString()
+      });
+    } else {
+      throw new Error('Invalid stars count');
+    }
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: error.message
+    });
   }
 });
 
