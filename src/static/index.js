@@ -81,6 +81,7 @@ class SalaryCalculator {
       baseAylikNetMaasTRY: 0,
       baseAylikBagkurPekTRY: 0,
       comparisonBasis: "grossEquivalence", // Default comparison mode
+      tcePercentage: 100, // Default 100% of employer cost
       // Default values for expense items
       isDegiskenGiderEnabled: true,
       baseAylikDegiskenGiderTRY: 5000,
@@ -139,6 +140,8 @@ class SalaryCalculator {
       usdBtn: document.getElementById("usdBtn"),
       brutBasisBtn: document.getElementById("brutBasisBtn"),
       tceBasisBtn: document.getElementById("tceBasisBtn"),
+      tcePercentageInput: document.getElementById("tcePercentageInput"),
+      tcePercentagePanel: document.getElementById("tcePercentagePanel"),
       modeLabels: document.querySelectorAll(".mode-label"),
       currencyLabels: document.querySelectorAll(".currency-label"),
       kurStatus: document.getElementById("kur-status"),
@@ -1417,7 +1420,8 @@ class SalaryCalculator {
       // Determine revenue base based on comparison mode
       let yillikHasilat;
       if (this.state.comparisonBasis === "tceEquivalence") {
-        yillikHasilat = tceData.totalCost;
+        // Apply TCE percentage to derive the yearly revenue when using TCE equivalence mode
+        yillikHasilat = tceData.totalCost * (this.state.tcePercentage / 100);
       } else {
         yillikHasilat = yillikBrutMaasYeni;
       }
@@ -2081,9 +2085,11 @@ class SalaryCalculator {
     // Calculate the value to show based on comparison mode
     let valueToShow;
     if (this.state.comparisonBasis === "tceEquivalence" && yillikBrut > 0) {
-      // TCE mode: show total cost to employer
+      // TCE mode: show total cost to employer with percentage applied
       const tceData = this.calculateTotalCostToEmployer(yillikBrut);
-      valueToShow = (tceData.totalCost / 12) * timeMultiplier;
+      valueToShow =
+        (tceData.totalCost * (this.state.tcePercentage / 100) / 12) *
+        timeMultiplier;
     } else {
       // Default mode: show gross salary
       valueToShow = (yillikBrut / 12) * timeMultiplier;
@@ -2144,6 +2150,15 @@ class SalaryCalculator {
       "active",
       newBasis === "tceEquivalence"
     );
+
+    // Show/hide TCE percentage panel
+    if (this.elements.tcePercentagePanel) {
+      if (newBasis === "tceEquivalence") {
+        this.elements.tcePercentagePanel.classList.remove("hidden");
+      } else {
+        this.elements.tcePercentagePanel.classList.add("hidden");
+      }
+    }
 
     // Update label for the calculated input field
     const brutInputLabel = document.querySelector(
@@ -2336,6 +2351,26 @@ class SalaryCalculator {
       this.setComparisonBasis("tceEquivalence")
     );
 
+    // TCE Percentage Input
+    if (this.elements.tcePercentageInput) {
+      this.elements.tcePercentageInput.addEventListener("blur", (e) => {
+        let val = parseFloat(e.target.value);
+        if (isNaN(val) || val < 1) val = 1;
+        if (val > 200) val = 200;
+        this.state.tcePercentage = val;
+        e.target.value = val;
+        // Reflect change in UI and calculated displays
+        this.updateInputDisplays();
+        this.updateUI();
+      });
+
+      this.elements.tcePercentageInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.target.blur();
+        }
+      });
+    }
+
     // Accordion functionality - Hybrid Implementation
     this.elements.accordionContainer.addEventListener("click", (event) => {
       const button = event.target.closest(".accordion-button");
@@ -2378,6 +2413,14 @@ class SalaryCalculator {
     this.elements.brutBasisBtn.classList.add("active");
     this.elements.tceBasisBtn.classList.remove("active");
 
+    // Initialize TCE percentage input and hide panel
+    if (this.elements.tcePercentageInput) {
+      this.elements.tcePercentageInput.value = this.state.tcePercentage;
+    }
+    if (this.elements.tcePercentagePanel) {
+      this.elements.tcePercentagePanel.classList.add("hidden");
+    }
+
     this.elements.modeLabels.forEach((label) => {
       label.textContent = "Aylık";
     });
@@ -2418,7 +2461,47 @@ window.toggleSGKDetay = function (button) {
   }
 };
 
-// Initialize the application when DOM is loaded
+ // Initialize the application when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
   new SalaryCalculator();
+  initializeTooltipModal();
 });
+
+// Tooltip Modal functionality
+function initializeTooltipModal() {
+  const modal = document.getElementById('tooltipModal');
+  const modalBody = modal.querySelector('.tooltip-modal-body');
+  const closeBtn = modal.querySelector('.tooltip-modal-close');
+  const overlay = modal.querySelector('.tooltip-modal-overlay');
+
+  function openModal(text) {
+    modalBody.textContent = text;
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.info-icon').forEach(icon => {
+    icon.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const tooltipText = icon.getAttribute('data-tooltip');
+      if (tooltipText) {
+        openModal(tooltipText);
+      }
+    });
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', closeModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+      closeModal();
+    }
+  });
+}

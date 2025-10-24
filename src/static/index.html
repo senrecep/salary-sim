@@ -136,7 +136,7 @@
                   </div>
                   <!-- Comparison Basis Selector -->
                   <div
-                    class="flex rounded-lg p-1 bg-gray-100"
+                    class="flex items-center gap-2 rounded-lg p-1 bg-gray-100"
                     role="group"
                     aria-label="Comparison basis selection"
                   >
@@ -151,11 +151,50 @@
                       id="tceBasisBtn"
                       class="toggle-btn px-2 py-1 text-xs font-semibold rounded-md transition-colors"
                       aria-pressed="false"
-                      title="Varsayılan modda, freelance hasılatı maaşlı çalışanın brüt maaşına eşitlenir. 'İşveren Maliyeti' modunda ise hasılat, işverenin SGK payları dahil toplam maliyetine eşitlenir. Bu, bir pozisyon için ayrılan toplam bütçenin daha doğru bir karşılaştırmasını sağlar."
                     >
                       İşveren Maliyeti
-                      <span class="text-blue-500 cursor-help ml-1">ℹ️</span>
                     </button>
+
+                    <div id="tcePercentagePanel" class="hidden flex items-center gap-1 ml-1">
+                      <input
+                        type="number"
+                        id="tcePercentageInput"
+                        min="1"
+                        max="200"
+                        step="1"
+                        value="100"
+                        class="w-14 px-1.5 py-0.5 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                        title="İşveren maliyeti oranı (%)"
+                      />
+                      <span class="text-xs text-gray-600">%</span>
+                    </div>
+
+                    <span
+                      class="info-icon text-blue-500 cursor-help ml-1"
+                      data-tooltip="Varsayılan modda, freelance hasılatı maaşlı çalışanın brüt maaşına eşitlenir. 'İşveren Maliyeti' modunda ise hasılat, işverenin SGK payları dahil toplam maliyetine eşitlenir. Bu, bir pozisyon için ayrılan toplam bütçenin daha doğru bir karşılaştırmasını sağlar."
+                    >ℹ️</span>
+                  </div>
+
+                  <!-- TCE Percentage Input (shown only when İşveren Maliyeti is selected) -->
+                  <div id="tcePercentagePanel" class="hidden mt-3">
+                    <label for="tcePercentageInput" class="block text-xs font-medium text-gray-700 mb-1">
+                      İşveren Maliyeti Oranı (%)
+                    </label>
+                    <div class="flex items-center gap-2">
+                      <input
+                        type="number"
+                        id="tcePercentageInput"
+                        min="1"
+                        max="200"
+                        step="1"
+                        value="100"
+                        class="w-20 px-2 py-1 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      />
+                      <span class="text-xs text-gray-600">% (Varsayılan: 100%)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">
+                      İşveren maliyetinin yüzde kaçını baz alacağınızı belirleyin.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -338,12 +377,11 @@
                       for="matchSgkPrim"
                       class="text-sm font-medium text-gray-700 flex items-center gap-1"
                       >Emeklilik Eşdeğerliği
-                      <span
-                        class="text-blue-500 cursor-help"
-                        title="Bu seçenek, Bağ-Kur emekli maaşınızın, maaşlı çalışandakiyle aynı seviyede olmasını sağlamak için ödemeniz gereken prim kazancını (PEK) otomatik olarak ayarlar."
-                        >ℹ️</span
-                      >
                     </label>
+                    <span
+                      class="info-icon text-blue-500 cursor-help"
+                      data-tooltip="Bu seçenek, Bağ-Kur emekli maaşınızın, maaşlı çalışandakiyle aynı seviyede olmasını sağlamak için ödemeniz gereken prim kazancını (PEK) otomatik olarak ayarlar."
+                      >ℹ️</span>
                     <div id="matchSgkHelp" class="sr-only">
                       Match SGK retirement contributions for equivalent pension
                     </div>
@@ -382,12 +420,11 @@
                       for="sgkMuafiyeti"
                       class="text-sm font-medium text-gray-700 flex items-center gap-1"
                       >SGK Muafiyeti
-                      <span
-                        class="text-blue-500 cursor-help"
-                        title="Mevcut SGK'lı işiniz devam ederken şahıs şirketi kurduğunuzda, 5510 sayılı kanunun 53. maddesi gereği Bağ-Kur primi ödeme yükümlülüğünüz bulunmaz. Bu seçenek bu durumu simüle eder."
-                        >ℹ️</span
-                      >
                     </label>
+                    <span
+                      class="info-icon text-blue-500 cursor-help"
+                      data-tooltip="Mevcut SGK'lı işiniz devam ederken şahıs şirketi kurduğunuzda, 5510 sayılı kanunun 53. maddesi gereği Bağ-Kur primi ödeme yükümlülüğünüz bulunmaz. Bu seçenek bu durumu simüle eder."
+                      >ℹ️</span>
                     <div id="sgkMuafiyetiHelp" class="sr-only">
                       Exempt from Bağ-Kur premiums due to existing SGK
                       employment
@@ -529,6 +566,14 @@
           ></div>
         </div>
       </section>
+    </div>
+
+    <div id="tooltipModal" class="tooltip-modal hidden">
+      <div class="tooltip-modal-overlay"></div>
+      <div class="tooltip-modal-content">
+        <button class="tooltip-modal-close" aria-label="Kapat">&times;</button>
+        <div class="tooltip-modal-body"></div>
+      </div>
     </div>
 
     <script src="index.js?v={{VERSION}}"></script>
