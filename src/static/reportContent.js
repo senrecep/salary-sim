@@ -599,6 +599,37 @@ const reportKullanimKilavuzu = {
       `,
   };
   
+  const reportTesReformu = {
+    title: "2026 TES Reformu: Kıdem Tazminatı ve Maaş Kesintisi Analizi (2026 Yasa Teklifi Analizi)",
+    type: "warning", // Uyarı - gelecekteki değişiklik
+    content: `
+          <h4>Özet: Tamamlayıcı Emeklilik Sistemi (TES) Nedir?</h4>
+          <p>Hükümetin Orta Vadeli Programı'nda (OVP) yer alan plana göre, 2026 yılının ikinci yarısında <strong>Tamamlayıcı Emeklilik Sistemi (TES)</strong> adı verilen yeni bir sistemin hayata geçirilmesi hedeflenmektedir. Bu sistem, mevcut SGK emekliliğine ek olarak ikinci bir emeklilik maaşı sağlamayı amaçlamaktadır.</p>
+          
+          <div class="bg-red-50 border-l-4 border-red-500 p-4 my-4 rounded">
+              <span class="font-bold text-red-900">TES Reformunun Simülatörümüzdeki Etkileri:</span>
+              <p>Yaptığımız analize göre, bu reform <strong>sadece Model A (Maaşlı Çalışan)</strong> statüsündekileri etkileyecek, Model B (Bağ-Kur) şimdilik bu kapsama dahil edilmeyecektir.</p>
+              <ul class="list-disc pl-5 mt-2">
+                  <li><strong>Model A (Maaşlı) için YENİ ZORUNLU KESİNTİLER:</strong>
+                      <ul class="list-disc pl-6">
+                          <li><strong>%3 Çalışan Katkısı:</strong> Brüt maaşınızdan %3 oranında zorunlu TES kesintisi yapılacak. Bu, elinize geçen <strong>net maaşı doğrudan azaltacaktır.</strong></li>
+                          <li><strong>~%4 İşveren Ek Maliyeti:</strong> İşvereniniz, brüt maaşınız üzerinden ek olarak ~%1 TES katkısı ve ~%3 Kıdem Fonu katkısı ödeyecek. Bu, <strong>İşverene Toplam Maliyeti (TCE) ciddi oranda artıracaktır.</strong></li>
+                      </ul>
+                  </li>
+                  <li><strong>Model B (Bağ-Kur) için ETKİ YOK:</strong> Kendi nam ve hesabına çalışanlar (4/B) mevcut planlarda TES kapsamı dışındadır.</li>
+              </ul>
+          </div>
+
+          <h4>Bu Simülatörde Nasıl Test Edebilirim?</h4>
+          <p>'Seçenekler' bölümüne <strong>"2026 TES Reformu Simülasyonu (Deneysel)"</strong> adında yeni bir onay kutusu ekledik.</p>
+          <ul class="list-disc pl-5 mt-2">
+              <li><strong>Kutu İşaretli Değilken (Varsayılan):</strong> Simülatör, mevcut 2025 yılı yasal durumuna göre hesaplama yapar.</li>
+              <li><strong>Kutuyu İşaretlediğinizde:</strong> Simülatör, Model A'nın net maaşını ve işveren maliyetini TES reformu uygulanmış gibi yeniden hesaplar. Model B ise aynı kalır.</li>
+          </ul>
+          <p>Bu aracı kullanarak, reformun Model A ve Model B arasındaki finansal dengeyi ne kadar güçlü bir şekilde <strong>Model B (Şahıs Şirketi) lehine</strong> değiştirdiğini kendiniz analiz edebilirsiniz.</p>
+      `,
+  };
+  
   const reportGecisZamanlamasi = {
     title: "4A'dan 4B'ye Geçiş: Yükümlülükler ve Zaman Çizelgesi",
     type: "info", // Bilgilendirme
@@ -880,6 +911,7 @@ const reportKullanimKilavuzu = {
           
           // 6. GELECEK PLANLAMA VE UYARILAR
           reportGencGirisimciGelecegi,         // Genç girişimci desteğinin geleceği
+          reportTesReformu,                    // 2026 TES Reformu analizi
           reportBagKur7200Reformu,             // Beklenen yasal değişiklikler
           reportSirketlesmeZamani,             // Şirketleşme kararı (şahıs → limited)
           

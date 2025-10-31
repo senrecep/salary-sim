@@ -154,6 +154,7 @@ class SalaryCalculator {
       zamDetayPanel: document.getElementById("zamDetayPanel"),
       zamOrani: document.getElementById("zamOrani"),
       zamAyi: document.getElementById("zamAyi"),
+      tesReformuUygulaCheck: document.getElementById("tesReformuUygula"),
     };
   }
 
@@ -355,7 +356,7 @@ class SalaryCalculator {
   }
   
   // SGK calculation methods
-  calculateSGKSabitNetMaas(hedefAylikNetMaas, zamParametreleri = null) {
+  calculateSGKSabitNetMaas(hedefAylikNetMaas, zamParametreleri = null, tesOranlari = { calisan: 0 }) {
     if (isNaN(hedefAylikNetMaas) || hedefAylikNetMaas <= 0) {
       return { toplamVergi: 0, aylikDetay: [] };
     }
@@ -379,13 +380,19 @@ class SalaryCalculator {
       let ayinBrutu = this.calculateBrutFromNetAylikKumulatif(
         hedefNetMaas,
         kumulatifGelirVergisiMatrahi,
-        ay
+        ay,
+        tesOranlari.calisan
       );
 
       const aylikPekTavan = this.constants.AYLIK_PEK_TAVAN;
       const sgkMatrahi = Math.min(ayinBrutu, aylikPekTavan);
       const sgkIsciPayi = sgkMatrahi * this.constants.SGK_ISCI_PAYI_ORANI;
-      const aylikGelirVergisiMatrahi = sgkMatrahi - sgkIsciPayi;
+      
+      // TES Kesintisi (SGK Matrahı üzerinden hesaplanır)
+      const tesCalisanPayi = sgkMatrahi * tesOranlari.calisan;
+      
+      // Gelir Vergisi Matrahı (TES payı da matrahtan düşülür)
+      const aylikGelirVergisiMatrahi = sgkMatrahi - sgkIsciPayi - tesCalisanPayi;
 
       kumulatifGelirVergisiMatrahi += aylikGelirVergisiMatrahi;
 
@@ -422,6 +429,7 @@ class SalaryCalculator {
         brutMaas: ayinBrutu,
         sgkMatrahi: sgkMatrahi,
         sgkIsciPayi: sgkIsciPayi,
+        tesCalisanPayi: tesCalisanPayi,
         gelirVergisiMatrahi: aylikGelirVergisiMatrahi,
         kumulatifMatrah: kumulatifGelirVergisiMatrahi,
         buAyinVergisi: buAyinVergisi,
@@ -451,7 +459,8 @@ class SalaryCalculator {
   calculateBrutFromNetAylikKumulatif(
     aylikNet,
     oncekiKumulatifMatrah = 0,
-    mevcutAy = 1
+    mevcutAy = 1,
+    tesCalisanOrani = 0
   ) {
     if (aylikNet <= 0) return 0;
     let low = aylikNet;
@@ -463,7 +472,12 @@ class SalaryCalculator {
 
       const sgkMatrahi = Math.min(brutGuess, this.constants.AYLIK_PEK_TAVAN);
       const sgkIsciPayi = sgkMatrahi * this.constants.SGK_ISCI_PAYI_ORANI;
-      const aylikGelirVergisiMatrahi = sgkMatrahi - sgkIsciPayi;
+      
+      // TES Kesintisi (SGK Matrahı üzerinden hesaplanır)
+      const tesCalisanPayi = sgkMatrahi * tesCalisanOrani;
+      
+      // Gelir Vergisi Matrahı (TES payı da matrahtan düşülür)
+      const aylikGelirVergisiMatrahi = sgkMatrahi - sgkIsciPayi - tesCalisanPayi;
 
       const toplamKumulatifMatrah =
         oncekiKumulatifMatrah + aylikGelirVergisiMatrahi;
@@ -511,7 +525,7 @@ class SalaryCalculator {
         Math.max(0, brutGuess - this.constants.AYLIK_BRUT_ASGARI_UCRET) *
         this.constants.DAMGA_VERGISI_ORANI;
       const hesaplananNet =
-        brutGuess - (sgkIsciPayi + buAyinVergisi + damgaVergisi);
+        brutGuess - (sgkIsciPayi + buAyinVergisi + damgaVergisi + tesCalisanPayi);
 
       if (Math.abs(hesaplananNet - aylikNet) < 10) {
         return brutGuess;
@@ -543,7 +557,7 @@ class SalaryCalculator {
     return yillikBrut - (sgkIsciPayi + yillikGelirVergisi + damgaVergisi);
   }
 
-  calculateTotalCostToEmployer(yillikBrutMaas) {
+  calculateTotalCostToEmployer(yillikBrutMaas, tesOranlari = { isveren: 0, kidemFonu: 0 }) {
     if (isNaN(yillikBrutMaas) || yillikBrutMaas <= 0) {
       return { totalCost: 0, employerPremiums: 0, brutMaas: 0 };
     }
@@ -556,7 +570,11 @@ class SalaryCalculator {
     const ISSIZLIK_ISVEREN_PAYI =
       SGK_MATRAHI * this.constants.ISSIZLIK_ISVEREN_PAYI_ORANI;
 
-    const totalCost = yillikBrutMaas + SGK_ISVEREN_PAYI + ISSIZLIK_ISVEREN_PAYI;
+    // TES Reformu Maliyetleri (SGK Matrahı üzerinden hesaplanır)
+    const TES_ISVEREN_PAYI = SGK_MATRAHI * tesOranlari.isveren;
+    const KIDEM_FON_PAYI = SGK_MATRAHI * tesOranlari.kidemFonu;
+
+    const totalCost = yillikBrutMaas + SGK_ISVEREN_PAYI + ISSIZLIK_ISVEREN_PAYI + TES_ISVEREN_PAYI + KIDEM_FON_PAYI;
     const employerPremiums = SGK_ISVEREN_PAYI + ISSIZLIK_ISVEREN_PAYI;
 
     return { totalCost, employerPremiums, brutMaas: yillikBrutMaas };
@@ -635,13 +653,22 @@ class SalaryCalculator {
         };
       }
 
+      // TES Reformu Oranlarını Tanımla
+      const isTesEnabled = this.elements.tesReformuUygulaCheck?.checked || false;
+      const tesOranlari = {
+        calisan: isTesEnabled ? 0.03 : 0,    // %3 Çalışan Kesintisi
+        isveren: isTesEnabled ? 0.01 : 0,    // %1 İşveren Katkısı
+        kidemFonu: isTesEnabled ? 0.03 : 0    // %3 Kıdem Fonu Katkısı
+      };
+
       this.elements.resultsPanel.innerHTML = "";
 
       // Model A - SGK calculation
       const aylikNetMaasHedefi = this.state.baseAylikNetMaasTRY;
       const sgkSabitNetData = this.calculateSGKSabitNetMaas(
         aylikNetMaasHedefi,
-        zamParametreleri
+        zamParametreleri,
+        tesOranlari
       );
 
       const yillikBrutMaasYeni = sgkSabitNetData.aylikDetay.reduce(
@@ -663,7 +690,8 @@ class SalaryCalculator {
       const sgkIsverenOrani = this.constants.SGK_ISVEREN_DIGER_ORANI;
       const sgkIsciPayiA = sgkMatrahiA * this.constants.SGK_ISCI_PAYI_ORANI; // SGK employee's share
       const issizlikIsciPayiA = sgkMatrahiA * 0.01; // Unemployment insurance employee's share (1%)
-      const toplamPrimGideriA = sgkIsciPayiA + issizlikIsciPayiA; // Total employee premiums
+      const tesCalisanPayiA = sgkMatrahiA * tesOranlari.calisan; // TES employee's share (%3)
+      const toplamPrimGideriA = sgkIsciPayiA + issizlikIsciPayiA + tesCalisanPayiA; // Total employee premiums including TES
 
       const netGelirA = sgkSabitNetData.aylikDetay.reduce(
         (toplam, ay) => toplam + ay.netMaas,
@@ -679,21 +707,42 @@ class SalaryCalculator {
       };
 
       // Calculate TCE for Model A
-      const tceData = this.calculateTotalCostToEmployer(yillikBrutMaasYeni);
+      const tceData = this.calculateTotalCostToEmployer(yillikBrutMaasYeni, tesOranlari);
+
+      // İşveren maliyetlerini hesapla
+      const sgkIsverenPayiA = sgkMatrahiA * this.constants.SGK_ISVEREN_TESVIKLI_ORANI;
+      const issizlikIsverenPayiA = sgkMatrahiA * this.constants.ISSIZLIK_ISVEREN_PAYI_ORANI;
+      const tesIsverenPayiA = sgkMatrahiA * tesOranlari.isveren; // TES İşveren Katkısı
+      const kidemFonPayiA = sgkMatrahiA * tesOranlari.kidemFonu; // Kıdem Fonu Katkısı
 
       // Create detailed breakdown for Model A
       const gelirVergisiDilimiA = sgkSabitNetData.yilSonuDilimi || "%15-40";
       const detailedBreakdownA = {
+        // Çalışan Kesintileri
         sgkPrimi: sgkIsciPayiA,
         issizlikSigortasi: issizlikIsciPayiA,
+        tesPrimi: tesCalisanPayiA, // TES Kesintisi
         damgaVergisi: damgaVergisiA,
         gelirVergisi: sgkSabitNetData.toplamVergi,
         gelirVergisiDilimi: gelirVergisiDilimiA,
+        // İşveren Maliyetleri
+        sgkIsverenPayi: sgkIsverenPayiA,
+        issizlikIsverenPayi: issizlikIsverenPayiA,
+        tesIsverenPayi: tesIsverenPayiA,
+        kidemFonPayi: kidemFonPayiA,
+        // Toplamlar
         toplamKesinti:
           sgkIsciPayiA +
           issizlikIsciPayiA +
+          tesCalisanPayiA +
           damgaVergisiA +
           sgkSabitNetData.toplamVergi,
+        toplamIsverenMaliyeti: 
+          sgkIsverenPayiA +
+          issizlikIsverenPayiA +
+          tesIsverenPayiA +
+          kidemFonPayiA,
+        isTesEnabled: isTesEnabled, // TES durumu için flag
       };
 
       this.elements.resultsPanel.innerHTML += this.createResultCard(
@@ -1091,79 +1140,189 @@ class SalaryCalculator {
       if (detailedBreakdown && title.includes("Model A")) {
         detailedBreakdownHTML = `
                 <div class="mt-4 border-t pt-3">
-                    <h4 class="text-sm font-semibold text-gray-700 text-center mb-3">📋 Kesintiler</h4>
-                    <div class="grid grid-cols-2 gap-3 text-sm">
-                        <div class="bg-red-50 p-3 rounded-lg border border-red-200">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-gray-600">SGK Primi</span>
-                                <span class="font-semibold text-red-600">${this.formatCurrency(
-                                  this.state.currentCurrency === "TRY"
-                                    ? detailedBreakdown.sgkPrimi / divisor
-                                    : detailedBreakdown.sgkPrimi /
-                                        divisor /
-                                        this.state.usdRate,
-                                  this.state.currentCurrency
-                                )}</span>
+                    <h4 class="text-sm font-semibold text-gray-700 text-center mb-4">📋 Kesintiler ve Maliyetler</h4>
+                    
+                    <!-- Çalışan Kesintileri -->
+                    <div class="mb-4">
+                        <h5 class="text-xs font-semibold text-gray-600 mb-2">👤 Çalışan Kesintileri (Maaştan Düşenler)</h5>
+                        <div class="grid grid-cols-2 gap-3 text-sm">
+                            <div class="bg-red-50 p-3 rounded-lg border border-red-200">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-gray-600">SGK Primi</span>
+                                    <span class="font-semibold text-red-600">${this.formatCurrency(
+                                      this.state.currentCurrency === "TRY"
+                                        ? detailedBreakdown.sgkPrimi / divisor
+                                        : detailedBreakdown.sgkPrimi /
+                                            divisor /
+                                            this.state.usdRate,
+                                      this.state.currentCurrency
+                                    )}</span>
+                                </div>
+                                <div class="text-xs text-gray-500">%15</div>
                             </div>
-                            <div class="text-xs text-gray-500">%15</div>
+                            <div class="bg-orange-50 p-3 rounded-lg border border-orange-200">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-gray-600">İşsizlik Sig.</span>
+                                    <span class="font-semibold text-orange-600">${this.formatCurrency(
+                                      this.state.currentCurrency === "TRY"
+                                        ? detailedBreakdown.issizlikSigortasi /
+                                            divisor
+                                        : detailedBreakdown.issizlikSigortasi /
+                                            divisor /
+                                            this.state.usdRate,
+                                      this.state.currentCurrency
+                                    )}</span>
+                                </div>
+                                <div class="text-xs text-gray-500">%1</div>
+                            </div>
+                            ${detailedBreakdown.isTesEnabled && detailedBreakdown.tesPrimi ? `
+                            <div class="bg-amber-50 p-3 rounded-lg border border-amber-300">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-gray-600 flex items-center gap-1">
+                                      TES Kesintisi
+                                      <span class="text-xs text-amber-700 bg-amber-100 px-1 rounded">2026</span>
+                                    </span>
+                                    <span class="font-semibold text-amber-700">${this.formatCurrency(
+                                      this.state.currentCurrency === "TRY"
+                                        ? detailedBreakdown.tesPrimi / divisor
+                                        : detailedBreakdown.tesPrimi /
+                                            divisor /
+                                            this.state.usdRate,
+                                      this.state.currentCurrency
+                                    )}</span>
+                                </div>
+                                <div class="text-xs text-gray-500">%3</div>
+                            </div>
+                            ` : ''}
+                            <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-gray-600">Gelir Vergisi</span>
+                                    <span class="font-semibold text-blue-600">${this.formatCurrency(
+                                      this.state.currentCurrency === "TRY"
+                                        ? detailedBreakdown.gelirVergisi / divisor
+                                        : detailedBreakdown.gelirVergisi /
+                                            divisor /
+                                            this.state.usdRate,
+                                      this.state.currentCurrency
+                                    )}</span>
+                                </div>
+                                <div class="text-xs text-gray-500">${
+                                  detailedBreakdown.gelirVergisiDilimi
+                                }</div>
+                            </div>
+                            <div class="bg-purple-50 p-3 rounded-lg border border-purple-200">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-gray-600">Damga Vergisi</span>
+                                    <span class="font-semibold text-purple-600">${this.formatCurrency(
+                                      this.state.currentCurrency === "TRY"
+                                        ? detailedBreakdown.damgaVergisi / divisor
+                                        : detailedBreakdown.damgaVergisi /
+                                            divisor /
+                                            this.state.usdRate,
+                                      this.state.currentCurrency
+                                    )}</span>
+                                </div>
+                                <div class="text-xs text-gray-500">%0.759</div>
+                            </div>
                         </div>
-                        <div class="bg-orange-50 p-3 rounded-lg border border-orange-200">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-gray-600">İşsizlik Sig.</span>
-                                <span class="font-semibold text-orange-600">${this.formatCurrency(
+                        <div class="mt-3 p-3 bg-gray-100 rounded-lg border">
+                            <div class="flex justify-between items-center">
+                                <span class="font-semibold text-gray-700">Toplam Kesinti:</span>
+                                <span class="font-bold text-red-700">${this.formatCurrency(
                                   this.state.currentCurrency === "TRY"
-                                    ? detailedBreakdown.issizlikSigortasi /
-                                        divisor
-                                    : detailedBreakdown.issizlikSigortasi /
+                                    ? detailedBreakdown.toplamKesinti / divisor
+                                    : detailedBreakdown.toplamKesinti /
                                         divisor /
                                         this.state.usdRate,
                                   this.state.currentCurrency
                                 )}</span>
                             </div>
-                            <div class="text-xs text-gray-500">%1</div>
-                        </div>
-                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-gray-600">Gelir Vergisi</span>
-                                <span class="font-semibold text-blue-600">${this.formatCurrency(
-                                  this.state.currentCurrency === "TRY"
-                                    ? detailedBreakdown.gelirVergisi / divisor
-                                    : detailedBreakdown.gelirVergisi /
-                                        divisor /
-                                        this.state.usdRate,
-                                  this.state.currentCurrency
-                                )}</span>
-                            </div>
-                            <div class="text-xs text-gray-500">${
-                              detailedBreakdown.gelirVergisiDilimi
-                            }</div>
-                        </div>
-                        <div class="bg-purple-50 p-3 rounded-lg border border-purple-200">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-gray-600">Damga Vergisi</span>
-                                <span class="font-semibold text-purple-600">${this.formatCurrency(
-                                  this.state.currentCurrency === "TRY"
-                                    ? detailedBreakdown.damgaVergisi / divisor
-                                    : detailedBreakdown.damgaVergisi /
-                                        divisor /
-                                        this.state.usdRate,
-                                  this.state.currentCurrency
-                                )}</span>
-                            </div>
-                            <div class="text-xs text-gray-500">%0.759</div>
                         </div>
                     </div>
-                    <div class="mt-3 p-3 bg-gray-100 rounded-lg border">
-                        <div class="flex justify-between items-center">
-                            <span class="font-semibold text-gray-700">Toplam Kesinti:</span>
-                            <span class="font-bold text-red-700">${this.formatCurrency(
-                              this.state.currentCurrency === "TRY"
-                                ? detailedBreakdown.toplamKesinti / divisor
-                                : detailedBreakdown.toplamKesinti /
-                                    divisor /
-                                    this.state.usdRate,
-                              this.state.currentCurrency
-                            )}</span>
+
+                    <!-- İşveren Maliyetleri -->
+                    <div class="mt-4 pt-4 border-t">
+                        <h5 class="text-xs font-semibold text-gray-600 mb-2">🏢 İşveren Maliyetleri (Brüt Maaş Dışında)</h5>
+                        <div class="grid grid-cols-2 gap-3 text-sm">
+                            <div class="bg-green-50 p-3 rounded-lg border border-green-200">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-gray-600">SGK İşveren Payı</span>
+                                    <span class="font-semibold text-green-700">${this.formatCurrency(
+                                      this.state.currentCurrency === "TRY"
+                                        ? detailedBreakdown.sgkIsverenPayi / divisor
+                                        : detailedBreakdown.sgkIsverenPayi /
+                                            divisor /
+                                            this.state.usdRate,
+                                      this.state.currentCurrency
+                                    )}</span>
+                                </div>
+                                <div class="text-xs text-gray-500">%15.75</div>
+                            </div>
+                            <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-gray-600">İşsizlik İşveren Payı</span>
+                                    <span class="font-semibold text-yellow-700">${this.formatCurrency(
+                                      this.state.currentCurrency === "TRY"
+                                        ? detailedBreakdown.issizlikIsverenPayi / divisor
+                                        : detailedBreakdown.issizlikIsverenPayi /
+                                            divisor /
+                                            this.state.usdRate,
+                                      this.state.currentCurrency
+                                    )}</span>
+                                </div>
+                                <div class="text-xs text-gray-500">%2</div>
+                            </div>
+                            ${detailedBreakdown.isTesEnabled && detailedBreakdown.tesIsverenPayi ? `
+                            <div class="bg-amber-50 p-3 rounded-lg border border-amber-300">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-gray-600 flex items-center gap-1">
+                                      TES İşveren Katkısı
+                                      <span class="text-xs text-amber-700 bg-amber-100 px-1 rounded">2026</span>
+                                    </span>
+                                    <span class="font-semibold text-amber-700">${this.formatCurrency(
+                                      this.state.currentCurrency === "TRY"
+                                        ? detailedBreakdown.tesIsverenPayi / divisor
+                                        : detailedBreakdown.tesIsverenPayi /
+                                            divisor /
+                                            this.state.usdRate,
+                                      this.state.currentCurrency
+                                    )}</span>
+                                </div>
+                                <div class="text-xs text-gray-500">%1</div>
+                            </div>
+                            ` : ''}
+                            ${detailedBreakdown.isTesEnabled && detailedBreakdown.kidemFonPayi ? `
+                            <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-300">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-gray-600 flex items-center gap-1">
+                                      Kıdem Fonu Katkısı
+                                      <span class="text-xs text-indigo-700 bg-indigo-100 px-1 rounded">2026</span>
+                                    </span>
+                                    <span class="font-semibold text-indigo-700">${this.formatCurrency(
+                                      this.state.currentCurrency === "TRY"
+                                        ? detailedBreakdown.kidemFonPayi / divisor
+                                        : detailedBreakdown.kidemFonPayi /
+                                            divisor /
+                                            this.state.usdRate,
+                                      this.state.currentCurrency
+                                    )}</span>
+                                </div>
+                                <div class="text-xs text-gray-500">%3</div>
+                            </div>
+                            ` : ''}
+                        </div>
+                        <div class="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-semibold text-blue-700">Toplam İşveren Maliyeti:</span>
+                                <span class="font-bold text-blue-800">${this.formatCurrency(
+                                  this.state.currentCurrency === "TRY"
+                                    ? detailedBreakdown.toplamIsverenMaliyeti / divisor
+                                    : detailedBreakdown.toplamIsverenMaliyeti /
+                                        divisor /
+                                        this.state.usdRate,
+                                  this.state.currentCurrency
+                                )}</span>
+                            </div>
                         </div>
                     </div>
                 </div>`;
@@ -1373,11 +1532,27 @@ class SalaryCalculator {
   // State management methods
   updateBaseValuesFromInputs() {
     const netMaasVal = parseFloat(this.elements.netMaasInput.value);
-    this.state.baseAylikNetMaasTRY = isNaN(netMaasVal)
-      ? 0
-      : this.state.currentMode === "yearly"
-      ? netMaasVal / 12
-      : netMaasVal;
+    const MAX_AYLIK_NET_MAAS = 1000000000; // 1 milyar TL maksimum limit
+    let validNetMaas = isNaN(netMaasVal) ? 0 : netMaasVal;
+    
+    // Yıllık modda kontrol
+    if (this.state.currentMode === "yearly") {
+      validNetMaas = validNetMaas / 12;
+    }
+    
+    // Maksimum değer kontrolü
+    if (validNetMaas > MAX_AYLIK_NET_MAAS) {
+      validNetMaas = MAX_AYLIK_NET_MAAS;
+      // Input değerini de güncelle
+      const displayValue = this.state.currentMode === "yearly" 
+        ? MAX_AYLIK_NET_MAAS * 12 
+        : MAX_AYLIK_NET_MAAS;
+      this.elements.netMaasInput.value = Math.round(displayValue);
+      // Kullanıcıyı bilgilendir
+      console.warn(`Maksimum aylık net maaş limiti: ₺${MAX_AYLIK_NET_MAAS.toLocaleString('tr-TR')}`);
+    }
+    
+    this.state.baseAylikNetMaasTRY = validNetMaas < 0 ? 0 : validNetMaas;
 
     const bagkurVal = parseFloat(this.elements.bagkurPrimiInput.value);
     this.state.baseAylikBagkurPekTRY = isNaN(bagkurVal)
@@ -1449,6 +1624,11 @@ class SalaryCalculator {
     this.elements.modeLabels.forEach((label) => {
       label.textContent = newMode === "yearly" ? "Yıllık" : "Aylık";
     });
+    // Net maaş input max değerini güncelle
+    const MAX_AYLIK_NET_MAAS = 1000000000; // 1 milyar TL
+    this.elements.netMaasInput.max = newMode === "yearly" 
+      ? MAX_AYLIK_NET_MAAS * 12 
+      : MAX_AYLIK_NET_MAAS;
     this.updateInputDisplays();
     this.updateUI();
   }
@@ -1697,6 +1877,14 @@ class SalaryCalculator {
         if (e.key === "Enter") {
           e.target.blur();
         }
+      });
+    }
+
+    // TES Reformu checkbox
+    if (this.elements.tesReformuUygulaCheck) {
+      this.elements.tesReformuUygulaCheck.addEventListener("change", () => {
+        this.updateBaseValuesFromInputs();
+        this.updateUI();
       });
     }
 

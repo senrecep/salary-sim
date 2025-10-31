@@ -246,6 +246,9 @@
                   <input
                     type="number"
                     id="netMaasInput"
+                    min="0"
+                    max="1000000000"
+                    step="0.01"
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm p-3"
                     aria-describedby="netMaasHelp"
                   />
@@ -574,6 +577,30 @@
                           </div>
                         </div>
                       </div>
+                    </div>
+                  </div>
+
+                  <!-- 2026 TES Reformu Simulation -->
+                  <div class="flex items-center space-x-2">
+                    <input
+                      id="tesReformuUygula"
+                      name="tesReformuUygula"
+                      type="checkbox"
+                      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      aria-describedby="tesReformuHelp"
+                    />
+                    <label
+                      for="tesReformuUygula"
+                      class="text-sm font-medium text-gray-700"
+                      >2026 TES Reformu Simülasyonu (Deneysel)</label
+                    >
+                    <span
+                      class="info-icon text-red-500 cursor-help"
+                      data-tooltip="DİKKAT: Bu seçeneği işaretlemek, 2026'da planlanan Tamamlayıcı Emeklilik Sistemi'ni (TES) simüle eder. Model A'nın (Maaşlı) net maaşından %3 kesinti yapar ve işveren maliyetini (TCE) %4 artırır. Raporlara göre Model B (Bağ-Kur) bu sistemden etkilenmez."
+                      >ℹ️</span
+                    >
+                    <div id="tesReformuHelp" class="sr-only">
+                      Simulate 2026 TES (Complementary Retirement System) reform
                     </div>
                   </div>
                 </div>
