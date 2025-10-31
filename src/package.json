@@ -1,6 +1,7 @@
 {
   "name": "salary-sim-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "Salary calculator with exchange rate API",
   "main": "server.js",
   "scripts": {
