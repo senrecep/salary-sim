@@ -129,7 +129,8 @@ class SalaryCalculator {
       bagkurPrimiInput: document.getElementById("bagkurPrimiInput"),
       matchSgkPrimCheck: document.getElementById("matchSgkPrim"),
       sgkMuafiyetiCheck: document.getElementById("sgkMuafiyeti"),
-      gencGirisimciCheck: document.getElementById("gencGirisimci"),
+      gencGirisimciVergiCheck: document.getElementById("gencGirisimciVergi"),
+      gencGirisimciPrimCheck: document.getElementById("gencGirisimciPrim"),
       hizmetIhracatiCheck: document.getElementById("hizmetIhracati"),
       bagkurPrimLabel: document.getElementById("bagkurPrimLabel"),
       resultsPanel: document.getElementById("results-panel"),
@@ -842,6 +843,33 @@ class SalaryCalculator {
                     <p class="m-0"><strong>💡 Önemli Hatırlatma:</strong> Bu rehber genel bilgilendirme amaçlıdır. Kişisel durumunuza özel kararlar için mutlaka profesyonel danışmanlık alın. Vergi mevzuatı sürekli değişir ve bireysel şartlar farklılık gösterebilir.</p>
                 </div>
             `,
+      "⚠️ Genç Girişimci Desteğinin Geleceği (2026 Yasa Teklifi Analizi)": `
+        <h4>Özet: Yasal Değişiklik Tehdidi</h4>
+        <p>Simülatör kullanıcımız tarafından sağlanan ve TBMM'ye sunulan bir "Mali Torba Kanun Teklifi" analizine göre, Genç Girişimci Desteği programının geleceği belirsizdir. Mevcut teklif, programın iki ana direğinden birini doğrudan hedef almaktadır.</p>
+        
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 my-4 rounded">
+            <span class="font-bold text-yellow-900">Mevcut Durum (2025) İki Faydayı İçerir:</span>
+            <ul class="list-disc pl-5 mt-2">
+                <li><strong>Gelir Vergisi İstisnası:</strong> 3 yıl boyunca, yıllık 330.000 TL (2025) kâr için vergi muafiyeti.</li>
+                <li><strong>Bağ-Kur Prim Desteği:</strong> 12 ay boyunca Hazine tarafından ödenen Bağ-Kur primi (Yıllık ~92.000 TL tasarruf).</li>
+            </ul>
+        </div>
+        <div class="bg-red-50 border-l-4 border-red-500 p-4 my-4 rounded">
+            <span class="font-bold text-red-900">Risk Altındaki Değişiklik:</span>
+            <ul class="list-disc pl-5 mt-2">
+                <li><strong>Bağ-Kur Prim Desteği:</strong> Yasa teklifi, bu desteğin 2026 itibarıyla <strong>KALDIRILMASINI</strong> açıkça içermektedir.</li>
+                <li><strong>Gelir Vergisi İstisnası:</strong> Mevcut teklifte bu istisnanın kaldırılmasına dair bir madde <strong>BULUNMAMAKTADIR</strong>. Ancak geleceği belirsizliğini korumaktadır.</li>
+            </ul>
+        </div>
+        <h4>Simülatör Nasıl Güncellendi?</h4>
+        <p>Bu belirsizliği ve potansiyel gelecek senaryolarını doğru modelleyebilmeniz için, "Genç Girişimci" seçeneğini ikiye ayırdık:</p>
+        <ul class="list-disc pl-5 mt-2">
+            <li><strong>Genç Girişimci Vergi İstisnası</strong></li>
+            <li><strong>Genç Girişimci Bağ-Kur Desteği</strong></li>
+        </ul>
+        
+        <p><strong>2026 ve sonrası için bir senaryo analizi yapmak istiyorsanız, "Genç Girişimci Bağ-Kur Desteği" seçeneğinin işaretini kaldırarak</strong>, sadece vergi istisnasının devam ettiği "yeni normal" durumu simüle edebilirsiniz. Bu, size yasa teklifinin geçmesi durumunda Model B'nin net gelirinizi nasıl etkileyeceğini gösterecektir.</p>
+      `,
       "4A'dan 4B'ye Geçiş: Yükümlülükler ve Zaman Çizelgesi": `
         <p>Maaşlı bir işten (4A) ayrılıp tamamen kendi işinizin (4B - Şahıs Şirketi) başına geçme kararı, finansal ve yasal yükümlülüklerin zamanlamasını doğru anlamayı gerektirir. Bu bölüm, geçiş sürecindeki kritik adımları ve mali sorumluluklarınızın ne zaman başladığını netleştirmek için tasarlanmıştır.</p>
 
@@ -901,6 +929,45 @@ class SalaryCalculator {
             <h6 class="mt-0"><strong>Stratejik Tavsiye: "Çifte Statü" Dönemi</strong></h6>
             <p class="mb-0">Finansal riski en aza indirmek için, mümkünse 4A'lı işinizden ayrılmadan önce şahıs şirketinizi kurun. Bu sayede, "SGK Muafiyeti" seçeneğinden yararlanarak Bağ-Kur primi ödemeden ilk müşterilerinizi bulabilir ve gelir akışı oluşturabilirsiniz. Bu, tam zamanlı geçişi çok daha güvenli hale getirir.</p>
         </div>
+      `,
+      "Model B Vergi Hesaplaması: 'Aylık Ortalama' vs 'Geçici Vergi' Nedir?": `
+        <p>Model A (Maaşlı Çalışan) ile Model B (Şahıs Şirketi) arasındaki en temel fark, verginin ödenme şeklinde, yani nakit akışında ortaya çıkar.</p>
+
+        <h4 class="mt-6">Model A (Maaşlı): Düzenli ve Otomatik</h4>
+        <p>Maaşlı çalışırken, gelir verginiz her ay maaşınızdan otomatik olarak kesilir (kaynakta kesinti). Yıl içinde vergi diliminiz artsa bile, bu artış aylık kesintilere yansır. Nakit akışınız tahmin edilebilirdir.</p>
+
+        <h4 class="mt-6">Model B (Şahıs Şirketi): Toplu ve Proaktif</h4>
+        <p>Şahıs şirketi sahibi olarak vergi sorumluluğu tamamen sizdedir ve ödemeler toplu halde yapılır:</p>
+
+        <ul class="mt-3">
+          <li><strong>Geçici Vergi (3 Ayda Bir):</strong> Her 3 aylık dönemin sonunda (Ocak-Mart, Nisan-Haziran, Temmuz-Eylül), o döneme ait kârınız üzerinden hesaplanan vergiyi devlete peşin olarak ödersiniz. Bu ödemeler sırasıyla <strong>Mayıs, Ağustos ve Kasım</strong> aylarında yapılır.</li>
+          <li><strong>Yıllık Beyanname (Yıl Sonu):</strong> Ertesi yılın Mart ayında, tüm yılın kârı üzerinden nihai vergi hesaplanır. Yıl içinde ödediğiniz 3 adet Geçici Vergi tutarı bu nihai vergiden düşülür, kalan farkı öder (veya fazla ödediyseniz iade alırsınız).</li>
+        </ul>
+
+        <h4 class="mt-6">Simülatör Bu Durumu Nasıl Gösteriyor?</h4>
+
+        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 my-4">
+          <h5 class="mt-0 font-semibold text-blue-900">📊 'Yıllık' Mod</h5>
+          <p class="mb-0">Bu mod, Model B'nin maliyetini görmek için en doğru yöntemdir. Size tüm yıl boyunca ödeyeceğiniz toplam vergi yükünü (örn: ₺41.848) gösterir.</p>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 my-4">
+          <h5 class="mt-0 font-semibold text-yellow-900">📅 'Aylık' Mod</h5>
+          <p class="mb-0">'Aylık' modu seçtiğinizde, simülatör size o 'Yıllık Vergi Yükü'nün 12'ye bölünmüş ortalamasını (örn: ₺3.487) gösterir. Bu, Model A'daki 'Aylık Net Maaş' ile elma-elma karşılaştırması yapabilmeniz içindir.</p>
+        </div>
+
+        <div class="bg-red-50 border-l-4 border-red-400 p-4 my-4">
+          <h5 class="mt-0 font-semibold text-red-900">⚠️ UYARI: Nakit Akışı Planlaması</h5>
+          <p class="mb-0"><strong>'Aylık Ortalama Vergi Yükü' tutarını (örn: ₺3.487), her ay kenara koymanız gereken bir birikim hedefi olarak düşünmelisiniz.</strong> Bu tutar, 3 ayda bir toplu olarak ödeyeceğiniz Geçici Vergi faturası için bir fondur.</p>
+        </div>
+
+        <h4 class="mt-6">Pratik Örnek</h4>
+        <p>Yıllık toplam vergi yükünüz ₺41.848 ise:</p>
+        <ul class="mt-2">
+          <li><strong>Aylık Ortalama:</strong> ₺41.848 ÷ 12 = <strong>₺3.487</strong> (Her ay biriktirmeniz gereken tutar)</li>
+          <li><strong>Geçici Vergi Ödemeleri (3 ayda bir):</strong> ~₺10.461 (Mayıs, Ağustos, Kasım'da ödenir)</li>
+          <li><strong>Yıl Sonu Ayarı:</strong> Mart ayında nihai hesaplama yapılır ve kalan/faiz farkı ödenir/alınır</li>
+        </ul>
       `,
       "Hesaplamaların Arkasındaki Matematik": `
                 <h4>Sabit Değerler ve Anlamları</h4>
@@ -1324,7 +1391,8 @@ class SalaryCalculator {
       const yillikGiderTRY = this.state.baseAylikGiderTRY * 12;
       const yillikBagkurKazanciTRY = this.state.baseAylikBagkurPekTRY * 12;
 
-      const isGencGirisimci = this.elements.gencGirisimciCheck.checked;
+      const isGencGirisimci_Vergi = this.elements.gencGirisimciVergiCheck.checked;
+      const isGencGirisimci_Prim = this.elements.gencGirisimciPrimCheck.checked;
       const isHizmetIhracati = this.elements.hizmetIhracatiCheck.checked;
       const zamlariGoster = this.elements.zamEtkisiCheck?.checked || false;
 
@@ -1408,9 +1476,10 @@ class SalaryCalculator {
         toplamPrimGideriA,
         toplamVergiYukuA,
         yillikBrutMaasYeni,
-        false,
-        false,
-        0,
+        false, // isGencGirisimci_Vergi
+        false, // isGencGirisimci_Prim
+        false, // isHizmetIhracati
+        0, // hizmetIhracatiIstisnaTutari
         sgkDetaylari,
         tceData, // Pass entire TCE data object to card
         detailedBreakdownA
@@ -1456,15 +1525,18 @@ class SalaryCalculator {
       if (isSgkMuafiyeti) {
         // No Bağ-Kur premium required due to existing SGK status
         odenecekBagkurPrimi = 0;
+      } else if (isGencGirisimci_Prim) {
+        // Genç Girişimci Bağ-Kur Desteği aktif: Devlet minimum primi karşılar
+        odenecekBagkurPrimi = Math.max(0, yillikBagkurPrimiHesaplanan - yillikMinimumBagkurPrimi);
       } else {
-        odenecekBagkurPrimi = isGencGirisimci
-          ? Math.max(0, yillikBagkurPrimiHesaplanan - yillikMinimumBagkurPrimi)
-          : yillikBagkurPrimiHesaplanan;
+        // Normal durum: Tüm prim ödenir
+        odenecekBagkurPrimi = yillikBagkurPrimiHesaplanan;
       }
 
       let vergiMatrahiB = Math.max(0, karB - yillikBagkurPrimiHesaplanan);
 
-      if (isGencGirisimci) {
+      if (isGencGirisimci_Vergi) {
+        // Genç Girişimci Vergi İstisnası aktif: 330.000 TL kâr muafiyeti
         vergiMatrahiB = Math.max(
           0,
           vergiMatrahiB - this.constants.GENC_GIRISIMCI_ISTISNA_TUTARI
@@ -1501,7 +1573,8 @@ class SalaryCalculator {
         odenecekBagkurPrimi,
         yillikGelirVergisiB,
         yillikHasilat,
-        isGencGirisimci,
+        isGencGirisimci_Vergi,
+        isGencGirisimci_Prim,
         isHizmetIhracati,
         hizmetIhracatiIstisnaTutari,
         null, // sgkDetaylari
@@ -1547,7 +1620,8 @@ class SalaryCalculator {
     primGideri,
     vergiYuku,
     toplamGelir,
-    isGencGirisimci = false,
+    isGencGirisimci_Vergi = false,
+    isGencGirisimci_Prim = false,
     isHizmetIhracati = false,
     hizmetIhracatiIstisnaTutari = 0,
     sgkDetaylari = null,
@@ -1595,7 +1669,7 @@ class SalaryCalculator {
       }
 
       let tesvikNotlari = "";
-      if (title.includes("Model B") && isGencGirisimci) {
+      if (title.includes("Model B") && isGencGirisimci_Prim) {
         const yillikMinimumBagkurPrimi =
           this.constants.YILLIK_MIN_BAGKUR_KAZANCI *
           this.constants.BAGKUR_INDIRIMLI_ORAN;
@@ -1604,10 +1678,22 @@ class SalaryCalculator {
           this.state.currentCurrency === "TRY"
             ? destekMiktari
             : destekMiktari / this.state.usdRate;
-        tesvikNotlari += `<p class="text-xs text-green-600 mt-2 text-center">Genç Girişimci Desteği uygulandı (${timeLabel} ~${this.formatCurrency(
+        tesvikNotlari += `<p class="text-xs text-green-600 mt-2 text-center">Genç Girişimci Bağ-Kur Desteği uygulandı (${timeLabel} ~${this.formatCurrency(
           displayDestek,
           this.state.currentCurrency
         )} prim devlet tarafından karşılanır).</p>`;
+      }
+
+      if (title.includes("Model B") && isGencGirisimci_Vergi) {
+        const istisnaMiktari = this.constants.GENC_GIRISIMCI_ISTISNA_TUTARI / divisor;
+        const displayIstisna =
+          this.state.currentCurrency === "TRY"
+            ? istisnaMiktari
+            : istisnaMiktari / this.state.usdRate;
+        tesvikNotlari += `<p class="text-xs text-green-600 mt-1 text-center">Genç Girişimci Vergi İstisnası uygulandı (${timeLabel} ~${this.formatCurrency(
+          displayIstisna,
+          this.state.currentCurrency
+        )} kâr muafiyeti).</p>`;
       }
 
       if (
@@ -1638,7 +1724,7 @@ class SalaryCalculator {
 
 
       let sgkDetayHTML = "";
-      if (sgkDetaylari && title.includes("Model A")) {
+      if (sgkDetaylari && title.includes("Model A") && sgkDetaylari.ortalamaNeto !== undefined) {
         const displayOrtalamaNeto =
           this.state.currentCurrency === "TRY"
             ? sgkDetaylari.ortalamaNeto
@@ -1680,7 +1766,8 @@ class SalaryCalculator {
                                     <tbody>
                 `;
 
-        sgkDetaylari.aylikDetay.forEach((ay) => {
+        if (sgkDetaylari.aylikDetay && Array.isArray(sgkDetaylari.aylikDetay)) {
+          sgkDetaylari.aylikDetay.forEach((ay) => {
           const displayBrut =
             this.state.currentCurrency === "TRY"
               ? ay.brutMaas
@@ -1721,7 +1808,8 @@ class SalaryCalculator {
                             }</td>
                         </tr>
                     `;
-        });
+          });
+        }
 
         sgkDetayHTML += `
                                     </tbody>
@@ -1939,17 +2027,25 @@ class SalaryCalculator {
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
               <div class="bg-green-50 p-3 rounded-lg border border-green-200">
                 <div class="flex justify-between items-center mb-1">
-                  <span class="text-gray-600">Şirket Gideri</span>
+                  <span class="text-gray-600">${timeLabel} Şirket Gideri</span>
                   <span class="font-semibold text-green-700">${this.formatCurrency(
-                    giderToplamiAylik,
-                    "TRY"
+                    this.state.currentCurrency === "TRY"
+                      ? giderToplamiAylik * (this.state.currentMode === "yearly" ? 12 : 1)
+                      : (giderToplamiAylik * (this.state.currentMode === "yearly" ? 12 : 1)) / this.state.usdRate,
+                    this.state.currentCurrency
                   )}</span>
                 </div>
                 <div class="text-xs text-gray-500">Değişken</div>
               </div>
                         <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
                             <div class="flex justify-between items-center mb-1">
-                                <span class="text-gray-600">Bağ-Kur Primi</span>
+                                <span class="text-gray-600 flex items-center gap-1">
+                                  ${this.state.currentMode === "yearly" ? "Yıllık Bağ-Kur Primi" : "Aylık Bağ-Kur Primi"}
+                                  <span
+                                    class="info-icon text-blue-500 cursor-help inline-block"
+                                    data-tooltip="${this.state.currentMode === "yearly" ? "Bu tutar, tüm yıl boyunca ödenecek toplam Bağ-Kur primidir (12 aylık). Prime Esas Kazanç (PEK) tutarının, 5 puanlık indirim uygulanmış halidir (PEK x %29,5). Her ay bu tutarın 1/12'si kadar prim ödenir." : "Bu tutar, her ay Bağ-Kur'a ödenecek primdir. 'Emeklilik Eşdeğerliği' için seçtiğiniz Prime Esas Kazanç (PEK) tutarının, 5 puanlık indirim uygulanmış halidir (PEK x %29,5). Bağ-Kur primi aylık ödeme yapılır (her ay sonunda)."}"
+                                  >ℹ️</span>
+                                </span>
                                 <span class="font-semibold text-blue-600">${this.formatCurrency(
                                   this.state.currentCurrency === "TRY"
                                     ? detailedBreakdown.bagkurPrimi / divisor
@@ -1959,11 +2055,17 @@ class SalaryCalculator {
                                   this.state.currentCurrency
                                 )}</span>
                             </div>
-                            <div class="text-xs text-gray-500">%20</div>
+                            <div class="text-xs text-gray-500">PEK x %29,5</div>
                         </div>
                         <div class="bg-orange-50 p-3 rounded-lg border border-orange-200">
                             <div class="flex justify-between items-center mb-1">
-                                <span class="text-gray-600">Gelir Vergisi</span>
+                                <span class="text-gray-600 flex items-center gap-1">
+                                  ${this.state.currentMode === "yearly" ? "Yıllık Gelir Vergisi" : "Aylık Ortalama Vergi Yükü"}
+                                  <span
+                                    class="info-icon text-orange-500 cursor-help inline-block"
+                                    data-tooltip="${this.state.currentMode === "yearly" ? "Bu tutar, tüm yıl boyunca ödenecek toplam gelir vergisidir. Şahıs şirketleri vergiyi yıl içinde 3 ayda bir (Mayıs, Ağustos, Kasım) 'Geçici Vergi' olarak toplu öder. Yıl sonunda (Mart ayında) nihai hesaplama yapılır." : "NAKİT AKIŞI UYARISI: Bu rakam, hesaplanan toplam yıllık verginin 12'ye bölünmüş ortalamasıdır.<br><br>Şahıs şirketleri vergiyi aylık ödemez. Yıl içinde 3 ayda bir (Mayıs, Ağustos, Kasım aylarında) kârınız üzerinden 'Geçici Vergi' adı altında toplu ödeme yaparsınız.<br><br>Bu tutarı her ay biriktirmeniz gereken bir fondur."}"
+                                  >ℹ️</span>
+                                </span>
                                 <span class="font-semibold text-orange-600">${this.formatCurrency(
                                   this.state.currentCurrency === "TRY"
                                     ? detailedBreakdown.gelirVergisi / divisor
@@ -1973,14 +2075,14 @@ class SalaryCalculator {
                                   this.state.currentCurrency
                                 )}</span>
                             </div>
-                            <div class="text-xs text-gray-500">${
+                            <div class="text-xs text-gray-500">Nihai Dilim: ${
                               detailedBreakdown.gelirVergisiDilimi
                             }</div>
                         </div>
                     </div>
                     <div class="mt-3 p-3 bg-gray-100 rounded-lg border">
                         <div class="flex justify-between items-center">
-                            <span class="font-semibold text-gray-700">Toplam Gider:</span>
+                            <span class="font-semibold text-gray-700">${timeLabel} Toplam Gider:</span>
                             <span class="font-bold text-red-700">${this.formatCurrency(
                               this.state.currentCurrency === "TRY"
                                 ? detailedBreakdown.toplamKesinti / divisor
@@ -2249,7 +2351,8 @@ class SalaryCalculator {
     // Input change events
     [
       this.elements.sgkMuafiyetiCheck,
-      this.elements.gencGirisimciCheck,
+      this.elements.gencGirisimciVergiCheck,
+      this.elements.gencGirisimciPrimCheck,
       this.elements.hizmetIhracatiCheck,
     ].forEach((input) => {
       input.addEventListener("input", () => {
@@ -2475,7 +2578,7 @@ function initializeTooltipModal() {
   const overlay = modal.querySelector('.tooltip-modal-overlay');
 
   function openModal(text) {
-    modalBody.textContent = text;
+    modalBody.innerHTML = text;
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
   }
@@ -2485,15 +2588,17 @@ function initializeTooltipModal() {
     document.body.style.overflow = '';
   }
 
-  document.querySelectorAll('.info-icon').forEach(icon => {
-    icon.addEventListener('click', (e) => {
+  // Use event delegation to handle dynamically added icons
+  document.addEventListener('click', (e) => {
+    const icon = e.target.closest('.info-icon');
+    if (icon) {
       e.preventDefault();
       e.stopPropagation();
       const tooltipText = icon.getAttribute('data-tooltip');
       if (tooltipText) {
         openModal(tooltipText);
       }
-    });
+    }
   });
 
   closeBtn.addEventListener('click', closeModal);

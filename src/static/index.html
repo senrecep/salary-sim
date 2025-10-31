@@ -415,24 +415,46 @@
                     </div>
                   </div>
 
-                  <!-- Young Entrepreneur -->
+                  <!-- Young Entrepreneur Tax Exemption -->
                   <div class="flex items-center space-x-2">
                     <input
-                      id="gencGirisimci"
-                      name="gencGirisimci"
+                      id="gencGirisimciVergi"
+                      name="gencGirisimciVergi"
                       type="checkbox"
                       checked
                       class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                      aria-describedby="gencGirisimciHelp"
                     />
                     <label
-                      for="gencGirisimci"
+                      for="gencGirisimciVergi"
                       class="text-sm font-medium text-gray-700"
-                      >Genç Girişimci</label
+                      >Genç Girişimci Vergi İstisnası</label
                     >
-                    <div id="gencGirisimciHelp" class="sr-only">
-                      Apply young entrepreneur tax benefits
-                    </div>
+                    <span
+                      class="info-icon text-blue-500 cursor-help"
+                      data-tooltip="3 yıl boyunca, 2025 yılı için 330.000 TL'ye kadar olan kârınız için Gelir Vergisi muafiyeti sağlar."
+                      >ℹ️</span
+                    >
+                  </div>
+
+                  <!-- Young Entrepreneur Bağ-Kur Support -->
+                  <div class="flex items-center space-x-2">
+                    <input
+                      id="gencGirisimciPrim"
+                      name="gencGirisimciPrim"
+                      type="checkbox"
+                      checked
+                      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    />
+                    <label
+                      for="gencGirisimciPrim"
+                      class="text-sm font-medium text-gray-700"
+                      >Genç Girişimci Bağ-Kur Desteği</label
+                    >
+                    <span
+                      class="info-icon text-red-500 cursor-help"
+                      data-tooltip="DİKKAT: TBMM'ye sunulan yasa teklifine göre 12 aylık Bağ-Kur prim desteğinin 2026 itibarıyla kaldırılması planlanmaktadır. 2026 ve sonrası için simülasyon yapıyorsanız bu seçeneğin işaretini kaldırın."
+                      >ℹ️</span
+                    >
                   </div>
 
                   <!-- SGK Exemption -->
