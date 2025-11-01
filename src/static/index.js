@@ -292,6 +292,13 @@ class SalaryCalculator {
     // Calculation cache - memoization for expensive operations
     this._calculationCache = {};
 
+    // Format currency cache - memoization for formatCurrency
+    this._formatCache = {};
+    this._formatters = {}; // Cache formatter objects to avoid recreation
+
+    // HTML template cache - cache static HTML structures
+    this._htmlTemplateCache = {};
+
     this.bindEvents();
     this.initialize();
   }
@@ -415,6 +422,14 @@ class SalaryCalculator {
     }
   }
 
+  /**
+   * Clear format currency cache
+   */
+  clearFormatCache() {
+    this._formatCache = {};
+    // Note: We keep formatters as they are lightweight and reusable
+  }
+
   initializeElements() {
     return {
       netMaasInput: document.getElementById("netMaasInput"),
@@ -525,22 +540,47 @@ class SalaryCalculator {
 
   // Utility Functions
   formatCurrency(amount, currency = "TRY") {
-    const formatter =
-      currency === "USD"
-        ? new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "USD",
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-          })
-        : new Intl.NumberFormat("tr-TR", {
-            style: "currency",
-            currency: "TRY",
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-          });
+    // Round amount to avoid floating point precision issues in cache key
+    const roundedAmount = Math.round(amount * 100) / 100;
+    
+    // Check format cache first
+    const cacheKey = `${currency}:${roundedAmount}`;
+    if (this._formatCache[cacheKey]) {
+      return this._formatCache[cacheKey];
+    }
 
-    return formatter.format(amount);
+    // Get or create formatter (cache formatter objects to avoid recreation)
+    if (!this._formatters[currency]) {
+      this._formatters[currency] =
+        currency === "USD"
+          ? new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })
+          : new Intl.NumberFormat("tr-TR", {
+              style: "currency",
+              currency: "TRY",
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            });
+    }
+
+    const formatted = this._formatters[currency].format(roundedAmount);
+    
+    // Cache the formatted result
+    this._formatCache[cacheKey] = formatted;
+    
+    // Limit cache size to prevent memory issues (keep last 100 entries)
+    const cacheKeys = Object.keys(this._formatCache);
+    if (cacheKeys.length > 100) {
+      // Remove oldest entries (simple FIFO)
+      const toRemove = cacheKeys.slice(0, cacheKeys.length - 100);
+      toRemove.forEach(key => delete this._formatCache[key]);
+    }
+    
+    return formatted;
   }
 
   // Tax bracket utility functions
@@ -940,6 +980,9 @@ class SalaryCalculator {
       // Clear calculation cache when UI updates - calculations may depend on current state
       // This ensures cache doesn't become stale when inputs/options change
       this.clearCache();
+      
+      // Format cache can persist across updates as currency rarely changes
+      // It will automatically limit itself to 100 entries
       
       // --- Gider input focus/caret koruma başlangıcı ---
       // Gider inputlarının id'leri
@@ -1397,6 +1440,9 @@ class SalaryCalculator {
         netGelirEtiketi = timeLabel + " Ortalama Net Gelir";
       }
 
+      // Generate stable card ID based on title
+      const cardId = title.includes("Model A") ? "model-a-card" : "model-b-card";
+
 
       let sgkDetayHTML = "";
       if (sgkDetaylari && title.includes("Model A") && sgkDetaylari.ortalamaNeto !== undefined) {
@@ -1519,14 +1565,14 @@ class SalaryCalculator {
                     <div class="grid grid-cols-2 gap-4 text-center">
                         <div>
                             <p class="text-sm text-gray-500">Brüt Maaş</p>
-                            <p class="text-lg font-semibold text-gray-700">${this.formatCurrency(
+                            <p id="${cardId}-brut-maas" class="text-lg font-semibold text-gray-700">${this.formatCurrency(
                               brutMaas,
                               this.state.currentCurrency
                             )}</p>
                         </div>
                         <div>
                             <p class="text-sm font-semibold text-blue-700">İşverene Toplam Maliyet</p>
-                            <p class="text-2xl font-bold text-blue-600">${this.formatCurrency(
+                            <p id="${cardId}-tce" class="text-2xl font-bold text-blue-600">${this.formatCurrency(
                               displayTCE,
                               this.state.currentCurrency
                             )}</p>
@@ -2178,19 +2224,19 @@ class SalaryCalculator {
                 </div>`;
       }
 
-  return `<div class="card p-6">
+  return `<div class="card p-6" id="${cardId}" data-model-type="${title.includes('Model A') ? 'model-a' : 'model-b'}">
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">${title}</h3>
                 <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                     <div>
                         <p class="text-sm text-gray-500">${netGelirEtiketi}</p>
-                        <p class="text-2xl font-bold text-green-600">${this.formatCurrency(
+                        <p id="${cardId}-net-gelir" class="text-2xl font-bold text-green-600">${this.formatCurrency(
                           displayNet,
                           this.state.currentCurrency
                         )}</p>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">${timeLabel} Toplam Prim Gideri</p>
-                        <p class="text-2xl font-bold text-red-500">${this.formatCurrency(
+                        <p id="${cardId}-prim-gideri" class="text-2xl font-bold text-red-500">${this.formatCurrency(
                           displayPrim,
                           this.state.currentCurrency
                         )}</p>
@@ -2203,7 +2249,7 @@ class SalaryCalculator {
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">${timeLabel} Vergi Yükü</p>
-                        <p class="text-2xl font-bold text-orange-500">${this.formatCurrency(
+                        <p id="${cardId}-vergi-yuku" class="text-2xl font-bold text-orange-500">${this.formatCurrency(
                           displayVergi,
                           this.state.currentCurrency
                         )}</p>
@@ -2225,6 +2271,116 @@ class SalaryCalculator {
     } catch (e) {
       console.error("Result Card Error:", e);
       return `<div class="card p-6 text-red-500">Sonuçlar görüntülenemedi. Lütfen değerleri kontrol edin.</div>`;
+    }
+  }
+
+  // Selective Update Helper Methods
+  /**
+   * Update display values in result cards without full rebuild
+   * @param {string} modelType - 'model-a' or 'model-b'
+   * @param {Object} values - Object with net, prim, vergi values
+   */
+  updateResultCardDisplay(modelType, values) {
+    const cardId = modelType === 'model-a' ? 'model-a-card' : 'model-b-card';
+    const card = document.getElementById(cardId);
+    
+    if (!card) {
+      // Card doesn't exist yet, need full rebuild
+      return false;
+    }
+
+    const divisor = this.state.currentMode === "yearly" ? 1 : 12;
+    const currency = this.state.currentCurrency;
+
+    // Update net gelir
+    if (values.net !== undefined) {
+      const displayNet = currency === "TRY"
+        ? values.net / divisor
+        : values.net / divisor / this.state.usdRate;
+      const netElement = card.querySelector(`#${cardId}-net-gelir`);
+      if (netElement) {
+        netElement.textContent = this.formatCurrency(displayNet, currency);
+      }
+    }
+
+    // Update prim gideri
+    if (values.prim !== undefined) {
+      const displayPrim = currency === "TRY"
+        ? values.prim / divisor
+        : values.prim / divisor / this.state.usdRate;
+      const primElement = card.querySelector(`#${cardId}-prim-gideri`);
+      if (primElement) {
+        primElement.textContent = this.formatCurrency(displayPrim, currency);
+      }
+    }
+
+    // Update vergi yuku
+    if (values.vergi !== undefined) {
+      const displayVergi = currency === "TRY"
+        ? values.vergi / divisor
+        : values.vergi / divisor / this.state.usdRate;
+      const vergiElement = card.querySelector(`#${cardId}-vergi-yuku`);
+      if (vergiElement) {
+        vergiElement.textContent = this.formatCurrency(displayVergi, currency);
+      }
+    }
+
+    // Update TCE for Model A
+    if (modelType === 'model-a' && values.brut !== undefined && values.tce !== undefined) {
+      const displayBrut = currency === "TRY"
+        ? values.brut / divisor
+        : values.brut / divisor / this.state.usdRate;
+      const displayTCE = currency === "TRY"
+        ? values.tce / divisor
+        : values.tce / divisor / this.state.usdRate;
+      
+      const brutElement = card.querySelector(`#${cardId}-brut-maas`);
+      if (brutElement) {
+        brutElement.textContent = this.formatCurrency(displayBrut, currency);
+      }
+      
+      const tceElement = card.querySelector(`#${cardId}-tce`);
+      if (tceElement) {
+        tceElement.textContent = this.formatCurrency(displayTCE, currency);
+      }
+    }
+
+    return true; // Successfully updated
+  }
+
+  /**
+   * Check if result cards exist and can be selectively updated
+   * @returns {boolean} True if cards exist and selective update is possible
+   */
+  canSelectiveUpdate() {
+    const modelACard = document.getElementById('model-a-card');
+    const modelBCard = document.getElementById('model-b-card');
+    return !!(modelACard && modelBCard);
+  }
+
+  // Template Cache Methods
+  /**
+   * Get cached HTML template or create and cache it
+   * @param {string} templateKey - Unique key for the template
+   * @param {Function} templateFn - Function that generates the template
+   * @returns {string} Cached or generated template
+   */
+  getTemplate(templateKey, templateFn) {
+    if (!this._htmlTemplateCache[templateKey]) {
+      this._htmlTemplateCache[templateKey] = templateFn();
+    }
+    return this._htmlTemplateCache[templateKey];
+  }
+
+  /**
+   * Clear HTML template cache
+   * @param {string|null} templateKey - If provided, clear only this template. Otherwise clear all.
+   */
+  clearTemplateCache(templateKey = null) {
+    if (templateKey) {
+      delete this._htmlTemplateCache[templateKey];
+    } else {
+      this._htmlTemplateCache = {};
     }
   }
 
