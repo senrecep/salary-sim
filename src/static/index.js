@@ -1084,6 +1084,7 @@ class SalaryCalculator {
         yilSonuDilimi: sgkSabitNetData.yilSonuDilimi,
         aylikDetay: sgkSabitNetData.aylikDetay,
         zamParametreleri: zamParametreleri,
+        tesOranlari: tesOranlari, // TES oranlarını ekle ki tabloda doğru hesaplama yapılabilsin
       };
 
       // Calculate TCE for Model A
@@ -1481,11 +1482,18 @@ class SalaryCalculator {
                                             <th class="border border-gray-300 dark:border-gray-600 text-right p-1 dark:text-gray-100">Brüt</th>
                                             <th class="border border-gray-300 dark:border-gray-600 text-right p-1 dark:text-gray-100">Vergi</th>
                                             <th class="border border-gray-300 dark:border-gray-600 text-right p-1 dark:text-gray-100">Net</th>
+                                            <th class="border border-gray-300 dark:border-gray-600 text-right p-1 dark:text-gray-100">TCE</th>
                                             <th class="border border-gray-300 dark:border-gray-600 text-center p-1 dark:text-gray-100">Dilim</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                 `;
+
+        // Use TES oranları from sgkDetaylari if available, otherwise check checkbox
+        const tesOranlari = sgkDetaylari.tesOranlari || {
+          isveren: (this.elements.tesReformuUygulaCheck?.checked || false) ? 0.01 : 0,
+          kidemFonu: (this.elements.tesReformuUygulaCheck?.checked || false) ? 0.03 : 0
+        };
 
         if (sgkDetaylari.aylikDetay && Array.isArray(sgkDetaylari.aylikDetay)) {
           sgkDetaylari.aylikDetay.forEach((ay) => {
@@ -1501,6 +1509,19 @@ class SalaryCalculator {
             this.state.currentCurrency === "TRY"
               ? ay.netMaas
               : ay.netMaas / this.state.usdRate;
+
+          // Calculate TCE for this month
+          const sgkMatrahi = ay.sgkMatrahi || Math.min(ay.brutMaas, this.constants.AYLIK_PEK_TAVAN);
+          const sgkIsverenPayi = sgkMatrahi * this.constants.SGK_ISVEREN_TESVIKLI_ORANI;
+          const issizlikIsverenPayi = sgkMatrahi * this.constants.ISSIZLIK_ISVEREN_PAYI_ORANI;
+          const tesIsverenPayi = sgkMatrahi * tesOranlari.isveren;
+          const kidemFonPayi = sgkMatrahi * tesOranlari.kidemFonu;
+          const aylikTCE = ay.brutMaas + sgkIsverenPayi + issizlikIsverenPayi + tesIsverenPayi + kidemFonPayi;
+          
+          const displayTCE =
+            this.state.currentCurrency === "TRY"
+              ? aylikTCE
+              : aylikTCE / this.state.usdRate;
 
           const rowClass = ay.zamliAy
             ? "bg-orange-100 dark:bg-orange-900/40 dark:text-gray-100"
@@ -1522,6 +1543,10 @@ class SalaryCalculator {
                             )}</td>
                             <td class="border border-gray-300 dark:border-gray-700 text-right p-1">${this.formatCurrency(
                               displayNetAy,
+                              this.state.currentCurrency
+                            )}</td>
+                            <td class="border border-gray-300 dark:border-gray-700 text-right p-1 font-semibold text-blue-600 dark:text-blue-400">${this.formatCurrency(
+                              displayTCE,
                               this.state.currentCurrency
                             )}</td>
                             <td class="border border-gray-300 dark:border-gray-700 text-center p-1">${
