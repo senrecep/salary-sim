@@ -1746,7 +1746,7 @@ class SalaryCalculator {
                           max="200"
                           step="1"
                           value="${tcePercentage}"
-                          class="w-12 px-1 py-0.5 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 model-option-input"
+                          class="w-20 px-1 py-0.5 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 model-option-input"
                           title="İşveren maliyeti oranı (%)"
                         />
                         <span class="text-xs text-gray-600">%</span>
@@ -2114,7 +2114,7 @@ class SalaryCalculator {
                         <td class="p-2 border-b">Değişken Giderler</td>
                         <td class="p-2 border-b"><input type="number" id="degiskenGiderInput" value="${
                           this.state.baseAylikDegiskenGiderTRY
-                        }" class="w-20 border rounded p-1 text-xs"> (Aylık, TRY)</td>
+                        }" class="w-28 border rounded p-1 text-xs"> (Aylık, TRY)</td>
                         <td class="p-2 border-b" title="Donanım, yazılım, seyahat gibi işinizle doğrudan ilgili, miktarı değişebilen harcamalarınız."><span class="cursor-help">Donanım, yazılım, seyahat gibi işinizle doğrudan ilgili, miktarı değişebilen harcamalarınız.</span></td>
                       </tr>
                       <tr>
@@ -2124,7 +2124,7 @@ class SalaryCalculator {
                         <td class="p-2 border-b">Muhasebeci Ücreti</td>
                         <td class="p-2 border-b"><input type="number" id="muhasebeciGiderInput" value="${
                           this.state.baseAylikMuhasebeciUcretiTRY
-                        }" class="w-20 border rounded p-1 text-xs"> (Aylık, TRY)</td>
+                        }" class="w-28 border rounded p-1 text-xs"> (Aylık, TRY)</td>
                         <td class="p-2 border-b" title="Mali müşavirinize ödediğiniz aylık standart hizmet bedeli. (Ortalama: 1.500-2.500 TL)"><span class="cursor-help">Mali müşavirinize ödediğiniz aylık standart hizmet bedeli. (Ortalama: 1.500-2.500 TL)</span></td>
                       </tr>
                       <tr>
@@ -2134,7 +2134,7 @@ class SalaryCalculator {
                         <td class="p-2 border-b">Damga Vergileri</td>
                         <td class="p-2 border-b"><input type="number" id="damgaVergisiInput" value="${
                           this.state.baseAylikDamgaVergileriTRY
-                        }" class="w-20 border rounded p-1 text-xs"> (Aylık Ortalama, TRY)</td>
+                        }" class="w-28 border rounded p-1 text-xs"> (Aylık Ortalama, TRY)</td>
                         <td class="p-2 border-b" title="Yıl boyunca ödenen KDV, Muhtasar, Geçici ve Yıllık Gelir Vergisi beyannamelerinin zorunlu damga vergilerinin aylık ortalamasıdır."><span class="cursor-help">Yıl boyunca ödenen KDV, Muhtasar, Geçici ve Yıllık Gelir Vergisi beyannamelerinin zorunlu damga vergilerinin aylık ortalamasıdır.</span></td>
                       </tr>
                       <tr>
@@ -2144,7 +2144,7 @@ class SalaryCalculator {
                         <td class="p-2 border-b">Diğer Sabit Giderler</td>
                         <td class="p-2 border-b"><input type="number" id="digerGiderlerInput" value="${
                           this.state.baseAylikDigerSabitGiderlerTRY
-                        }" class="w-20 border rounded p-1 text-xs"> (Aylık Ortalama, TRY)</td>
+                        }" class="w-28 border rounded p-1 text-xs"> (Aylık Ortalama, TRY)</td>
                         <td class="p-2 border-b" title="Yıllık oda aidatı, e-imza yenileme gibi diğer zorunlu idari masrafların aylık ortalamasıdır."><span class="cursor-help">Yıllık oda aidatı, e-imza yenileme gibi diğer zorunlu idari masrafların aylık ortalamasıdır.</span></td>
                       </tr>
                     </tbody>
@@ -2896,6 +2896,7 @@ window.toggleSGKDetay = function (button) {
 document.addEventListener("DOMContentLoaded", () => {
   window.calculator = new SalaryCalculator();
   initializeTooltipModal();
+  initializeDarkMode();
 });
 
 // Tooltip Modal functionality
@@ -2936,5 +2937,69 @@ function initializeTooltipModal() {
     if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
       closeModal();
     }
+  });
+}
+
+// Dark Mode functionality
+function initializeDarkMode() {
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const sunIcon = document.getElementById('sunIcon');
+  const moonIcon = document.getElementById('moonIcon');
+  
+  if (!darkModeToggle) return;
+  
+  // Check for saved theme preference, default to light mode
+  const getThemePreference = () => {
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      return saved === 'dark';
+    }
+    // Default to light mode (don't follow system preference on first load)
+    return false;
+  };
+  
+  // Apply theme
+  const applyTheme = (isDark) => {
+    if (isDark) {
+      document.documentElement.classList.add('dark-mode');
+      if (sunIcon) {
+        sunIcon.classList.remove('hidden');
+        sunIcon.classList.remove('text-gray-800');
+        sunIcon.classList.add('text-gray-200');
+      }
+      if (moonIcon) {
+        moonIcon.classList.add('hidden');
+      }
+      if (darkModeToggle) {
+        darkModeToggle.classList.remove('bg-gray-200', 'hover:bg-gray-300');
+        darkModeToggle.classList.add('bg-gray-700', 'hover:bg-gray-600');
+      }
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark-mode');
+      if (sunIcon) {
+        sunIcon.classList.add('hidden');
+      }
+      if (moonIcon) {
+        moonIcon.classList.remove('hidden');
+        moonIcon.classList.remove('text-gray-200');
+        moonIcon.classList.add('text-gray-800');
+      }
+      if (darkModeToggle) {
+        darkModeToggle.classList.remove('bg-gray-700', 'hover:bg-gray-600');
+        darkModeToggle.classList.add('bg-gray-200', 'hover:bg-gray-300');
+      }
+      localStorage.setItem('theme', 'light');
+    }
+  };
+  
+  // Initialize theme
+  const isDark = getThemePreference();
+  applyTheme(isDark);
+  
+  // Toggle theme on button click
+  darkModeToggle.addEventListener('click', () => {
+    const isCurrentlyDark = document.documentElement.classList.contains('dark-mode');
+    applyTheme(!isCurrentlyDark);
   });
 }
