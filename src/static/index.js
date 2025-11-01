@@ -59,9 +59,6 @@ class SalaryCalculator {
       }
     });
 
-    // Debounce timer for TCE percentage input updates
-    let tcePercentageUpdateTimeout = null;
-    
     // Handle input changes (number inputs)
     resultsPanel.addEventListener('input', (e) => {
       const input = e.target;
@@ -74,8 +71,7 @@ class SalaryCalculator {
             if (!isNaN(val) && val >= 1 && val <= 200) {
               this.state.tcePercentage = val;
               // Debounce UI update to avoid excessive recalculations while user is typing
-              clearTimeout(tcePercentageUpdateTimeout);
-              tcePercentageUpdateTimeout = setTimeout(() => {
+              this.debounce('tcePercentageInput', () => {
                 this.updateUI();
               }, 500); // 500ms delay after user stops typing
             }
@@ -97,8 +93,6 @@ class SalaryCalculator {
       const input = e.target;
       if (input.classList.contains('model-option-input') && 
           input.getAttribute('data-sync-id') === 'tcePercentageInput') {
-        // Clear any pending debounced update
-        clearTimeout(tcePercentageUpdateTimeout);
         const val = parseFloat(input.value);
         if (!isNaN(val)) {
           // Clamp value to valid range
@@ -107,8 +101,10 @@ class SalaryCalculator {
             input.value = clampedVal;
           }
           this.state.tcePercentage = clampedVal;
-          // Trigger full UI update immediately when user leaves the input
-          this.updateUI();
+          // Execute immediately and cancel pending debounce
+          this.flushDebounce('tcePercentageInput', () => {
+            this.updateUI();
+          });
         }
       }
     }, true); // Use capture phase to catch blur before it bubbles
@@ -130,7 +126,6 @@ class SalaryCalculator {
 
     // Handle Bağ-Kur slider changes in Model B card
     // Use separate handlers for input (visual update only) and change (full recalculation)
-    let sliderUpdateTimeout = null;
     resultsPanel.addEventListener('input', (e) => {
       const slider = e.target;
       if (slider.classList.contains('model-bagkur-slider') || slider.id === 'bagkurPrimiInput') {
@@ -155,8 +150,7 @@ class SalaryCalculator {
           }
           
           // Debounce full recalculation - only trigger after user stops dragging
-          clearTimeout(sliderUpdateTimeout);
-          sliderUpdateTimeout = setTimeout(() => {
+          this.debounce('bagkurSlider', () => {
             originalSlider.dispatchEvent(new Event('change', { bubbles: true }));
           }, 300); // 300ms delay after user stops dragging
         }
@@ -292,8 +286,133 @@ class SalaryCalculator {
     // reportContent will be initialized via initializeReportContent()
     this.reportContent = null;
 
+    // Debounce manager - centralized timeout handling
+    this._debounceTimers = {};
+
+    // Calculation cache - memoization for expensive operations
+    this._calculationCache = {};
+
     this.bindEvents();
     this.initialize();
+  }
+
+  // Debounce Manager Methods
+  /**
+   * Debounce a function call with a unique key
+   * @param {string} key - Unique identifier for this debounce operation
+   * @param {Function} fn - Function to execute after delay
+   * @param {number} delay - Delay in milliseconds (default: 300)
+   */
+  debounce(key, fn, delay = 300) {
+    // Clear existing timer for this key
+    if (this._debounceTimers[key]) {
+      clearTimeout(this._debounceTimers[key]);
+      delete this._debounceTimers[key];
+    }
+    
+    // Set new timer
+    this._debounceTimers[key] = setTimeout(() => {
+      fn();
+      delete this._debounceTimers[key];
+    }, delay);
+  }
+
+  /**
+   * Cancel a pending debounced operation
+   * @param {string} key - Unique identifier for the debounce operation to cancel
+   */
+  cancelDebounce(key) {
+    if (this._debounceTimers[key]) {
+      clearTimeout(this._debounceTimers[key]);
+      delete this._debounceTimers[key];
+    }
+  }
+
+  /**
+   * Execute a debounced function immediately and cancel pending debounce
+   * @param {string} key - Unique identifier for the debounce operation
+   * @param {Function} fn - Function to execute immediately
+   */
+  flushDebounce(key, fn) {
+    this.cancelDebounce(key);
+    fn();
+  }
+
+  /**
+   * Clear all pending debounce timers
+   */
+  clearAllDebounces() {
+    Object.keys(this._debounceTimers).forEach(key => {
+      clearTimeout(this._debounceTimers[key]);
+      delete this._debounceTimers[key];
+    });
+  }
+
+  // Calculation Cache Methods
+  /**
+   * Generate a cache key from input parameters
+   * @param {string} functionName - Name of the function being cached
+   * @param {...any} args - Arguments to the function
+   * @returns {string} Cache key
+   */
+  _generateCacheKey(functionName, ...args) {
+    // Create a stable string representation of the arguments
+    const argsKey = args.map(arg => {
+      if (arg === null || arg === undefined) return String(arg);
+      if (typeof arg === 'object') {
+        // For objects, create a sorted key-value string
+        return JSON.stringify(arg, Object.keys(arg).sort());
+      }
+      return String(arg);
+    }).join('|');
+    return `${functionName}:${argsKey}`;
+  }
+
+  /**
+   * Get a cached calculation result
+   * @param {string} functionName - Name of the function
+   * @param {...any} args - Arguments used for cache key
+   * @returns {any|null} Cached result or null if not found
+   */
+  getCached(functionName, ...args) {
+    const key = this._generateCacheKey(functionName, ...args);
+    const cached = this._calculationCache[key];
+    if (cached) {
+      return cached.value;
+    }
+    return null;
+  }
+
+  /**
+   * Store a calculation result in cache
+   * @param {string} functionName - Name of the function
+   * @param {any} value - Result to cache
+   * @param {...any} args - Arguments used for cache key
+   */
+  setCached(functionName, value, ...args) {
+    const key = this._generateCacheKey(functionName, ...args);
+    this._calculationCache[key] = {
+      value,
+      timestamp: Date.now()
+    };
+  }
+
+  /**
+   * Clear calculation cache
+   * @param {string|null} functionName - If provided, clear only this function's cache. Otherwise clear all.
+   */
+  clearCache(functionName = null) {
+    if (functionName) {
+      // Clear only entries for this function
+      Object.keys(this._calculationCache).forEach(key => {
+        if (key.startsWith(`${functionName}:`)) {
+          delete this._calculationCache[key];
+        }
+      });
+    } else {
+      // Clear all cache
+      this._calculationCache = {};
+    }
   }
 
   initializeElements() {
@@ -527,8 +646,16 @@ class SalaryCalculator {
   
   // SGK calculation methods
   calculateSGKSabitNetMaas(hedefAylikNetMaas, zamParametreleri = null, tesOranlari = { calisan: 0 }) {
+    // Check cache first
+    const cached = this.getCached('calculateSGKSabitNetMaas', hedefAylikNetMaas, zamParametreleri, tesOranlari);
+    if (cached !== null) {
+      return cached;
+    }
+
     if (isNaN(hedefAylikNetMaas) || hedefAylikNetMaas <= 0) {
-      return { toplamVergi: 0, aylikDetay: [] };
+      const result = { toplamVergi: 0, aylikDetay: [] };
+      this.setCached('calculateSGKSabitNetMaas', result, hedefAylikNetMaas, zamParametreleri, tesOranlari);
+      return result;
     }
 
     let toplamYillikVergi = 0;
@@ -615,7 +742,7 @@ class SalaryCalculator {
       });
     }
 
-    return {
+    const result = {
       toplamVergi: toplamYillikVergi,
       aylikDetay: aylikDetay,
       ortalamaNeto:
@@ -624,6 +751,11 @@ class SalaryCalculator {
       toplamYillikBrut: toplamYillikBrut,
       zamParametreleri: zamParametreleri,
     };
+    
+    // Cache the result
+    this.setCached('calculateSGKSabitNetMaas', result, hedefAylikNetMaas, zamParametreleri, tesOranlari);
+    
+    return result;
   }
 
   calculateBrutFromNetAylikKumulatif(
@@ -728,8 +860,16 @@ class SalaryCalculator {
   }
 
   calculateTotalCostToEmployer(yillikBrutMaas, tesOranlari = { isveren: 0, kidemFonu: 0 }) {
+    // Check cache first
+    const cached = this.getCached('calculateTotalCostToEmployer', yillikBrutMaas, tesOranlari);
+    if (cached !== null) {
+      return cached;
+    }
+
     if (isNaN(yillikBrutMaas) || yillikBrutMaas <= 0) {
-      return { totalCost: 0, employerPremiums: 0, brutMaas: 0 };
+      const result = { totalCost: 0, employerPremiums: 0, brutMaas: 0 };
+      this.setCached('calculateTotalCostToEmployer', result, yillikBrutMaas, tesOranlari);
+      return result;
     }
 
     const YILLIK_PEK_TAVAN = this.constants.AYLIK_PEK_TAVAN * 12;
@@ -747,11 +887,26 @@ class SalaryCalculator {
     const totalCost = yillikBrutMaas + SGK_ISVEREN_PAYI + ISSIZLIK_ISVEREN_PAYI + TES_ISVEREN_PAYI + KIDEM_FON_PAYI;
     const employerPremiums = SGK_ISVEREN_PAYI + ISSIZLIK_ISVEREN_PAYI;
 
-    return { totalCost, employerPremiums, brutMaas: yillikBrutMaas };
+    const result = { totalCost, employerPremiums, brutMaas: yillikBrutMaas };
+    
+    // Cache the result
+    this.setCached('calculateTotalCostToEmployer', result, yillikBrutMaas, tesOranlari);
+    
+    return result;
   }
 
   calculateBrutFromNet(yillikNet) {
-    if (yillikNet <= 0) return 0;
+    // Check cache first
+    const cached = this.getCached('calculateBrutFromNet', yillikNet);
+    if (cached !== null) {
+      return cached;
+    }
+
+    if (yillikNet <= 0) {
+      this.setCached('calculateBrutFromNet', 0, yillikNet);
+      return 0;
+    }
+    
     let low = yillikNet;
     let high = yillikNet * 2;
     let brutGuess = 0;
@@ -760,6 +915,7 @@ class SalaryCalculator {
       brutGuess = (low + high) / 2;
       let calculatedNet = this.calculateNetFromBrut(brutGuess);
       if (Math.abs(calculatedNet - yillikNet) < 1) {
+        this.setCached('calculateBrutFromNet', brutGuess, yillikNet);
         return brutGuess;
       }
       if (calculatedNet < yillikNet) {
@@ -768,12 +924,23 @@ class SalaryCalculator {
         high = brutGuess;
       }
     }
+    
+    // Cache the result even if not perfect match
+    this.setCached('calculateBrutFromNet', brutGuess, yillikNet);
     return brutGuess;
   }
 
   // UI Methods
   updateUI() {
     try {
+      // Clear any pending debounce operations before starting UI update
+      // This ensures we don't have stale updates queued
+      this.clearAllDebounces();
+      
+      // Clear calculation cache when UI updates - calculations may depend on current state
+      // This ensures cache doesn't become stale when inputs/options change
+      this.clearCache();
+      
       // --- Gider input focus/caret koruma başlangıcı ---
       // Gider inputlarının id'leri
       const giderInputIds = [
@@ -2389,7 +2556,6 @@ class SalaryCalculator {
     });
     
     // Handle input event for real-time label update without full recalculation
-    let bagkurInputTimeout = null;
     this.elements.bagkurPrimiInput.addEventListener("input", () => {
       // Update label immediately for visual feedback
       if (this.elements.bagkurPrimLabel) {
@@ -2399,8 +2565,7 @@ class SalaryCalculator {
       }
       
       // Debounce full recalculation - update after user stops dragging
-      clearTimeout(bagkurInputTimeout);
-      bagkurInputTimeout = setTimeout(() => {
+      this.debounce('bagkurInput', () => {
         this.updateBaseValuesFromInputs();
         this.updateUI();
       }, 300);
