@@ -1560,18 +1560,26 @@ class SalaryCalculator {
             ? tceData.brutMaas / divisor
             : tceData.brutMaas / divisor / this.state.usdRate;
 
+        // Set labels based on mode
+        const brutMaasLabel = this.state.currentMode === "yearly" 
+          ? "Yıllık Brüt Maaş" 
+          : "Aylık Ortalama Brüt Maaş";
+        const tceLabel = this.state.currentMode === "yearly"
+          ? "Yıllık İşverene Toplam Maliyet"
+          : "Aylık Ortalama İşverene Toplam Maliyet";
+
         tceHTML = `
                 <div class="mt-4 border-t border-gray-300 dark:border-gray-700 pt-3">
                     <div class="grid grid-cols-2 gap-4 text-center">
                         <div>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">Brüt Maaş</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">${brutMaasLabel}</p>
                             <p id="${cardId}-brut-maas" class="text-lg font-semibold text-gray-700 dark:text-gray-200">${this.formatCurrency(
                               brutMaas,
                               this.state.currentCurrency
                             )}</p>
                         </div>
                         <div>
-                            <p class="text-sm font-semibold text-blue-700 dark:text-blue-400">İşverene Toplam Maliyet</p>
+                            <p class="text-sm font-semibold text-blue-700 dark:text-blue-400">${tceLabel}</p>
                             <p id="${cardId}-tce" class="text-2xl font-bold text-blue-600 dark:text-blue-400">${this.formatCurrency(
                               displayTCE,
                               this.state.currentCurrency
