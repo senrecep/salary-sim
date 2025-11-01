@@ -122,6 +122,11 @@
     <meta name="gemini:indexing" content="allow" />
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -152,7 +157,7 @@
     </script>
 
   </head>
-  <body class="p-2 md:p-6">
+  <body class="p-2 md:p-6 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TP3VKVZF"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -163,11 +168,11 @@
       <div class="max-w-7xl mx-auto">
         <header class="text-center mb-8 md:mb-12 lg:mb-16">
           <h1
-            class="text-2xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight mb-3 md:mb-4"
+            class="text-2xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight mb-3 md:mb-4"
           >
             Kariyer ve Maaş Karşılaştırma Simülatörü
           </h1>
-          <p class="text-base md:text-xl text-gray-600 mt-3 md:mt-4 max-w-3xl mx-auto leading-relaxed">
+          <p class="text-base md:text-xl text-gray-600 dark:text-gray-300 mt-3 md:mt-4 max-w-3xl mx-auto leading-relaxed">
             Maaşlı Çalışan vs. Freelance/Şahıs Şirketi - Net Gelir
             Karşılaştırması
           </p>
@@ -176,26 +181,26 @@
             <!-- Dark Mode Toggle -->
             <button
               id="darkModeToggle"
-              class="flex items-center justify-center px-1.5 py-1.5 rounded-lg shadow bg-gray-200 hover:bg-gray-300 transition-colors border border-gray-300 h-9"
+              class="flex items-center justify-center px-1.5 py-1.5 rounded-lg shadow bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors border border-gray-300 dark:border-gray-600 h-9"
               aria-label="Toggle dark mode"
               title="Toggle dark mode"
             >
-              <svg id="moonIcon" class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg id="moonIcon" class="w-5 h-5 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
               </svg>
-              <svg id="sunIcon" class="w-5 h-5 text-gray-800 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg id="sunIcon" class="w-5 h-5 text-gray-800 dark:text-gray-200 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
               </svg>
             </button>
-            <a href="https://github.com/senrecep/salary-sim" target="_blank" class="flex items-center gap-2 px-3 py-1.5 rounded-lg shadow bg-gray-900 hover:bg-gray-800 transition text-white text-sm md:text-base min-w-[150px] h-9 justify-center border border-gray-800">
+            <a href="https://github.com/senrecep/salary-sim" target="_blank" class="flex items-center gap-2 px-3 py-1.5 rounded-lg shadow bg-gray-900 dark:bg-gray-800 hover:bg-gray-800 dark:hover:bg-gray-700 transition text-white text-sm md:text-base min-w-[150px] h-9 justify-center border border-gray-800 dark:border-gray-700">
               <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="mr-1"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.6-.18-3.29-.8-3.29-3.55 0-.78.28-1.42.74-1.92-.07-.18-.32-.91.07-1.9 0 0 .6-.19 1.97.73.57-.16 1.18-.24 1.79-.24.61 0 1.22.08 1.79.24 1.37-.92 1.97-.73 1.97-.73.39.99.14 1.72.07 1.9.46.5.74 1.14.74 1.92 0 2.76-1.69 3.37-3.3 3.55.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
               <span class="font-semibold whitespace-nowrap">GitHub Stars</span>
-              <span class="flex items-center gap-1 ml-2 px-2 py-0.5 rounded font-semibold bg-gray-800 text-yellow-400 text-sm min-w-[38px] justify-center">
+              <span class="flex items-center gap-1 ml-2 px-2 py-0.5 rounded font-semibold bg-gray-800 dark:bg-gray-700 text-yellow-400 dark:text-yellow-300 text-sm min-w-[38px] justify-center">
                 <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" class="inline-block"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
                 <span id="github-stars-count" style="font-size:0.95rem;line-height:1;">0</span>
               </span>
             </a>
-            <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg shadow bg-blue-600 hover:bg-blue-700 transition h-9 border border-blue-700">
+            <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg shadow bg-blue-600 dark:bg-blue-800 hover:bg-blue-700 dark:hover:bg-blue-700 transition h-9 border border-blue-700 dark:border-blue-600">
               <a href="https://www.linkedin.com/in/senrecep/" target="_blank" class="flex items-center gap-1.5 text-white text-sm md:text-base font-semibold whitespace-nowrap">
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
                 LinkedIn
@@ -211,9 +216,9 @@
       <main class="space-y-6 md:space-y-10 lg:space-y-12">
         <!-- Financial Data Section -->
         <section class="max-w-7xl mx-auto">
-          <div class="card p-5 md:p-6 lg:p-8">
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
-              <p class="text-sm text-blue-800">
+          <div class="card dark:bg-gray-800 dark:border-gray-700 p-5 md:p-6 lg:p-8">
+            <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg p-3 mb-4">
+              <p class="text-sm text-blue-800 dark:text-blue-200">
                 <span class="font-semibold">📊 2025 Projeksiyonu:</span>
                 Bu simülatörde kullanılan 2025 yılı gelir vergisi dilimleri ve
                 istisna tutarları, beklenen yeniden değerleme oranlarına göre
@@ -221,17 +226,17 @@
                 netleşecektir.
               </p>
             </div>
-            <div class="border-b pb-3 md:pb-4 mb-4 md:mb-6">
+            <div class="border-b border-gray-300 dark:border-gray-700 pb-3 md:pb-4 mb-4 md:mb-6">
               <div
                 class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3"
               >
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
                   Finansal Veriler
                 </h2>
                 <div class="flex flex-wrap gap-3">
                   <!-- Currency Selector -->
                   <div
-                    class="flex rounded-lg p-1 bg-gray-100"
+                    class="flex rounded-lg p-1 bg-gray-100 dark:bg-gray-800"
                     role="group"
                     aria-label="Currency selection"
                   >
@@ -252,7 +257,7 @@
                   </div>
                   <!-- Time Period Selector -->
                   <div
-                    class="flex rounded-lg p-1 bg-gray-100"
+                    class="flex rounded-lg p-1 bg-gray-100 dark:bg-gray-800"
                     role="group"
                     aria-label="Time period selection"
                   >
@@ -275,7 +280,7 @@
                 </div>
               </div>
               <div
-                class="text-xs text-gray-500 text-right mt-2"
+                class="text-xs text-gray-500 dark:text-gray-400 text-right mt-2"
                 id="kur-status"
                 aria-live="polite"
               ></div>
@@ -286,7 +291,7 @@
               <div>
                 <label
                   for="netMaasInput"
-                  class="block text-sm font-medium text-gray-700 mb-2"
+                  class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                   ><span class="mode-label">Aylık</span> Net SGK'lı Maaşınız
                   (TRY)</label
                 >
@@ -296,7 +301,7 @@
                   min="0"
                   max="1000000000"
                   step="0.01"
-                  class="tabular-nums mt-1 block w-full rounded-lg border-2 border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-base md:text-lg p-3 md:p-4 transition-all duration-200"
+                  class="tabular-nums mt-1 block w-full rounded-lg border-2 border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-base md:text-lg p-3 md:p-4 transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                   aria-describedby="netMaasHelp"
                 />
                 <div id="netMaasHelp" class="sr-only">
@@ -306,32 +311,32 @@
 
               <!-- Retirement Conditions - Internal Section -->
                <section
-                class="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-4 space-y-3 shadow-sm"
+                class="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/30 dark:to-orange-900/30 border border-yellow-200 dark:border-yellow-700 rounded-lg p-4 space-y-3 shadow-sm dark:text-gray-100"
                 aria-labelledby="retirement-heading"
               >
                 <h3
                   id="retirement-heading"
-                  class="text-sm font-semibold text-yellow-800 mb-3"
+                  class="text-sm font-semibold text-yellow-800 dark:text-yellow-200 mb-3"
                 >
                   📋 Emeklilik Şartları
                 </h3>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                   <!-- SGK (4A) Card -->
-                  <div class="bg-blue-50 rounded-lg p-2 border border-blue-200">
-                    <h4 class="font-semibold text-blue-700 mb-1 text-xs">
+                  <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-2 border border-blue-200 dark:border-blue-700">
+                    <h4 class="font-semibold text-blue-700 dark:text-blue-300 mb-1 text-xs">
                       🏢 SGK (4/a)
                     </h4>
                     <div id="sgkSartlari" class="space-y-1">
                       <div class="flex justify-between text-xs">
-                        <span class="text-gray-600">Tam:</span>
-                        <span class="font-bold text-blue-700"
+                        <span class="text-gray-600 dark:text-gray-300">Tam:</span>
+                        <span class="font-bold text-blue-700 dark:text-blue-300"
                           >60 yaş / 7200 gün</span
                         >
                       </div>
                       <div class="flex justify-between text-xs">
-                        <span class="text-gray-600">Kısmi:</span>
-                        <span class="font-bold text-orange-600"
+                        <span class="text-gray-600 dark:text-gray-300">Kısmi:</span>
+                        <span class="font-bold text-orange-600 dark:text-orange-400"
                           >63 yaş / 5400 gün</span
                         >
                       </div>
@@ -340,25 +345,25 @@
 
                   <!-- Bağ-Kur Card -->
                   <div
-                    class="bg-green-50 rounded-lg p-2 border border-green-200"
+                    class="bg-green-50 dark:bg-green-900/30 rounded-lg p-2 border border-green-200 dark:border-green-700"
                   >
-                    <h4 class="font-semibold text-green-700 mb-1 text-xs">
+                    <h4 class="font-semibold text-green-700 dark:text-green-300 mb-1 text-xs">
                       🏪 Bağ-Kur (4/b)
                     </h4>
                     <div id="bagkurSartlari" class="space-y-1">
                       <div class="flex justify-between text-xs">
-                        <span class="text-gray-600">Tam:</span>
-                        <span class="font-bold text-green-700"
+                        <span class="text-gray-600 dark:text-gray-300">Tam:</span>
+                        <span class="font-bold text-green-700 dark:text-green-300"
                           >65 yaş / 9000 gün</span
                         >
                       </div>
                       <div class="flex justify-between text-xs">
-                        <span class="text-gray-600">Süre:</span>
-                        <span class="font-bold text-green-700">25 yıl</span>
+                        <span class="text-gray-600 dark:text-gray-300">Süre:</span>
+                        <span class="font-bold text-green-700 dark:text-green-300">25 yıl</span>
                       </div>
                       <div class="flex justify-between text-xs">
-                        <span class="text-gray-600">Fark:</span>
-                        <span class="font-bold text-red-600"
+                        <span class="text-gray-600 dark:text-gray-300">Fark:</span>
+                        <span class="font-bold text-red-600 dark:text-red-400"
                           >+5 yıl SGK'dan</span
                         >
                       </div>
@@ -368,7 +373,7 @@
 
                 <div
                   id="emeklilikUyari"
-                  class="bg-blue-100 border border-blue-200 p-2 rounded-lg text-xs text-blue-800"
+                  class="bg-blue-100 dark:bg-blue-900/40 border border-blue-200 dark:border-blue-700 p-2 rounded-lg text-xs text-blue-800 dark:text-blue-200"
                   role="note"
                 >
                   <div id="uyariMetni" class="text-xs">
@@ -396,7 +401,7 @@
                 <div id="zamDetayPanel" class="hidden mt-2 pl-6 border-l-2 border-blue-200">
                   <div class="grid grid-cols-2 gap-2">
                     <div>
-                      <label for="zamOrani" class="block text-xs font-medium text-gray-700">Zam Oranı (%)</label>
+                      <label for="zamOrani" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Zam Oranı (%)</label>
                       <input
                         type="number"
                         id="zamOrani"
@@ -404,16 +409,16 @@
                         max="200"
                         step="5"
                         value="20"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                         aria-describedby="zamOraniHelp"
                       />
                       <div id="zamOraniHelp" class="sr-only">Enter raise percentage</div>
                     </div>
                     <div>
-                      <label for="zamAyi" class="block text-xs font-medium text-gray-700">Hangi Aydan İtibaren</label>
+                      <label for="zamAyi" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Hangi Aydan İtibaren</label>
                       <select
                         id="zamAyi"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                         aria-describedby="zamAyiHelp"
                       >
                         <option value="1">Ocak</option>
@@ -500,13 +505,13 @@
                 <input
                   type="range"
                   id="bagkurPrimiInput"
-                  class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-2"
+                  class="w-full h-2 bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg appearance-none cursor-pointer mt-2"
                   aria-describedby="bagkurHelp"
                 />
                 <div id="bagkurHelp" class="sr-only">
                   Select Bağ-Kur premium income level
                 </div>
-                <span id="bagkurPrimLabel" class="font-semibold text-blue-600"></span>
+                <span id="bagkurPrimLabel" class="font-semibold text-blue-600 dark:text-blue-400"></span>
               </div>
             </div>
           </div>

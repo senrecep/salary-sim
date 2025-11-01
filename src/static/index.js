@@ -1007,7 +1007,7 @@ class SalaryCalculator {
       // Early return if no valid input
       if (isNaN(yillikNetMaas) || yillikNetMaas <= 0) {
         this.elements.resultsPanel.innerHTML =
-          '<div class="card p-6 text-gray-500 text-center">Lütfen geçerli bir maaş değeri girin.</div>';
+          '<div class="card dark:bg-gray-800 dark:border-gray-700 p-6 text-gray-500 dark:text-gray-400 text-center">Lütfen geçerli bir maaş değeri girin.</div>';
         return;
       }
 
@@ -1327,7 +1327,7 @@ class SalaryCalculator {
       }
     } catch (e) {
       console.error("UI Update failed:", e);
-      this.elements.resultsPanel.innerHTML = `<div class="card p-6 text-red-500 text-center">Hesaplama sırasında bir hata oluştu. Lütfen girdileri kontrol ediniz.</div>`;
+      this.elements.resultsPanel.innerHTML = `<div class="card dark:bg-gray-800 dark:border-gray-700 p-6 text-red-500 dark:text-red-400 text-center">Hesaplama sırasında bir hata oluştu. Lütfen girdileri kontrol ediniz.</div>`;
     }
   }
 
@@ -1396,7 +1396,7 @@ class SalaryCalculator {
           this.state.currentCurrency === "TRY"
             ? destekMiktari
             : destekMiktari / this.state.usdRate;
-        tesvikNotlari += `<p class="text-xs text-green-600 mt-2 text-center">Genç Girişimci Bağ-Kur Desteği uygulandı (${timeLabel} ~${this.formatCurrency(
+        tesvikNotlari += `<p class="text-xs text-green-600 dark:text-green-400 mt-2 text-center">Genç Girişimci Bağ-Kur Desteği uygulandı (${timeLabel} ~${this.formatCurrency(
           displayDestek,
           this.state.currentCurrency
         )} prim devlet tarafından karşılanır).</p>`;
@@ -1408,7 +1408,7 @@ class SalaryCalculator {
           this.state.currentCurrency === "TRY"
             ? istisnaMiktari
             : istisnaMiktari / this.state.usdRate;
-        tesvikNotlari += `<p class="text-xs text-green-600 mt-1 text-center">Genç Girişimci Vergi İstisnası uygulandı (${timeLabel} ~${this.formatCurrency(
+        tesvikNotlari += `<p class="text-xs text-green-600 dark:text-green-400 mt-1 text-center">Genç Girişimci Vergi İstisnası uygulandı (${timeLabel} ~${this.formatCurrency(
           displayIstisna,
           this.state.currentCurrency
         )} kâr muafiyeti).</p>`;
@@ -1423,7 +1423,7 @@ class SalaryCalculator {
           this.state.currentCurrency === "TRY"
             ? hizmetIhracatiIstisnaTutari / divisor
             : hizmetIhracatiIstisnaTutari / divisor / this.state.usdRate;
-        tesvikNotlari += `<p class="text-xs text-blue-600 mt-1 text-center">Hizmet İhracatı İstisnası: ${timeLabel} ${this.formatCurrency(
+        tesvikNotlari += `<p class="text-xs text-blue-600 dark:text-blue-400 mt-1 text-center">Hizmet İhracatı İstisnası: ${timeLabel} ${this.formatCurrency(
           displayIstisna,
           this.state.currentCurrency
         )} vergi tasarrufu (%80 istisna)</p>`;
@@ -1452,9 +1452,9 @@ class SalaryCalculator {
             : sgkDetaylari.ortalamaNeto / this.state.usdRate;
 
         sgkDetayHTML = `
-                    <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                        <h4 class="text-sm font-semibold text-blue-800 mb-2">📊 SGK Aylık Dönem Analizi</h4>
-                        <div class="text-xs text-gray-700 space-y-1">
+                    <div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-lg">
+                        <h4 class="text-sm font-semibold text-blue-800 dark:text-blue-200 mb-2">📊 SGK Aylık Dönem Analizi</h4>
+                        <div class="text-xs text-gray-700 dark:text-gray-300 space-y-1">
                             <p><strong>Gerçek Aylık Ortalama Net:</strong> ${this.formatCurrency(
                               displayOrtalamaNeto,
                               this.state.currentCurrency
@@ -1465,23 +1465,23 @@ class SalaryCalculator {
                             ${
                               sgkDetaylari.zamParametreleri &&
                               sgkDetaylari.zamParametreleri.aktif
-                                ? `<p class="text-orange-600"><strong>⚠️ ${sgkDetaylari.zamParametreleri.baslangicAy}. aydan itibaren %${sgkDetaylari.zamParametreleri.oran} zam etkisi dahil!</strong></p>`
+                                ? `<p class="text-orange-600 dark:text-orange-400"><strong>⚠️ ${sgkDetaylari.zamParametreleri.baslangicAy}. aydan itibaren %${sgkDetaylari.zamParametreleri.oran} zam etkisi dahil!</strong></p>`
                                 : ""
                             }
                         </div>
-                        <button class="text-xs text-blue-600 underline mt-2" onclick="window.toggleSGKDetay(this)">
+                        <button class="text-xs text-blue-600 dark:text-blue-400 underline mt-2" onclick="window.toggleSGKDetay(this)">
                             📈 Aylık Detayları Göster
                         </button>
                         <div class="sgk-detay-panel hidden mt-3">
                             <div class="max-h-48 overflow-y-auto text-xs">
-                                <table class="w-full border-collapse">
+                                <table class="w-full border-collapse dark:text-gray-100">
                                     <thead>
-                                        <tr class="bg-blue-100">
-                                            <th class="border text-left p-1">Ay</th>
-                                            <th class="border text-right p-1">Brüt</th>
-                                            <th class="border text-right p-1">Vergi</th>
-                                            <th class="border text-right p-1">Net</th>
-                                            <th class="border text-center p-1">Dilim</th>
+                                        <tr class="bg-blue-100 dark:bg-blue-900/40 dark:text-gray-100">
+                                            <th class="border border-gray-300 dark:border-gray-600 text-left p-1 dark:text-gray-100">Ay</th>
+                                            <th class="border border-gray-300 dark:border-gray-600 text-right p-1 dark:text-gray-100">Brüt</th>
+                                            <th class="border border-gray-300 dark:border-gray-600 text-right p-1 dark:text-gray-100">Vergi</th>
+                                            <th class="border border-gray-300 dark:border-gray-600 text-right p-1 dark:text-gray-100">Net</th>
+                                            <th class="border border-gray-300 dark:border-gray-600 text-center p-1 dark:text-gray-100">Dilim</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1503,28 +1503,28 @@ class SalaryCalculator {
               : ay.netMaas / this.state.usdRate;
 
           const rowClass = ay.zamliAy
-            ? "bg-orange-100"
+            ? "bg-orange-100 dark:bg-orange-900/40 dark:text-gray-100"
             : ay.ay % 2 === 0
-            ? "bg-gray-50"
-            : "";
+            ? "bg-gray-50 dark:bg-gray-700 dark:text-gray-100"
+            : "dark:text-gray-100";
           const zamIcon = ay.zamliAy ? " 📈" : "";
 
           sgkDetayHTML += `
                         <tr class="${rowClass}">
-                            <td class="border p-1">${ay.ay}.${zamIcon}</td>
-                            <td class="border text-right p-1">${this.formatCurrency(
+                            <td class="border border-gray-300 dark:border-gray-700 p-1">${ay.ay}.${zamIcon}</td>
+                            <td class="border border-gray-300 dark:border-gray-700 text-right p-1">${this.formatCurrency(
                               displayBrut,
                               this.state.currentCurrency
                             )}</td>
-                            <td class="border text-right p-1">${this.formatCurrency(
+                            <td class="border border-gray-300 dark:border-gray-700 text-right p-1">${this.formatCurrency(
                               displayVergiAy,
                               this.state.currentCurrency
                             )}</td>
-                            <td class="border text-right p-1">${this.formatCurrency(
+                            <td class="border border-gray-300 dark:border-gray-700 text-right p-1">${this.formatCurrency(
                               displayNetAy,
                               this.state.currentCurrency
                             )}</td>
-                            <td class="border text-center p-1">${
+                            <td class="border border-gray-300 dark:border-gray-700 text-center p-1">${
                               ay.vergiDilimi
                             }</td>
                         </tr>
@@ -1561,18 +1561,18 @@ class SalaryCalculator {
             : tceData.brutMaas / divisor / this.state.usdRate;
 
         tceHTML = `
-                <div class="mt-4 border-t pt-3">
+                <div class="mt-4 border-t border-gray-300 dark:border-gray-700 pt-3">
                     <div class="grid grid-cols-2 gap-4 text-center">
                         <div>
-                            <p class="text-sm text-gray-500">Brüt Maaş</p>
-                            <p id="${cardId}-brut-maas" class="text-lg font-semibold text-gray-700">${this.formatCurrency(
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Brüt Maaş</p>
+                            <p id="${cardId}-brut-maas" class="text-lg font-semibold text-gray-700 dark:text-gray-200">${this.formatCurrency(
                               brutMaas,
                               this.state.currentCurrency
                             )}</p>
                         </div>
                         <div>
-                            <p class="text-sm font-semibold text-blue-700">İşverene Toplam Maliyet</p>
-                            <p id="${cardId}-tce" class="text-2xl font-bold text-blue-600">${this.formatCurrency(
+                            <p class="text-sm font-semibold text-blue-700 dark:text-blue-400">İşverene Toplam Maliyet</p>
+                            <p id="${cardId}-tce" class="text-2xl font-bold text-blue-600 dark:text-blue-400">${this.formatCurrency(
                               displayTCE,
                               this.state.currentCurrency
                             )}</p>
@@ -1588,9 +1588,9 @@ class SalaryCalculator {
         const isTesEnabled = this.elements.tesReformuUygulaCheck?.checked || false;
         
         modelAOptionsHTML = `
-          <div class="mt-4 border-t pt-3">
-            <h4 class="text-sm font-semibold text-blue-700 mb-3">⚙️ Model A Seçenekleri</h4>
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-3">
+          <div class="mt-4 border-t border-gray-300 dark:border-gray-700 pt-3">
+            <h4 class="text-sm font-semibold text-blue-700 dark:text-blue-400 mb-3">⚙️ Model A Seçenekleri</h4>
+            <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-lg p-4 space-y-3">
               <!-- Mid-Year Raise Effect -->
               <div>
                 <div class="flex items-center space-x-2">
@@ -1598,16 +1598,16 @@ class SalaryCalculator {
                     data-sync-id="zamEtkisiCheck"
                     type="checkbox"
                     ${isZamEnabled ? "checked" : ""}
-                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 model-option-checkbox"
+                    class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 dark:text-blue-400 focus:ring-blue-500 model-option-checkbox"
                   />
-                  <label class="text-sm font-medium text-gray-700">🔄 Yıl İçi Zam Simülasyonu</label>
+                  <label class="text-sm font-medium text-gray-700 dark:text-gray-300">🔄 Yıl İçi Zam Simülasyonu</label>
                 </div>
                 <div
-                  class="zam-detay-panel ${isZamEnabled ? "" : "hidden"} mt-2 pl-6 border-l-2 border-blue-200"
+                  class="zam-detay-panel ${isZamEnabled ? "" : "hidden"} mt-2 pl-6 border-l-2 border-blue-200 dark:border-blue-700"
                 >
                   <div class="grid grid-cols-2 gap-2">
                     <div>
-                      <label class="block text-xs font-medium text-gray-700">Zam Oranı (%)</label>
+                      <label class="block text-xs font-medium text-gray-700 dark:text-gray-300">Zam Oranı (%)</label>
                       <input
                         data-sync-id="zamOrani"
                         type="number"
@@ -1615,14 +1615,14 @@ class SalaryCalculator {
                         max="200"
                         step="5"
                         value="${this.elements.zamOrani?.value || 20}"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm model-option-input"
+                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 model-option-input"
                       />
                     </div>
                     <div>
-                      <label class="block text-xs font-medium text-gray-700">Hangi Aydan İtibaren</label>
+                      <label class="block text-xs font-medium text-gray-700 dark:text-gray-300">Hangi Aydan İtibaren</label>
                       <select
                         data-sync-id="zamAyi"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm model-option-select"
+                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 model-option-select"
                       >
                         <option value="1">Ocak</option>
                         <option value="2">Şubat</option>
@@ -1648,11 +1648,11 @@ class SalaryCalculator {
                   data-sync-id="tesReformuUygula"
                   type="checkbox"
                   ${isTesEnabled ? "checked" : ""}
-                  class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 model-option-checkbox"
+                  class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 dark:text-blue-400 focus:ring-blue-500 model-option-checkbox"
                 />
-                <label class="text-sm font-medium text-gray-700">2026 TES Reformu Simülasyonu (Deneysel)</label>
+                <label class="text-sm font-medium text-gray-700 dark:text-gray-300">2026 TES Reformu Simülasyonu (Deneysel)</label>
                 <span
-                  class="info-icon text-red-500 cursor-help"
+                  class="info-icon text-red-500 dark:text-red-400 cursor-help"
                   data-tooltip="DİKKAT: Bu seçeneği işaretlemek, 2026'da planlanan Tamamlayıcı Emeklilik Sistemi'ni (TES) simüle eder. Model A'nın (Maaşlı) net maaşından %3 kesinti yapar ve işveren maliyetini (TCE) %4 artırır. Raporlara göre Model B (Bağ-Kur) bu sistemden etkilenmez."
                 >ℹ️</span>
               </div>
@@ -1710,31 +1710,31 @@ class SalaryCalculator {
         }
 
         modelBOptionsHTML = `
-          <div class="mt-4 border-t pt-3">
-            <h4 class="text-sm font-semibold text-green-700 mb-3">⚙️ Model B Seçenekleri</h4>
-            <div class="bg-green-50 border border-green-200 rounded-lg p-4 space-y-3">
+          <div class="mt-4 border-t border-gray-300 dark:border-gray-700 pt-3">
+            <h4 class="text-sm font-semibold text-green-700 dark:text-green-400 mb-3">⚙️ Model B Seçenekleri</h4>
+            <div class="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 rounded-lg p-4 space-y-3">
               <!-- Karşılaştırma Bazı Seçici -->
-              <div class="mb-4 pb-4 border-b">
+              <div class="mb-4 pb-4 border-b border-gray-300 dark:border-gray-700">
                 <label class="block text-sm font-medium text-gray-700 mb-2">
                   Hasılat Karşılaştırma Bazı
                 </label>
-                <div class="flex flex-col sm:flex-row sm:items-center sm:flex-nowrap gap-2 sm:gap-3 rounded-lg p-2 sm:p-1 bg-white border border-gray-300">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:flex-nowrap gap-2 sm:gap-3 rounded-lg p-2 sm:p-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600">
                   <!-- Left side: Info icon and buttons -->
                   <div class="flex items-center gap-2 sm:gap-1 w-full sm:w-auto flex-wrap sm:flex-nowrap sm:flex-shrink-0">
                     <span
-                      class="info-icon text-blue-500 cursor-help flex-shrink-0"
+                      class="info-icon text-blue-500 dark:text-blue-400 cursor-help flex-shrink-0"
                       data-tooltip="Varsayılan modda, freelance hasılatı maaşlı çalışanın brüt maaşına eşitlenir. 'İşveren Maliyeti' modunda ise hasılat, işverenin SGK payları dahil toplam maliyetine eşitlenir. Bu, bir pozisyon için ayrılan toplam bütçenin daha doğru bir karşılaştırmasını sağlar."
                     >ℹ️</span>
                     <div class="flex items-center gap-1 flex-1 sm:flex-initial flex-wrap sm:flex-nowrap">
                       <button
                         data-comparison-basis="grossEquivalence"
-                        class="comparison-basis-btn px-3 py-1.5 text-xs font-semibold rounded-md transition-colors flex-1 sm:flex-initial min-w-0 ${isBrutBasis ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}"
+                        class="comparison-basis-btn py-1.5 px-3 h-auto leading-[1.25] text-xs font-semibold rounded-md transition-colors flex-1 sm:flex-initial min-w-0 ${isBrutBasis ? 'bg-blue-600 dark:bg-blue-700 text-white shadow-sm' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}"
                       >
                         Brüt Maaş
                       </button>
                       <button
                         data-comparison-basis="tceEquivalence"
-                        class="comparison-basis-btn px-3 py-1.5 text-xs font-semibold rounded-md transition-colors flex-1 sm:flex-initial min-w-0 ${!isBrutBasis ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}"
+                        class="comparison-basis-btn py-1.5 px-3 h-auto leading-[1.25] text-xs font-semibold rounded-md transition-colors flex-1 sm:flex-initial min-w-0 ${!isBrutBasis ? 'bg-blue-600 dark:bg-blue-700 text-white shadow-sm' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}"
                       >
                         İşveren Maliyeti
                       </button>
@@ -1746,28 +1746,28 @@ class SalaryCalculator {
                           max="200"
                           step="1"
                           value="${tcePercentage}"
-                          class="w-20 px-1 py-0.5 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 model-option-input"
+                          class="w-20 px-1 py-0.5 text-xs border border-gray-300 dark:border-gray-600 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100 model-option-input"
                           title="İşveren maliyeti oranı (%)"
                         />
-                        <span class="text-xs text-gray-600">%</span>
+                        <span class="text-xs text-gray-600 dark:text-gray-300">%</span>
                       </div>
                     </div>
                   </div>
                   <!-- Right side: Value display -->
                   ${comparisonLabel && comparisonValue > 0 ? `
                   <div class="flex items-center gap-2 mt-2 sm:mt-0 sm:ml-auto sm:flex-shrink-0">
-                    <span class="text-xs text-gray-500 whitespace-nowrap">${comparisonLabel}</span>
-                    <span class="text-sm font-bold text-blue-700 whitespace-nowrap">${this.formatCurrency(comparisonValue, this.state.currentCurrency)}</span>
+                    <span class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">${comparisonLabel}</span>
+                    <span class="text-sm font-bold text-blue-700 dark:text-blue-400 whitespace-nowrap">${this.formatCurrency(comparisonValue, this.state.currentCurrency)}</span>
                   </div>
                   ` : ''}
                 </div>
               </div>
 
               <!-- Bağ-Kur Prim Kazancı Slider -->
-              <div class="mb-4 pb-4 border-b">
+              <div class="mb-4 pb-4 sm:pb-3 border-b border-gray-300 dark:border-gray-700">
                 <label
                   for="bagkurPrimiInput"
-                  class="block text-sm font-medium text-gray-700 mb-2"
+                  class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 sm:mb-1.5"
                 >Bağ-Kur Prim Kazancı (${timeLabel} TRY)</label>
                 <input
                   type="range"
@@ -1776,21 +1776,21 @@ class SalaryCalculator {
                   max="${bagkurMax}"
                   value="${bagkurPekValue}"
                   ${isMatchSgkPrim ? "disabled" : ""}
-                  class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-2 model-bagkur-slider"
+                  class="w-full h-2 bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg appearance-none cursor-pointer mt-2 sm:mt-1.5 model-bagkur-slider"
                   aria-describedby="bagkurHelp"
                 />
                 <div id="bagkurHelp" class="sr-only">
                   Select Bağ-Kur premium income level
                 </div>
-                <div class="flex justify-between text-xs text-gray-500 mt-1">
-                  <span>Min</span>
+                <div class="flex justify-between items-center text-xs text-gray-500 dark:text-gray-400 mt-1.5 sm:mt-1 gap-1">
+                  <span class="flex-shrink-0">Min</span>
                   <span
                     id="bagkurPrimLabel"
-                    class="font-semibold text-blue-600"
+                    class="font-semibold text-blue-600 dark:text-blue-400 text-center px-1"
                   >${this.formatCurrency(Math.round(bagkurPekValue), "TRY")}</span>
-                  <span>Tavan</span>
+                  <span class="flex-shrink-0">Tavan</span>
                 </div>
-                ${isMatchSgkPrim ? '<p class="text-xs text-gray-500 mt-1 italic">Emeklilik Eşdeğerliği aktif olduğu için otomatik ayarlanıyor</p>' : ''}
+                ${isMatchSgkPrim ? '<p class="text-xs text-gray-500 dark:text-gray-400 mt-1.5 sm:mt-1 italic leading-relaxed">Emeklilik Eşdeğerliği aktif olduğu için otomatik ayarlanıyor</p>' : ''}
               </div>
               
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -1800,11 +1800,11 @@ class SalaryCalculator {
                     data-sync-id="matchSgkPrim"
                     type="checkbox"
                     ${isMatchSgkPrim ? "checked" : ""}
-                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 model-option-checkbox"
+                    class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 dark:text-blue-400 focus:ring-blue-500 model-option-checkbox"
                   />
-                  <label class="text-sm font-medium text-gray-700 flex items-center gap-1">Emeklilik Eşdeğerliği</label>
+                  <label class="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-1">Emeklilik Eşdeğerliği</label>
                   <span
-                    class="info-icon text-blue-500 cursor-help"
+                    class="info-icon text-blue-500 dark:text-blue-400 cursor-help"
                     data-tooltip="Bu seçenek, Bağ-Kur emekli maaşınızın, maaşlı çalışandakiyle aynı seviyede olmasını sağlamak için ödemeniz gereken prim kazancını (PEK) otomatik olarak ayarlar."
                   >ℹ️</span>
                 </div>
@@ -1815,11 +1815,11 @@ class SalaryCalculator {
                     data-sync-id="gencGirisimciVergi"
                     type="checkbox"
                     ${isGencGirisimciVergi ? "checked" : ""}
-                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 model-option-checkbox"
+                    class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 dark:text-blue-400 focus:ring-blue-500 model-option-checkbox"
                   />
-                  <label class="text-sm font-medium text-gray-700">Genç Girişimci Vergi İstisnası</label>
+                  <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Genç Girişimci Vergi İstisnası</label>
                   <span
-                    class="info-icon text-blue-500 cursor-help"
+                    class="info-icon text-blue-500 dark:text-blue-400 cursor-help"
                     data-tooltip="3 yıl boyunca, 2025 yılı için 330.000 TL'ye kadar olan kârınız için Gelir Vergisi muafiyeti sağlar."
                   >ℹ️</span>
                 </div>
@@ -1830,11 +1830,11 @@ class SalaryCalculator {
                     data-sync-id="gencGirisimciPrim"
                     type="checkbox"
                     ${isGencGirisimciPrim ? "checked" : ""}
-                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 model-option-checkbox"
+                    class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 dark:text-blue-400 focus:ring-blue-500 model-option-checkbox"
                   />
-                  <label class="text-sm font-medium text-gray-700">Genç Girişimci Bağ-Kur Desteği</label>
+                  <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Genç Girişimci Bağ-Kur Desteği</label>
                   <span
-                    class="info-icon text-red-500 cursor-help"
+                    class="info-icon text-red-500 dark:text-red-400 cursor-help"
                     data-tooltip="DİKKAT: TBMM'ye sunulan yasa teklifine göre 12 aylık Bağ-Kur prim desteğinin 2026 itibarıyla kaldırılması planlanmaktadır. 2026 ve sonrası için simülasyon yapıyorsanız bu seçeneğin işaretini kaldırın."
                   >ℹ️</span>
                 </div>
@@ -1845,11 +1845,11 @@ class SalaryCalculator {
                     data-sync-id="sgkMuafiyeti"
                     type="checkbox"
                     ${isSgkMuafiyeti ? "checked" : ""}
-                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 model-option-checkbox"
+                    class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 dark:text-blue-400 focus:ring-blue-500 model-option-checkbox"
                   />
-                  <label class="text-sm font-medium text-gray-700 flex items-center gap-1">SGK Muafiyeti</label>
+                  <label class="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-1">SGK Muafiyeti</label>
                   <span
-                    class="info-icon text-blue-500 cursor-help"
+                    class="info-icon text-blue-500 dark:text-blue-400 cursor-help"
                     data-tooltip="Mevcut SGK'lı işiniz devam ederken şahıs şirketi kurduğunuzda, 5510 sayılı kanunun 53. maddesi gereği Bağ-Kur primi ödeme yükümlülüğünüz bulunmaz. Bu seçenek bu durumu simüle eder."
                   >ℹ️</span>
                 </div>
@@ -1860,16 +1860,16 @@ class SalaryCalculator {
                     data-sync-id="hizmetIhracati"
                     type="checkbox"
                     ${isHizmetIhracati ? "checked" : ""}
-                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 model-option-checkbox"
+                    class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 dark:text-blue-400 focus:ring-blue-500 model-option-checkbox"
                   />
-                  <label class="text-sm font-medium text-gray-700">%80 Hizmet İhracatı</label>
+                  <label class="text-sm font-medium text-gray-700 dark:text-gray-300">%80 Hizmet İhracatı</label>
                   <span
-                    class="info-icon text-blue-500 cursor-help"
+                    class="info-icon text-blue-500 dark:text-blue-400 cursor-help"
                     data-tooltip="Yurt dışına yaptığınız hizmet satışlarında, gelir vergisi matrahından %80 oranında istisna uygulanır. 2025 yılında bu istisna için limit bulunmamaktadır. Örneğin, %27 vergi dilimindeyseniz ve 100.000 TL'lik kârınız varsa, 80.000 TL'si vergiden muaf tutulur, sadece 20.000 TL üzerinden vergi ödersiniz."
                   >ℹ️</span>
                 </div>
               </div>
-              <div class="text-xs text-gray-500 mt-2">
+              <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">
                 <strong>SGK Muafiyeti:</strong> Mevcut SGK'lı iş devam ederken Bağ-Kur primi ödeme yükümlülüğü olmaz (5510 SK m.53)<br />
                 <strong>Emeklilik Eşdeğerliği:</strong> SGK ile aynı emekli maaşı için gerekli PEK'i otomatik ayarlar
               </div>
@@ -1882,17 +1882,17 @@ class SalaryCalculator {
       let detailedBreakdownHTML = "";
       if (detailedBreakdown && title.includes("Model A")) {
         detailedBreakdownHTML = `
-                <div class="mt-4 border-t pt-3">
-                    <h4 class="text-sm font-semibold text-gray-700 text-center mb-4">📋 Kesintiler ve Maliyetler</h4>
+                <div class="mt-4 border-t border-gray-300 dark:border-gray-700 pt-3">
+                    <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 text-center mb-4">📋 Kesintiler ve Maliyetler</h4>
                     
                     <!-- Çalışan Kesintileri -->
                     <div class="mb-4">
-                        <h5 class="text-xs font-semibold text-gray-600 mb-2">👤 Çalışan Kesintileri (Maaştan Düşenler)</h5>
+                        <h5 class="text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2">👤 Çalışan Kesintileri (Maaştan Düşenler)</h5>
                         <div class="grid grid-cols-2 gap-3 text-sm">
-                            <div class="bg-red-50 p-3 rounded-lg border border-red-200">
+                            <div class="bg-red-50 dark:bg-red-900/30 p-3 rounded-lg border border-red-200 dark:border-red-700">
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="text-gray-600">SGK Primi</span>
-                                    <span class="font-semibold text-red-600">${this.formatCurrency(
+                                    <span class="text-gray-600 dark:text-gray-300">SGK Primi</span>
+                                    <span class="font-semibold text-red-600 dark:text-red-400">${this.formatCurrency(
                                       this.state.currentCurrency === "TRY"
                                         ? detailedBreakdown.sgkPrimi / divisor
                                         : detailedBreakdown.sgkPrimi /
@@ -1901,12 +1901,12 @@ class SalaryCalculator {
                                       this.state.currentCurrency
                                     )}</span>
                                 </div>
-                                <div class="text-xs text-gray-500">%15</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">%15</div>
                             </div>
-                            <div class="bg-orange-50 p-3 rounded-lg border border-orange-200">
+                            <div class="bg-orange-50 dark:bg-orange-900/30 p-3 rounded-lg border border-orange-200 dark:border-orange-700">
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="text-gray-600">İşsizlik Sig.</span>
-                                    <span class="font-semibold text-orange-600">${this.formatCurrency(
+                                    <span class="text-gray-600 dark:text-gray-300">İşsizlik Sig.</span>
+                                    <span class="font-semibold text-orange-600 dark:text-orange-400">${this.formatCurrency(
                                       this.state.currentCurrency === "TRY"
                                         ? detailedBreakdown.issizlikSigortasi /
                                             divisor
@@ -1937,7 +1937,7 @@ class SalaryCalculator {
                                 <div class="text-xs text-gray-500">%3</div>
                             </div>
                             ` : ''}
-                            <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                            <div class="bg-blue-50 dark:bg-blue-900/30 p-3 rounded-lg border border-blue-200 dark:border-blue-700">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-gray-600">Gelir Vergisi</span>
                                     <span class="font-semibold text-blue-600">${this.formatCurrency(
@@ -1949,14 +1949,14 @@ class SalaryCalculator {
                                       this.state.currentCurrency
                                     )}</span>
                                 </div>
-                                <div class="text-xs text-gray-500">${
+                                <div class="text-xs text-gray-500 dark:text-gray-400">${
                                   detailedBreakdown.gelirVergisiDilimi
                                 }</div>
                             </div>
-                            <div class="bg-purple-50 p-3 rounded-lg border border-purple-200">
+                            <div class="bg-purple-50 dark:bg-purple-900/30 p-3 rounded-lg border border-purple-200 dark:border-purple-700">
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="text-gray-600">Damga Vergisi</span>
-                                    <span class="font-semibold text-purple-600">${this.formatCurrency(
+                                    <span class="text-gray-600 dark:text-gray-300">Damga Vergisi</span>
+                                    <span class="font-semibold text-purple-600 dark:text-purple-400">${this.formatCurrency(
                                       this.state.currentCurrency === "TRY"
                                         ? detailedBreakdown.damgaVergisi / divisor
                                         : detailedBreakdown.damgaVergisi /
@@ -1965,13 +1965,13 @@ class SalaryCalculator {
                                       this.state.currentCurrency
                                     )}</span>
                                 </div>
-                                <div class="text-xs text-gray-500">%0.759</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">%0.759</div>
                             </div>
                         </div>
-                        <div class="mt-3 p-3 bg-gray-100 rounded-lg border">
+                        <div class="mt-3 p-3 bg-gray-100 dark:bg-gray-700 rounded-lg border dark:border-gray-600">
                             <div class="flex justify-between items-center">
-                                <span class="font-semibold text-gray-700">Toplam Kesinti:</span>
-                                <span class="font-bold text-red-700">${this.formatCurrency(
+                                <span class="font-semibold text-gray-700 dark:text-gray-300">Toplam Kesinti:</span>
+                                <span class="font-bold text-red-700 dark:text-red-400">${this.formatCurrency(
                                   this.state.currentCurrency === "TRY"
                                     ? detailedBreakdown.toplamKesinti / divisor
                                     : detailedBreakdown.toplamKesinti /
@@ -1984,13 +1984,13 @@ class SalaryCalculator {
                     </div>
 
                     <!-- İşveren Maliyetleri -->
-                    <div class="mt-4 pt-4 border-t">
-                        <h5 class="text-xs font-semibold text-gray-600 mb-2">🏢 İşveren Maliyetleri (Brüt Maaş Dışında)</h5>
+                    <div class="mt-4 pt-4 border-t border-gray-300 dark:border-gray-700">
+                        <h5 class="text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2">🏢 İşveren Maliyetleri (Brüt Maaş Dışında)</h5>
                         <div class="grid grid-cols-2 gap-3 text-sm">
-                            <div class="bg-green-50 p-3 rounded-lg border border-green-200">
+                            <div class="bg-green-50 dark:bg-green-900/30 p-3 rounded-lg border border-green-200 dark:border-green-700">
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="text-gray-600">SGK İşveren Payı</span>
-                                    <span class="font-semibold text-green-700">${this.formatCurrency(
+                                    <span class="text-gray-600 dark:text-gray-300">SGK İşveren Payı</span>
+                                    <span class="font-semibold text-green-700 dark:text-green-400">${this.formatCurrency(
                                       this.state.currentCurrency === "TRY"
                                         ? detailedBreakdown.sgkIsverenPayi / divisor
                                         : detailedBreakdown.sgkIsverenPayi /
@@ -1999,12 +1999,12 @@ class SalaryCalculator {
                                       this.state.currentCurrency
                                     )}</span>
                                 </div>
-                                <div class="text-xs text-gray-500">%15.75</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">%15.75</div>
                             </div>
-                            <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200">
+                            <div class="bg-yellow-50 dark:bg-yellow-900/30 p-3 rounded-lg border border-yellow-200 dark:border-yellow-700">
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="text-gray-600">İşsizlik İşveren Payı</span>
-                                    <span class="font-semibold text-yellow-700">${this.formatCurrency(
+                                    <span class="text-gray-600 dark:text-gray-300">İşsizlik İşveren Payı</span>
+                                    <span class="font-semibold text-yellow-700 dark:text-yellow-400">${this.formatCurrency(
                                       this.state.currentCurrency === "TRY"
                                         ? detailedBreakdown.issizlikIsverenPayi / divisor
                                         : detailedBreakdown.issizlikIsverenPayi /
@@ -2013,16 +2013,16 @@ class SalaryCalculator {
                                       this.state.currentCurrency
                                     )}</span>
                                 </div>
-                                <div class="text-xs text-gray-500">%2</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">%2</div>
                             </div>
                             ${detailedBreakdown.isTesEnabled && detailedBreakdown.tesIsverenPayi ? `
-                            <div class="bg-amber-50 p-3 rounded-lg border border-amber-300">
+                            <div class="bg-amber-50 dark:bg-amber-900/30 p-3 rounded-lg border border-amber-300 dark:border-amber-700">
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="text-gray-600 flex items-center gap-1">
+                                    <span class="text-gray-600 dark:text-gray-300 flex items-center gap-1">
                                       TES İşveren Katkısı
-                                      <span class="text-xs text-amber-700 bg-amber-100 px-1 rounded">2026</span>
+                                      <span class="text-xs text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/50 px-1 rounded">2026</span>
                                     </span>
-                                    <span class="font-semibold text-amber-700">${this.formatCurrency(
+                                    <span class="font-semibold text-amber-700 dark:text-amber-400">${this.formatCurrency(
                                       this.state.currentCurrency === "TRY"
                                         ? detailedBreakdown.tesIsverenPayi / divisor
                                         : detailedBreakdown.tesIsverenPayi /
@@ -2054,7 +2054,7 @@ class SalaryCalculator {
                             </div>
                             ` : ''}
                         </div>
-                        <div class="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <div class="mt-3 p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-700">
                             <div class="flex justify-between items-center">
                                 <span class="font-semibold text-blue-700">Toplam İşveren Maliyeti:</span>
                                 <span class="font-bold text-blue-800">${this.formatCurrency(
@@ -2089,63 +2089,63 @@ class SalaryCalculator {
             : 0);
 
         detailedBreakdownHTML = `
-          <div class="mt-4 border-t pt-3">
-            <h4 class="text-sm font-semibold text-gray-700 text-center mb-3">📋 Kesintiler</h4>
+          <div class="mt-4 border-t border-gray-300 dark:border-gray-700 pt-3">
+            <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 text-center mb-3">📋 Kesintiler</h4>
             <div class="mb-3">
-              <button type="button" class="text-blue-700 text-sm font-semibold flex items-center gap-1 mx-auto outline-none" onclick="this.nextElementSibling.classList.toggle('hidden');this.querySelector('span').textContent = this.nextElementSibling.classList.contains('hidden') ? '[+]' : '[-]';">
+              <button type="button" class="text-blue-700 dark:text-blue-400 text-sm font-semibold flex items-center gap-1 mx-auto outline-none" onclick="this.nextElementSibling.classList.toggle('hidden');this.querySelector('span').textContent = this.nextElementSibling.classList.contains('hidden') ? '[+]' : '[-]';">
                 <span>[-]</span> Gider Detayları
               </button>
               <div class="mt-2" id="gider-detaylari-panel">
                 <div class="overflow-x-auto">
-                  <table class="min-w-full text-xs border rounded-lg bg-white">
+                  <table class="min-w-full text-xs border rounded-lg bg-white dark:bg-gray-800 dark:border-gray-700">
                     <thead>
-                      <tr class="bg-gray-50">
-                        <th class="p-2 border-b text-left">Aktif</th>
-                        <th class="p-2 border-b text-left">Etiket</th>
-                        <th class="p-2 border-b text-left">Girdi Alanı</th>
-                        <th class="p-2 border-b text-left">Bilgi</th>
+                      <tr class="bg-gray-50 dark:bg-gray-700">
+                        <th class="p-2 border-b border-gray-300 dark:border-gray-600 text-left dark:text-gray-100">Aktif</th>
+                        <th class="p-2 border-b border-gray-300 dark:border-gray-600 text-left dark:text-gray-100">Etiket</th>
+                        <th class="p-2 border-b border-gray-300 dark:border-gray-600 text-left dark:text-gray-100">Girdi Alanı</th>
+                        <th class="p-2 border-b border-gray-300 dark:border-gray-600 text-left dark:text-gray-100">Bilgi</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td class="p-2 border-b"><input type="checkbox" id="degiskenGiderCheck" ${
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100"><input type="checkbox" id="degiskenGiderCheck" ${
                           this.state.isDegiskenGiderEnabled ? "checked" : ""
-                        }></td>
-                        <td class="p-2 border-b">Değişken Giderler</td>
-                        <td class="p-2 border-b"><input type="number" id="degiskenGiderInput" value="${
+                        } class="border-gray-300 dark:border-gray-600 text-blue-600 dark:text-blue-400"></td>
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100">Değişken Giderler</td>
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100"><input type="number" id="degiskenGiderInput" value="${
                           this.state.baseAylikDegiskenGiderTRY
-                        }" class="w-28 border rounded p-1 text-xs"> (Aylık, TRY)</td>
-                        <td class="p-2 border-b" title="Donanım, yazılım, seyahat gibi işinizle doğrudan ilgili, miktarı değişebilen harcamalarınız."><span class="cursor-help">Donanım, yazılım, seyahat gibi işinizle doğrudan ilgili, miktarı değişebilen harcamalarınız.</span></td>
+                        }" class="w-28 border border-gray-300 dark:border-gray-600 rounded p-1 text-xs bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"> (Aylık, TRY)</td>
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100" title="Donanım, yazılım, seyahat gibi işinizle doğrudan ilgili, miktarı değişebilen harcamalarınız."><span class="cursor-help">Donanım, yazılım, seyahat gibi işinizle doğrudan ilgili, miktarı değişebilen harcamalarınız.</span></td>
                       </tr>
                       <tr>
-                        <td class="p-2 border-b"><input type="checkbox" id="muhasebeciGiderCheck" ${
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100"><input type="checkbox" id="muhasebeciGiderCheck" ${
                           this.state.isMuhasebeciGiderEnabled ? "checked" : ""
-                        }></td>
-                        <td class="p-2 border-b">Muhasebeci Ücreti</td>
-                        <td class="p-2 border-b"><input type="number" id="muhasebeciGiderInput" value="${
+                        } class="border-gray-300 dark:border-gray-600 text-blue-600 dark:text-blue-400"></td>
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100">Muhasebeci Ücreti</td>
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100"><input type="number" id="muhasebeciGiderInput" value="${
                           this.state.baseAylikMuhasebeciUcretiTRY
-                        }" class="w-28 border rounded p-1 text-xs"> (Aylık, TRY)</td>
-                        <td class="p-2 border-b" title="Mali müşavirinize ödediğiniz aylık standart hizmet bedeli. (Ortalama: 1.500-2.500 TL)"><span class="cursor-help">Mali müşavirinize ödediğiniz aylık standart hizmet bedeli. (Ortalama: 1.500-2.500 TL)</span></td>
+                        }" class="w-28 border border-gray-300 dark:border-gray-600 rounded p-1 text-xs bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"> (Aylık, TRY)</td>
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100" title="Mali müşavirinize ödediğiniz aylık standart hizmet bedeli. (Ortalama: 1.500-2.500 TL)"><span class="cursor-help">Mali müşavirinize ödediğiniz aylık standart hizmet bedeli. (Ortalama: 1.500-2.500 TL)</span></td>
                       </tr>
                       <tr>
-                        <td class="p-2 border-b"><input type="checkbox" id="damgaVergisiCheck" ${
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100"><input type="checkbox" id="damgaVergisiCheck" ${
                           this.state.isDamgaVergisiEnabled ? "checked" : ""
-                        }></td>
-                        <td class="p-2 border-b">Damga Vergileri</td>
-                        <td class="p-2 border-b"><input type="number" id="damgaVergisiInput" value="${
+                        } class="border-gray-300 dark:border-gray-600 text-blue-600 dark:text-blue-400"></td>
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100">Damga Vergileri</td>
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100"><input type="number" id="damgaVergisiInput" value="${
                           this.state.baseAylikDamgaVergileriTRY
-                        }" class="w-28 border rounded p-1 text-xs"> (Aylık Ortalama, TRY)</td>
-                        <td class="p-2 border-b" title="Yıl boyunca ödenen KDV, Muhtasar, Geçici ve Yıllık Gelir Vergisi beyannamelerinin zorunlu damga vergilerinin aylık ortalamasıdır."><span class="cursor-help">Yıl boyunca ödenen KDV, Muhtasar, Geçici ve Yıllık Gelir Vergisi beyannamelerinin zorunlu damga vergilerinin aylık ortalamasıdır.</span></td>
+                        }" class="w-28 border border-gray-300 dark:border-gray-600 rounded p-1 text-xs bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"> (Aylık Ortalama, TRY)</td>
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100" title="Yıl boyunca ödenen KDV, Muhtasar, Geçici ve Yıllık Gelir Vergisi beyannamelerinin zorunlu damga vergilerinin aylık ortalamasıdır."><span class="cursor-help">Yıl boyunca ödenen KDV, Muhtasar, Geçici ve Yıllık Gelir Vergisi beyannamelerinin zorunlu damga vergilerinin aylık ortalamasıdır.</span></td>
                       </tr>
                       <tr>
-                        <td class="p-2 border-b"><input type="checkbox" id="digerGiderlerCheck" ${
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100"><input type="checkbox" id="digerGiderlerCheck" ${
                           this.state.isDigerGiderlerEnabled ? "checked" : ""
-                        }></td>
-                        <td class="p-2 border-b">Diğer Sabit Giderler</td>
-                        <td class="p-2 border-b"><input type="number" id="digerGiderlerInput" value="${
+                        } class="border-gray-300 dark:border-gray-600 text-blue-600 dark:text-blue-400"></td>
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100">Diğer Sabit Giderler</td>
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100"><input type="number" id="digerGiderlerInput" value="${
                           this.state.baseAylikDigerSabitGiderlerTRY
-                        }" class="w-28 border rounded p-1 text-xs"> (Aylık Ortalama, TRY)</td>
-                        <td class="p-2 border-b" title="Yıllık oda aidatı, e-imza yenileme gibi diğer zorunlu idari masrafların aylık ortalamasıdır."><span class="cursor-help">Yıllık oda aidatı, e-imza yenileme gibi diğer zorunlu idari masrafların aylık ortalamasıdır.</span></td>
+                        }" class="w-28 border border-gray-300 dark:border-gray-600 rounded p-1 text-xs bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"> (Aylık Ortalama, TRY)</td>
+                        <td class="p-2 border-b border-gray-300 dark:border-gray-700 dark:text-gray-100" title="Yıllık oda aidatı, e-imza yenileme gibi diğer zorunlu idari masrafların aylık ortalamasıdır."><span class="cursor-help">Yıllık oda aidatı, e-imza yenileme gibi diğer zorunlu idari masrafların aylık ortalamasıdır.</span></td>
                       </tr>
                     </tbody>
                   </table>
@@ -2153,28 +2153,28 @@ class SalaryCalculator {
               </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-              <div class="bg-green-50 p-3 rounded-lg border border-green-200">
+              <div class="bg-green-50 dark:bg-green-900/30 p-3 rounded-lg border border-green-200 dark:border-green-700">
                 <div class="flex justify-between items-center mb-1">
-                  <span class="text-gray-600">${timeLabel} Şirket Gideri</span>
-                  <span class="font-semibold text-green-700">${this.formatCurrency(
+                  <span class="text-gray-600 dark:text-gray-300">${timeLabel} Şirket Gideri</span>
+                                <span class="font-semibold text-green-700 dark:text-green-400">${this.formatCurrency(
                     this.state.currentCurrency === "TRY"
                       ? giderToplamiAylik * (this.state.currentMode === "yearly" ? 12 : 1)
                       : (giderToplamiAylik * (this.state.currentMode === "yearly" ? 12 : 1)) / this.state.usdRate,
                     this.state.currentCurrency
                   )}</span>
                 </div>
-                <div class="text-xs text-gray-500">Değişken</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400">Değişken</div>
               </div>
-                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                        <div class="bg-blue-50 dark:bg-blue-900/30 p-3 rounded-lg border border-blue-200 dark:border-blue-700">
                             <div class="flex justify-between items-center mb-1">
-                                <span class="text-gray-600 flex items-center gap-1">
+                                <span class="text-gray-600 dark:text-gray-300 flex items-center gap-1">
                                   ${this.state.currentMode === "yearly" ? "Yıllık Bağ-Kur Primi" : "Aylık Bağ-Kur Primi"}
                                   <span
-                                    class="info-icon text-blue-500 cursor-help inline-block"
+                                    class="info-icon text-blue-500 dark:text-blue-400 cursor-help inline-block"
                                     data-tooltip="${this.state.currentMode === "yearly" ? "Bu tutar, tüm yıl boyunca ödenecek toplam Bağ-Kur primidir (12 aylık). Prime Esas Kazanç (PEK) tutarının, 5 puanlık indirim uygulanmış halidir (PEK x %29,5). Her ay bu tutarın 1/12'si kadar prim ödenir." : "Bu tutar, her ay Bağ-Kur'a ödenecek primdir. 'Emeklilik Eşdeğerliği' için seçtiğiniz Prime Esas Kazanç (PEK) tutarının, 5 puanlık indirim uygulanmış halidir (PEK x %29,5). Bağ-Kur primi aylık ödeme yapılır (her ay sonunda)."}"
                                   >ℹ️</span>
                                 </span>
-                                <span class="font-semibold text-blue-600">${this.formatCurrency(
+                                <span class="font-semibold text-blue-600 dark:text-blue-400">${this.formatCurrency(
                                   this.state.currentCurrency === "TRY"
                                     ? detailedBreakdown.bagkurPrimi / divisor
                                     : detailedBreakdown.bagkurPrimi /
@@ -2183,18 +2183,18 @@ class SalaryCalculator {
                                   this.state.currentCurrency
                                 )}</span>
                             </div>
-                            <div class="text-xs text-gray-500">PEK x %29,5</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400">PEK x %29,5</div>
                         </div>
-                        <div class="bg-orange-50 p-3 rounded-lg border border-orange-200">
+                        <div class="bg-orange-50 dark:bg-orange-900/30 p-3 rounded-lg border border-orange-200 dark:border-orange-700">
                             <div class="flex justify-between items-center mb-1">
-                                <span class="text-gray-600 flex items-center gap-1">
+                                <span class="text-gray-600 dark:text-gray-300 flex items-center gap-1">
                                   ${this.state.currentMode === "yearly" ? "Yıllık Gelir Vergisi" : "Aylık Ortalama Vergi Yükü"}
                                   <span
-                                    class="info-icon text-orange-500 cursor-help inline-block"
+                                    class="info-icon text-orange-500 dark:text-orange-400 cursor-help inline-block"
                                     data-tooltip="${this.state.currentMode === "yearly" ? "Bu tutar, tüm yıl boyunca ödenecek toplam gelir vergisidir. Şahıs şirketleri vergiyi yıl içinde 3 ayda bir (Mayıs, Ağustos, Kasım) 'Geçici Vergi' olarak toplu öder. Yıl sonunda (Mart ayında) nihai hesaplama yapılır." : "NAKİT AKIŞI UYARISI: Bu rakam, hesaplanan toplam yıllık verginin 12'ye bölünmüş ortalamasıdır.<br><br>Şahıs şirketleri vergiyi aylık ödemez. Yıl içinde 3 ayda bir (Mayıs, Ağustos, Kasım aylarında) kârınız üzerinden 'Geçici Vergi' adı altında toplu ödeme yaparsınız.<br><br>Bu tutarı her ay biriktirmeniz gereken bir fondur."}"
                                   >ℹ️</span>
                                 </span>
-                                <span class="font-semibold text-orange-600">${this.formatCurrency(
+                                <span class="font-semibold text-orange-600 dark:text-orange-400">${this.formatCurrency(
                                   this.state.currentCurrency === "TRY"
                                     ? detailedBreakdown.gelirVergisi / divisor
                                     : detailedBreakdown.gelirVergisi /
@@ -2224,32 +2224,32 @@ class SalaryCalculator {
                 </div>`;
       }
 
-  return `<div class="card p-6" id="${cardId}" data-model-type="${title.includes('Model A') ? 'model-a' : 'model-b'}">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">${title}</h3>
+  return `<div class="card dark:bg-gray-800 dark:border-gray-700 p-6" id="${cardId}" data-model-type="${title.includes('Model A') ? 'model-a' : 'model-b'}">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">${title}</h3>
                 <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                     <div>
-                        <p class="text-sm text-gray-500">${netGelirEtiketi}</p>
-                        <p id="${cardId}-net-gelir" class="text-2xl font-bold text-green-600">${this.formatCurrency(
+                        <p class="text-sm text-gray-500 dark:text-gray-400">${netGelirEtiketi}</p>
+                        <p id="${cardId}-net-gelir" class="text-2xl font-bold text-green-600 dark:text-green-400">${this.formatCurrency(
                           displayNet,
                           this.state.currentCurrency
                         )}</p>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">${timeLabel} Toplam Prim Gideri</p>
-                        <p id="${cardId}-prim-gideri" class="text-2xl font-bold text-red-500">${this.formatCurrency(
+                        <p id="${cardId}-prim-gideri" class="text-2xl font-bold text-red-500 dark:text-red-400">${this.formatCurrency(
                           displayPrim,
                           this.state.currentCurrency
                         )}</p>
                         ${
                           title.includes("Model B") &&
                           this.elements.sgkMuafiyetiCheck?.checked
-                            ? '<p class="text-xs text-green-600 mt-1">🛡️ SGK Muafiyeti Aktif</p>'
+                            ? '<p class="text-xs text-green-600 dark:text-green-400 mt-1">🛡️ SGK Muafiyeti Aktif</p>'
                             : ""
                         }
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500">${timeLabel} Vergi Yükü</p>
-                        <p id="${cardId}-vergi-yuku" class="text-2xl font-bold text-orange-500">${this.formatCurrency(
+                        <p class="text-sm text-gray-500 dark:text-gray-400">${timeLabel} Vergi Yükü</p>
+                        <p id="${cardId}-vergi-yuku" class="text-2xl font-bold text-orange-500 dark:text-orange-400">${this.formatCurrency(
                           displayVergi,
                           this.state.currentCurrency
                         )}</p>
@@ -2270,7 +2270,7 @@ class SalaryCalculator {
             </div>`;
     } catch (e) {
       console.error("Result Card Error:", e);
-      return `<div class="card p-6 text-red-500">Sonuçlar görüntülenemedi. Lütfen değerleri kontrol edin.</div>`;
+      return `<div class="card dark:bg-gray-800 dark:border-gray-700 p-6 text-red-500 dark:text-red-400">Sonuçlar görüntülenemedi. Lütfen değerleri kontrol edin.</div>`;
     }
   }
 
@@ -2961,33 +2961,21 @@ function initializeDarkMode() {
   // Apply theme
   const applyTheme = (isDark) => {
     if (isDark) {
-      document.documentElement.classList.add('dark-mode');
+      document.documentElement.classList.add('dark');
       if (sunIcon) {
         sunIcon.classList.remove('hidden');
-        sunIcon.classList.remove('text-gray-800');
-        sunIcon.classList.add('text-gray-200');
       }
       if (moonIcon) {
         moonIcon.classList.add('hidden');
       }
-      if (darkModeToggle) {
-        darkModeToggle.classList.remove('bg-gray-200', 'hover:bg-gray-300');
-        darkModeToggle.classList.add('bg-gray-700', 'hover:bg-gray-600');
-      }
       localStorage.setItem('theme', 'dark');
     } else {
-      document.documentElement.classList.remove('dark-mode');
+      document.documentElement.classList.remove('dark');
       if (sunIcon) {
         sunIcon.classList.add('hidden');
       }
       if (moonIcon) {
         moonIcon.classList.remove('hidden');
-        moonIcon.classList.remove('text-gray-200');
-        moonIcon.classList.add('text-gray-800');
-      }
-      if (darkModeToggle) {
-        darkModeToggle.classList.remove('bg-gray-700', 'hover:bg-gray-600');
-        darkModeToggle.classList.add('bg-gray-200', 'hover:bg-gray-300');
       }
       localStorage.setItem('theme', 'light');
     }
@@ -2999,7 +2987,7 @@ function initializeDarkMode() {
   
   // Toggle theme on button click
   darkModeToggle.addEventListener('click', () => {
-    const isCurrentlyDark = document.documentElement.classList.contains('dark-mode');
+    const isCurrentlyDark = document.documentElement.classList.contains('dark');
     applyTheme(!isCurrentlyDark);
   });
 }
