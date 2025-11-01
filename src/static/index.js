@@ -59,29 +59,59 @@ class SalaryCalculator {
       }
     });
 
+    // Debounce timer for TCE percentage input updates
+    let tcePercentageUpdateTimeout = null;
+    
     // Handle input changes (number inputs)
     resultsPanel.addEventListener('input', (e) => {
       const input = e.target;
       if (input.classList.contains('model-option-input')) {
         const syncId = input.getAttribute('data-sync-id');
         if (syncId) {
+          // Special handling for TCE percentage input - update state and trigger recalculation
+          if (syncId === 'tcePercentageInput') {
+            const val = parseFloat(input.value);
+            if (!isNaN(val) && val >= 1 && val <= 200) {
+              this.state.tcePercentage = val;
+              // Debounce UI update to avoid excessive recalculations while user is typing
+              clearTimeout(tcePercentageUpdateTimeout);
+              tcePercentageUpdateTimeout = setTimeout(() => {
+                this.updateUI();
+              }, 500); // 500ms delay after user stops typing
+            }
+            return; // Don't continue with original input sync for TCE percentage
+          }
+          
+          // For other inputs, try to sync with original input if it exists
           const originalInput = document.getElementById(syncId);
           if (originalInput) {
             originalInput.value = input.value;
-            // Special handling for TCE percentage input
-            if (syncId === 'tcePercentageInput') {
-              const val = parseFloat(input.value);
-              if (!isNaN(val) && val >= 1 && val <= 200) {
-                this.state.tcePercentage = val;
-                originalInput.dispatchEvent(new Event('blur', { bubbles: true }));
-              }
-            } else {
-              originalInput.dispatchEvent(new Event('input', { bubbles: true }));
-            }
+            originalInput.dispatchEvent(new Event('input', { bubbles: true }));
           }
         }
       }
     });
+    
+    // Handle blur events for TCE percentage input to ensure final value is applied immediately
+    resultsPanel.addEventListener('blur', (e) => {
+      const input = e.target;
+      if (input.classList.contains('model-option-input') && 
+          input.getAttribute('data-sync-id') === 'tcePercentageInput') {
+        // Clear any pending debounced update
+        clearTimeout(tcePercentageUpdateTimeout);
+        const val = parseFloat(input.value);
+        if (!isNaN(val)) {
+          // Clamp value to valid range
+          const clampedVal = Math.max(1, Math.min(200, val));
+          if (clampedVal !== val) {
+            input.value = clampedVal;
+          }
+          this.state.tcePercentage = clampedVal;
+          // Trigger full UI update immediately when user leaves the input
+          this.updateUI();
+        }
+      }
+    }, true); // Use capture phase to catch blur before it bubbles
 
     // Handle select changes
     resultsPanel.addEventListener('change', (e) => {
