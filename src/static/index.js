@@ -18,6 +18,146 @@ fetch('/api/github-stars')
   });
 
 class SalaryCalculator {
+  // Event binding for syncing model option inputs in result cards with original inputs
+  bindModelOptionSyncEvents() {
+    // Use event delegation - only bind once, events will bubble up
+    const resultsPanel = this.elements.resultsPanel;
+    if (!resultsPanel || resultsPanel.dataset.modelOptionsBound) return;
+    
+    // Mark as bound to avoid duplicate listeners
+    resultsPanel.dataset.modelOptionsBound = 'true';
+
+    // Handle checkbox changes
+    resultsPanel.addEventListener('change', (e) => {
+      const checkbox = e.target;
+      if (checkbox.classList.contains('model-option-checkbox')) {
+        const syncId = checkbox.getAttribute('data-sync-id');
+        if (syncId) {
+          const originalInput = document.getElementById(syncId);
+          if (originalInput) {
+            originalInput.checked = checkbox.checked;
+            // Trigger change event on original input to update calculations
+            originalInput.dispatchEvent(new Event('change', { bubbles: true }));
+            
+            // Special handling for zamEtkisiCheck to show/hide panel
+            if (syncId === 'zamEtkisiCheck') {
+              // Find the zam-detay-panel that's a sibling or child of the checkbox's parent container
+              const parentDiv = checkbox.closest('div');
+              if (parentDiv) {
+                const detayPanel = parentDiv.querySelector('.zam-detay-panel');
+                if (detayPanel) {
+                  if (checkbox.checked) {
+                    detayPanel.classList.remove('hidden');
+                  } else {
+                    detayPanel.classList.add('hidden');
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Handle input changes (number inputs)
+    resultsPanel.addEventListener('input', (e) => {
+      const input = e.target;
+      if (input.classList.contains('model-option-input')) {
+        const syncId = input.getAttribute('data-sync-id');
+        if (syncId) {
+          const originalInput = document.getElementById(syncId);
+          if (originalInput) {
+            originalInput.value = input.value;
+            // Special handling for TCE percentage input
+            if (syncId === 'tcePercentageInput') {
+              const val = parseFloat(input.value);
+              if (!isNaN(val) && val >= 1 && val <= 200) {
+                this.state.tcePercentage = val;
+                originalInput.dispatchEvent(new Event('blur', { bubbles: true }));
+              }
+            } else {
+              originalInput.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+          }
+        }
+      }
+    });
+
+    // Handle select changes
+    resultsPanel.addEventListener('change', (e) => {
+      const select = e.target;
+      if (select.classList.contains('model-option-select')) {
+        const syncId = select.getAttribute('data-sync-id');
+        if (syncId) {
+          const originalSelect = document.getElementById(syncId);
+          if (originalSelect) {
+            originalSelect.value = select.value;
+            originalSelect.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+        }
+      }
+    });
+
+    // Handle Bağ-Kur slider changes in Model B card
+    // Use separate handlers for input (visual update only) and change (full recalculation)
+    let sliderUpdateTimeout = null;
+    resultsPanel.addEventListener('input', (e) => {
+      const slider = e.target;
+      if (slider.classList.contains('model-bagkur-slider') || slider.id === 'bagkurPrimiInput') {
+        const originalSlider = document.getElementById('bagkurPrimiInput');
+        if (originalSlider && originalSlider !== slider) {
+          // Update original slider value immediately
+          originalSlider.value = slider.value;
+          
+          // Update label in Model B card visually without full recalculation
+          const modelBBagkurLabel = resultsPanel.querySelector('#bagkurPrimLabel');
+          if (modelBBagkurLabel) {
+            const timeMultiplier = this.state.currentMode === "yearly" ? 12 : 1;
+            const displayValue = parseFloat(slider.value) * timeMultiplier;
+            modelBBagkurLabel.textContent = this.formatCurrency(displayValue, "TRY");
+          }
+          
+          // Update original label too
+          if (this.elements.bagkurPrimLabel) {
+            const timeMultiplier = this.state.currentMode === "yearly" ? 12 : 1;
+            const displayValue = parseFloat(slider.value) * timeMultiplier;
+            this.elements.bagkurPrimLabel.textContent = this.formatCurrency(displayValue, "TRY");
+          }
+          
+          // Debounce full recalculation - only trigger after user stops dragging
+          clearTimeout(sliderUpdateTimeout);
+          sliderUpdateTimeout = setTimeout(() => {
+            originalSlider.dispatchEvent(new Event('change', { bubbles: true }));
+          }, 300); // 300ms delay after user stops dragging
+        }
+      }
+    });
+    
+    // Also handle change event for immediate update when slider is released
+    resultsPanel.addEventListener('change', (e) => {
+      const slider = e.target;
+      if (slider.classList.contains('model-bagkur-slider') || slider.id === 'bagkurPrimiInput') {
+        const originalSlider = document.getElementById('bagkurPrimiInput');
+        if (originalSlider && originalSlider !== slider) {
+          originalSlider.value = slider.value;
+          originalSlider.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+    });
+
+    // Handle comparison basis button clicks in Model B card
+    resultsPanel.addEventListener('click', (e) => {
+      const button = e.target;
+      if (button.classList.contains('comparison-basis-btn')) {
+        e.preventDefault();
+        const newBasis = button.getAttribute('data-comparison-basis');
+        if (newBasis) {
+          this.setComparisonBasis(newBasis);
+        }
+      }
+    });
+  }
+
   // Event binding for Model B expense details table
   bindGiderDetaylariEvents() {
     // Bind checkbox and input events for each expense item
@@ -129,7 +269,7 @@ class SalaryCalculator {
   initializeElements() {
     return {
       netMaasInput: document.getElementById("netMaasInput"),
-      hesaplananBrutInput: document.getElementById("hesaplananBrutInput"),
+      // hesaplananBrutInput removed - no longer displayed in UI
       bagkurPrimiInput: document.getElementById("bagkurPrimiInput"),
       matchSgkPrimCheck: document.getElementById("matchSgkPrim"),
       sgkMuafiyetiCheck: document.getElementById("sgkMuafiyeti"),
@@ -633,7 +773,7 @@ class SalaryCalculator {
 
       const yillikBrutMaas = this.calculateBrutFromNet(yillikNetMaas);
       const yillikGiderTRY = this.state.baseAylikGiderTRY * 12;
-      const yillikBagkurKazanciTRY = this.state.baseAylikBagkurPekTRY * 12;
+      // Note: yillikBagkurKazanciTRY is now defined later in the code, just before Model B calculation
 
       const isGencGirisimci_Vergi = this.elements.gencGirisimciVergiCheck.checked;
       const isGencGirisimci_Prim = this.elements.gencGirisimciPrimCheck.checked;
@@ -708,6 +848,41 @@ class SalaryCalculator {
 
       // Calculate TCE for Model A
       const tceData = this.calculateTotalCostToEmployer(yillikBrutMaasYeni, tesOranlari);
+
+      // Update Bağ-Kur PEK BEFORE Model B calculation if retirement equivalency is enabled
+      // This ensures Model B uses the correct PEK value based on current Model A gross salary
+      // IMPORTANT: This must be done BEFORE Model B calculation to ensure correct PEK value
+      // Note: We update state directly here for precision, then update UI elements later
+      if (this.elements.matchSgkPrimCheck.checked) {
+        // Update PEK based on current (TES-adjusted) gross salary
+        const aylikBrut = yillikBrutMaasYeni / 12;
+        const min = this.constants.YILLIK_MIN_BAGKUR_KAZANCI / 12;
+        const max = this.constants.YILLIK_MAX_BAGKUR_KAZANCI / 12;
+        // Store precise value (no rounding) for calculations
+        this.state.baseAylikBagkurPekTRY = Math.max(min, Math.min(max, aylikBrut));
+      } else {
+        // If retirement equivalency is NOT enabled, still initialize with gross salary if slider value is 0 or invalid
+        // This ensures slider shows correct initial value based on gross salary
+        if (!this.state.baseAylikBagkurPekTRY || this.state.baseAylikBagkurPekTRY <= 0) {
+          const aylikBrut = yillikBrutMaasYeni / 12;
+          const min = this.constants.YILLIK_MIN_BAGKUR_KAZANCI / 12;
+          const max = this.constants.YILLIK_MAX_BAGKUR_KAZANCI / 12;
+          this.state.baseAylikBagkurPekTRY = Math.max(min, Math.min(max, aylikBrut));
+        }
+      }
+      
+      // Update slider input and label to reflect current state value
+      // This ensures the slider displays the correct value when Model B card is created
+      const timeMultiplier = this.state.currentMode === "yearly" ? 12 : 1;
+      if (this.elements.bagkurPrimiInput) {
+        this.elements.bagkurPrimiInput.value = Math.round(this.state.baseAylikBagkurPekTRY * timeMultiplier);
+      }
+      if (this.elements.bagkurPrimLabel) {
+        this.elements.bagkurPrimLabel.textContent = this.formatCurrency(
+          Math.round(this.state.baseAylikBagkurPekTRY * timeMultiplier),
+          "TRY"
+        );
+      }
 
       // İşveren maliyetlerini hesapla
       const sgkIsverenPayiA = sgkMatrahiA * this.constants.SGK_ISVEREN_TESVIKLI_ORANI;
@@ -787,6 +962,10 @@ class SalaryCalculator {
 
       const karB = yillikHasilat - toplamYillikGiderler;
 
+      // Get current Bağ-Kur PEK value (may have been updated above if retirement equivalency is enabled)
+      // Use precise calculation without rounding to avoid precision loss
+      const yillikBagkurKazanciTRY = this.state.baseAylikBagkurPekTRY * 12;
+
       const yillikBagkurPrimiHesaplanan =
         yillikBagkurKazanciTRY * this.constants.BAGKUR_INDIRIMLI_ORAN;
       const yillikMinimumBagkurPrimi =
@@ -853,12 +1032,22 @@ class SalaryCalculator {
         isHizmetIhracati,
         hizmetIhracatiIstisnaTutari,
         null, // sgkDetaylari
-        null, // tceData
-        detailedBreakdownB
+        tceData, // tceData - pass for comparison basis display
+        detailedBreakdownB,
+        yillikBrutMaasYeni // Model A gross salary for comparison basis display
       );
 
       // Gider detayları tablosu renderlandıktan sonra eventleri bağla
       this.bindGiderDetaylariEvents();
+
+      // Bind model option sync events (for options displayed in result cards)
+      this.bindModelOptionSyncEvents();
+
+      // Update Bağ-Kur label in Model B card if it exists
+      const modelBBagkurLabel = this.elements.resultsPanel.querySelector('#bagkurPrimLabel');
+      if (modelBBagkurLabel && this.elements.bagkurPrimLabel) {
+        modelBBagkurLabel.textContent = this.elements.bagkurPrimLabel.textContent;
+      }
 
       // --- Gider input focus/caret geri yükleme ---
       if (activeInputId) {
@@ -876,12 +1065,25 @@ class SalaryCalculator {
         }
       }
 
-      // Update Bağ-Kur value based on current gross salary if retirement equivalency is selected
       // Update input fields with correct annual gross salary (fixes dual-engine inconsistency)
+      // Note: Bağ-Kur PEK update moved earlier (before Model B calculation) to ensure correct Model B results
       this.updateInputDisplays(yillikBrutMaasYeni);
 
+      // Update Bağ-Kur input fields and labels AFTER calculations are complete
+      // This ensures UI shows correct values but doesn't affect calculations
       if (this.elements.matchSgkPrimCheck.checked) {
-        this.setSmartBagkurValue(yillikBrutMaasYeni);
+        // Update input field value and label for display (use rounded value for UI)
+        const timeMultiplier = this.state.currentMode === "yearly" ? 12 : 1;
+        const roundedPekValue = Math.round(this.state.baseAylikBagkurPekTRY * timeMultiplier);
+        if (this.elements.bagkurPrimiInput) {
+          this.elements.bagkurPrimiInput.value = roundedPekValue;
+        }
+        if (this.elements.bagkurPrimLabel) {
+          this.elements.bagkurPrimLabel.textContent = this.formatCurrency(
+            roundedPekValue,
+            "TRY"
+          );
+        }
       }
     } catch (e) {
       console.error("UI Update failed:", e);
@@ -901,7 +1103,8 @@ class SalaryCalculator {
     hizmetIhracatiIstisnaTutari = 0,
     sgkDetaylari = null,
     tceData = null,
-    detailedBreakdown = null
+    detailedBreakdown = null,
+    yillikBrutMaasModelA = null // Model A annual gross salary for comparison basis display
   ) {
     try {
       const score = toplamGelir > 0 ? (netGelir / toplamGelir) * 100 : 0;
@@ -1133,6 +1336,303 @@ class SalaryCalculator {
                         </div>
                     </div>
                 </div>`;
+      }
+
+      // Add Model A options section
+      let modelAOptionsHTML = "";
+      if (title.includes("Model A")) {
+        const isZamEnabled = this.elements.zamEtkisiCheck?.checked || false;
+        const isTesEnabled = this.elements.tesReformuUygulaCheck?.checked || false;
+        
+        modelAOptionsHTML = `
+          <div class="mt-4 border-t pt-3">
+            <h4 class="text-sm font-semibold text-blue-700 mb-3">⚙️ Model A Seçenekleri</h4>
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-3">
+              <!-- Mid-Year Raise Effect -->
+              <div>
+                <div class="flex items-center space-x-2">
+                  <input
+                    data-sync-id="zamEtkisiCheck"
+                    type="checkbox"
+                    ${isZamEnabled ? "checked" : ""}
+                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 model-option-checkbox"
+                  />
+                  <label class="text-sm font-medium text-gray-700">🔄 Yıl İçi Zam Simülasyonu</label>
+                </div>
+                <div
+                  class="zam-detay-panel ${isZamEnabled ? "" : "hidden"} mt-2 pl-6 border-l-2 border-blue-200"
+                >
+                  <div class="grid grid-cols-2 gap-2">
+                    <div>
+                      <label class="block text-xs font-medium text-gray-700">Zam Oranı (%)</label>
+                      <input
+                        data-sync-id="zamOrani"
+                        type="number"
+                        min="0"
+                        max="200"
+                        step="5"
+                        value="${this.elements.zamOrani?.value || 20}"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm model-option-input"
+                      />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-gray-700">Hangi Aydan İtibaren</label>
+                      <select
+                        data-sync-id="zamAyi"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm model-option-select"
+                      >
+                        <option value="1">Ocak</option>
+                        <option value="2">Şubat</option>
+                        <option value="3">Mart</option>
+                        <option value="4">Nisan</option>
+                        <option value="5">Mayıs</option>
+                        <option value="6">Haziran</option>
+                        <option value="7" ${this.elements.zamAyi?.value == 7 ? "selected" : ""}>Temmuz</option>
+                        <option value="8">Ağustos</option>
+                        <option value="9">Eylül</option>
+                        <option value="10">Ekim</option>
+                        <option value="11">Kasım</option>
+                        <option value="12">Aralık</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2026 TES Reformu Simulation -->
+              <div class="flex items-center space-x-2">
+                <input
+                  data-sync-id="tesReformuUygula"
+                  type="checkbox"
+                  ${isTesEnabled ? "checked" : ""}
+                  class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 model-option-checkbox"
+                />
+                <label class="text-sm font-medium text-gray-700">2026 TES Reformu Simülasyonu (Deneysel)</label>
+                <span
+                  class="info-icon text-red-500 cursor-help"
+                  data-tooltip="DİKKAT: Bu seçeneği işaretlemek, 2026'da planlanan Tamamlayıcı Emeklilik Sistemi'ni (TES) simüle eder. Model A'nın (Maaşlı) net maaşından %3 kesinti yapar ve işveren maliyetini (TCE) %4 artırır. Raporlara göre Model B (Bağ-Kur) bu sistemden etkilenmez."
+                >ℹ️</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Add Model B options section
+      let modelBOptionsHTML = "";
+      if (title.includes("Model B")) {
+        const isMatchSgkPrim = this.elements.matchSgkPrimCheck?.checked || false;
+        const isGencGirisimciVergi = this.elements.gencGirisimciVergiCheck?.checked || false;
+        const isGencGirisimciPrim = this.elements.gencGirisimciPrimCheck?.checked || false;
+        const isSgkMuafiyeti = this.elements.sgkMuafiyetiCheck?.checked || false;
+        const isHizmetIhracati = this.elements.hizmetIhracatiCheck?.checked || false;
+
+        // Get current Bağ-Kur PEK value
+        // Ensure we get the value in the correct time unit (monthly or yearly) for the slider
+        const timeMultiplier = this.state.currentMode === "yearly" ? 12 : 1;
+        const bagkurMin = Math.round(this.constants.YILLIK_MIN_BAGKUR_KAZANCI / (this.state.currentMode === "yearly" ? 1 : 12));
+        const bagkurMax = Math.round(this.constants.YILLIK_MAX_BAGKUR_KAZANCI / (this.state.currentMode === "yearly" ? 1 : 12));
+        const timeLabel = this.state.currentMode === "yearly" ? "Yıllık" : "Aylık";
+        
+        // Calculate slider value from state (always stored as monthly, convert to display unit)
+        // Use state value directly since it's always up-to-date after Model A calculation
+        let bagkurPekValue = Math.round(this.state.baseAylikBagkurPekTRY * timeMultiplier);
+        
+        // Ensure value is within min/max bounds
+        bagkurPekValue = Math.max(bagkurMin, Math.min(bagkurMax, bagkurPekValue));
+
+        // Get current comparison basis state
+        const currentComparisonBasis = this.state.comparisonBasis || "grossEquivalence";
+        const isBrutBasis = currentComparisonBasis === "grossEquivalence";
+        const tcePercentage = this.state.tcePercentage || 100;
+
+        // Calculate values for comparison basis display
+        let comparisonValue = 0;
+        let comparisonLabel = "";
+        const divisor = this.state.currentMode === "yearly" ? 1 : 12;
+        
+        if (isBrutBasis && yillikBrutMaasModelA !== null) {
+          // Show Model A gross salary
+          comparisonValue = this.state.currentCurrency === "TRY"
+            ? yillikBrutMaasModelA / divisor
+            : (yillikBrutMaasModelA / divisor) / this.state.usdRate;
+          comparisonLabel = "Brüt Maaş";
+        } else if (!isBrutBasis && tceData && tceData.totalCost) {
+          // Show total cost to employer (with percentage applied)
+          const totalCostWithPercentage = tceData.totalCost * (tcePercentage / 100);
+          comparisonValue = this.state.currentCurrency === "TRY"
+            ? totalCostWithPercentage / divisor
+            : (totalCostWithPercentage / divisor) / this.state.usdRate;
+          comparisonLabel = "Toplam Maliyet";
+        }
+
+        modelBOptionsHTML = `
+          <div class="mt-4 border-t pt-3">
+            <h4 class="text-sm font-semibold text-green-700 mb-3">⚙️ Model B Seçenekleri</h4>
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4 space-y-3">
+              <!-- Karşılaştırma Bazı Seçici -->
+              <div class="mb-4 pb-4 border-b">
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Hasılat Karşılaştırma Bazı
+                </label>
+                <div class="flex flex-col sm:flex-row sm:items-center sm:flex-nowrap gap-2 sm:gap-3 rounded-lg p-2 sm:p-1 bg-white border border-gray-300">
+                  <!-- Left side: Info icon and buttons -->
+                  <div class="flex items-center gap-2 sm:gap-1 w-full sm:w-auto flex-wrap sm:flex-nowrap sm:flex-shrink-0">
+                    <span
+                      class="info-icon text-blue-500 cursor-help flex-shrink-0"
+                      data-tooltip="Varsayılan modda, freelance hasılatı maaşlı çalışanın brüt maaşına eşitlenir. 'İşveren Maliyeti' modunda ise hasılat, işverenin SGK payları dahil toplam maliyetine eşitlenir. Bu, bir pozisyon için ayrılan toplam bütçenin daha doğru bir karşılaştırmasını sağlar."
+                    >ℹ️</span>
+                    <div class="flex items-center gap-1 flex-1 sm:flex-initial flex-wrap sm:flex-nowrap">
+                      <button
+                        data-comparison-basis="grossEquivalence"
+                        class="comparison-basis-btn px-3 py-1.5 text-xs font-semibold rounded-md transition-colors flex-1 sm:flex-initial min-w-0 ${isBrutBasis ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}"
+                      >
+                        Brüt Maaş
+                      </button>
+                      <button
+                        data-comparison-basis="tceEquivalence"
+                        class="comparison-basis-btn px-3 py-1.5 text-xs font-semibold rounded-md transition-colors flex-1 sm:flex-initial min-w-0 ${!isBrutBasis ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}"
+                      >
+                        İşveren Maliyeti
+                      </button>
+                      <div class="tce-percentage-panel flex items-center gap-1 ${isBrutBasis ? 'hidden' : ''} w-full sm:w-auto sm:ml-1 mt-1 sm:mt-0">
+                        <input
+                          type="number"
+                          data-sync-id="tcePercentageInput"
+                          min="1"
+                          max="200"
+                          step="1"
+                          value="${tcePercentage}"
+                          class="w-12 px-1 py-0.5 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 model-option-input"
+                          title="İşveren maliyeti oranı (%)"
+                        />
+                        <span class="text-xs text-gray-600">%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Right side: Value display -->
+                  ${comparisonLabel && comparisonValue > 0 ? `
+                  <div class="flex items-center gap-2 mt-2 sm:mt-0 sm:ml-auto sm:flex-shrink-0">
+                    <span class="text-xs text-gray-500 whitespace-nowrap">${comparisonLabel}</span>
+                    <span class="text-sm font-bold text-blue-700 whitespace-nowrap">${this.formatCurrency(comparisonValue, this.state.currentCurrency)}</span>
+                  </div>
+                  ` : ''}
+                </div>
+              </div>
+
+              <!-- Bağ-Kur Prim Kazancı Slider -->
+              <div class="mb-4 pb-4 border-b">
+                <label
+                  for="bagkurPrimiInput"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                >Bağ-Kur Prim Kazancı (${timeLabel} TRY)</label>
+                <input
+                  type="range"
+                  id="bagkurPrimiInput"
+                  min="${bagkurMin}"
+                  max="${bagkurMax}"
+                  value="${bagkurPekValue}"
+                  ${isMatchSgkPrim ? "disabled" : ""}
+                  class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-2 model-bagkur-slider"
+                  aria-describedby="bagkurHelp"
+                />
+                <div id="bagkurHelp" class="sr-only">
+                  Select Bağ-Kur premium income level
+                </div>
+                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                  <span>Min</span>
+                  <span
+                    id="bagkurPrimLabel"
+                    class="font-semibold text-blue-600"
+                  >${this.formatCurrency(Math.round(bagkurPekValue), "TRY")}</span>
+                  <span>Tavan</span>
+                </div>
+                ${isMatchSgkPrim ? '<p class="text-xs text-gray-500 mt-1 italic">Emeklilik Eşdeğerliği aktif olduğu için otomatik ayarlanıyor</p>' : ''}
+              </div>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <!-- Retirement Equivalence -->
+                <div class="flex items-center space-x-2">
+                  <input
+                    data-sync-id="matchSgkPrim"
+                    type="checkbox"
+                    ${isMatchSgkPrim ? "checked" : ""}
+                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 model-option-checkbox"
+                  />
+                  <label class="text-sm font-medium text-gray-700 flex items-center gap-1">Emeklilik Eşdeğerliği</label>
+                  <span
+                    class="info-icon text-blue-500 cursor-help"
+                    data-tooltip="Bu seçenek, Bağ-Kur emekli maaşınızın, maaşlı çalışandakiyle aynı seviyede olmasını sağlamak için ödemeniz gereken prim kazancını (PEK) otomatik olarak ayarlar."
+                  >ℹ️</span>
+                </div>
+
+                <!-- Young Entrepreneur Tax Exemption -->
+                <div class="flex items-center space-x-2">
+                  <input
+                    data-sync-id="gencGirisimciVergi"
+                    type="checkbox"
+                    ${isGencGirisimciVergi ? "checked" : ""}
+                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 model-option-checkbox"
+                  />
+                  <label class="text-sm font-medium text-gray-700">Genç Girişimci Vergi İstisnası</label>
+                  <span
+                    class="info-icon text-blue-500 cursor-help"
+                    data-tooltip="3 yıl boyunca, 2025 yılı için 330.000 TL'ye kadar olan kârınız için Gelir Vergisi muafiyeti sağlar."
+                  >ℹ️</span>
+                </div>
+
+                <!-- Young Entrepreneur Bağ-Kur Support -->
+                <div class="flex items-center space-x-2">
+                  <input
+                    data-sync-id="gencGirisimciPrim"
+                    type="checkbox"
+                    ${isGencGirisimciPrim ? "checked" : ""}
+                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 model-option-checkbox"
+                  />
+                  <label class="text-sm font-medium text-gray-700">Genç Girişimci Bağ-Kur Desteği</label>
+                  <span
+                    class="info-icon text-red-500 cursor-help"
+                    data-tooltip="DİKKAT: TBMM'ye sunulan yasa teklifine göre 12 aylık Bağ-Kur prim desteğinin 2026 itibarıyla kaldırılması planlanmaktadır. 2026 ve sonrası için simülasyon yapıyorsanız bu seçeneğin işaretini kaldırın."
+                  >ℹ️</span>
+                </div>
+
+                <!-- SGK Exemption -->
+                <div class="flex items-center space-x-2">
+                  <input
+                    data-sync-id="sgkMuafiyeti"
+                    type="checkbox"
+                    ${isSgkMuafiyeti ? "checked" : ""}
+                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 model-option-checkbox"
+                  />
+                  <label class="text-sm font-medium text-gray-700 flex items-center gap-1">SGK Muafiyeti</label>
+                  <span
+                    class="info-icon text-blue-500 cursor-help"
+                    data-tooltip="Mevcut SGK'lı işiniz devam ederken şahıs şirketi kurduğunuzda, 5510 sayılı kanunun 53. maddesi gereği Bağ-Kur primi ödeme yükümlülüğünüz bulunmaz. Bu seçenek bu durumu simüle eder."
+                  >ℹ️</span>
+                </div>
+
+                <!-- Service Export -->
+                <div class="flex items-center space-x-2">
+                  <input
+                    data-sync-id="hizmetIhracati"
+                    type="checkbox"
+                    ${isHizmetIhracati ? "checked" : ""}
+                    class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 model-option-checkbox"
+                  />
+                  <label class="text-sm font-medium text-gray-700">%80 Hizmet İhracatı</label>
+                  <span
+                    class="info-icon text-blue-500 cursor-help"
+                    data-tooltip="Yurt dışına yaptığınız hizmet satışlarında, gelir vergisi matrahından %80 oranında istisna uygulanır. 2025 yılında bu istisna için limit bulunmamaktadır. Örneğin, %27 vergi dilimindeyseniz ve 100.000 TL'lik kârınız varsa, 80.000 TL'si vergiden muaf tutulur, sadece 20.000 TL üzerinden vergi ödersiniz."
+                  >ℹ️</span>
+                </div>
+              </div>
+              <div class="text-xs text-gray-500 mt-2">
+                <strong>SGK Muafiyeti:</strong> Mevcut SGK'lı iş devam ederken Bağ-Kur primi ödeme yükümlülüğü olmaz (5510 SK m.53)<br />
+                <strong>Emeklilik Eşdeğerliği:</strong> SGK ile aynı emekli maaşı için gerekli PEK'i otomatik ayarlar
+              </div>
+            </div>
+          </div>
+        `;
       }
 
       // Add detailed breakdown section for Model A
@@ -1512,6 +2012,8 @@ class SalaryCalculator {
                         )}</p>
                     </div>
                 </div>
+                ${modelAOptionsHTML}
+                ${modelBOptionsHTML}
                 ${tceHTML}
                 ${detailedBreakdownHTML}
                 <div class="mt-4">
@@ -1598,12 +2100,15 @@ class SalaryCalculator {
       valueToShow = (yillikBrut / 12) * timeMultiplier;
     }
 
-    this.elements.hesaplananBrutInput.value = this.formatCurrency(
-      this.state.currentCurrency === "TRY"
-        ? valueToShow
-        : valueToShow / this.state.usdRate,
-      this.state.currentCurrency
-    );
+    // hesaplananBrutInput field removed - no longer needed since comparison basis is in Model B card
+    // if (this.elements.hesaplananBrutInput) {
+    //   this.elements.hesaplananBrutInput.value = this.formatCurrency(
+    //     this.state.currentCurrency === "TRY"
+    //       ? valueToShow
+    //       : valueToShow / this.state.usdRate,
+    //     this.state.currentCurrency
+    //   );
+    // }
 
     this.updateBagkurSliderLimits();
 
@@ -1649,17 +2154,47 @@ class SalaryCalculator {
     if (this.state.comparisonBasis === newBasis) return;
     this.state.comparisonBasis = newBasis;
 
-    // Update button states
-    this.elements.brutBasisBtn.classList.toggle(
-      "active",
-      newBasis === "grossEquivalence"
-    );
-    this.elements.tceBasisBtn.classList.toggle(
-      "active",
-      newBasis === "tceEquivalence"
-    );
+    // Update button states in header (if they exist)
+    if (this.elements.brutBasisBtn) {
+      this.elements.brutBasisBtn.classList.toggle(
+        "active",
+        newBasis === "grossEquivalence"
+      );
+    }
+    if (this.elements.tceBasisBtn) {
+      this.elements.tceBasisBtn.classList.toggle(
+        "active",
+        newBasis === "tceEquivalence"
+      );
+    }
 
-    // Show/hide TCE percentage panel
+    // Update button states in Model B card (dynamically rendered)
+    const resultsPanel = this.elements.resultsPanel;
+    if (resultsPanel) {
+      const comparisonButtons = resultsPanel.querySelectorAll('.comparison-basis-btn');
+      comparisonButtons.forEach((btn) => {
+        const btnBasis = btn.getAttribute('data-comparison-basis');
+        if (btnBasis === newBasis) {
+          btn.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+          btn.classList.add('bg-blue-600', 'text-white');
+        } else {
+          btn.classList.remove('bg-blue-600', 'text-white');
+          btn.classList.add('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+        }
+      });
+
+      // Show/hide TCE percentage panel in Model B card
+      const tcePanels = resultsPanel.querySelectorAll('.tce-percentage-panel');
+      tcePanels.forEach((panel) => {
+        if (newBasis === "tceEquivalence") {
+          panel.classList.remove("hidden");
+        } else {
+          panel.classList.add("hidden");
+        }
+      });
+    }
+
+    // Show/hide TCE percentage panel in header (if it exists)
     if (this.elements.tcePercentagePanel) {
       if (newBasis === "tceEquivalence") {
         this.elements.tcePercentagePanel.classList.remove("hidden");
@@ -1668,27 +2203,7 @@ class SalaryCalculator {
       }
     }
 
-    // Update label for the calculated input field
-    const brutInputLabel = document.querySelector(
-      'label[for="hesaplananBrutInput"]'
-    );
-    if (brutInputLabel) {
-      if (newBasis === "tceEquivalence") {
-        brutInputLabel.innerHTML =
-          'Hesaplanan Toplam Maliyet / Hasılat (<span class="currency-label">' +
-          this.state.currentCurrency +
-          "</span>)";
-      } else {
-        brutInputLabel.innerHTML =
-          'Hesaplanan Brüt Maaş / Hasılat (<span class="currency-label">' +
-          this.state.currentCurrency +
-          "</span>)";
-      }
-
-      // Re-query currency labels since we just updated them
-      this.elements.currencyLabels =
-        document.querySelectorAll(".currency-label");
-    }
+    // Label update removed - hesaplananBrutInput field is no longer displayed
 
     // Update input field value immediately to reflect new comparison basis
     this.updateInputDisplays();
@@ -1752,6 +2267,35 @@ class SalaryCalculator {
     }
   }
 
+  // Helper methods for inline event handlers
+  handleZamEtkisiChange() {
+    if (this.elements.zamEtkisiCheck) {
+      // Clear all calculation state when salary increase status changes
+      // This ensures both Bağ-Kur PEK and Model B calculations return to correct values
+      this.state.dogru_yillik_brut_maas = null;
+
+      // Update Bağ-Kur value as well
+      if (this.elements.matchSgkPrimCheck?.checked) {
+        this.setSmartBagkurValue();
+      }
+
+      this.updateUI();
+    }
+  }
+
+  handleMatchSgkPrimChange() {
+    if (this.elements.matchSgkPrimCheck && this.elements.bagkurPrimiInput) {
+      this.elements.bagkurPrimiInput.disabled =
+        this.elements.matchSgkPrimCheck.checked;
+      if (this.elements.matchSgkPrimCheck.checked) {
+        this.setSmartBagkurValue();
+        this.updateUI();
+      } else {
+        this.updateUI();
+      }
+    }
+  }
+
   // Event binding
   bindEvents() {
     // Input change events
@@ -1774,22 +2318,7 @@ class SalaryCalculator {
     // Salary increase effects
     if (this.elements.zamEtkisiCheck) {
       this.elements.zamEtkisiCheck.addEventListener("change", () => {
-        if (this.elements.zamEtkisiCheck.checked) {
-          this.elements.zamDetayPanel.classList.remove("hidden");
-        } else {
-          this.elements.zamDetayPanel.classList.add("hidden");
-        }
-
-        // Clear all calculation state when salary increase status changes
-        // This ensures both Bağ-Kur PEK and Model B calculations return to correct values
-        this.state.dogru_yillik_brut_maas = null;
-
-        // Update Bağ-Kur value as well
-        if (this.elements.matchSgkPrimCheck.checked) {
-          this.setSmartBagkurValue();
-        }
-
-        this.updateUI();
+        this.handleZamEtkisiChange();
       });
     }
 
@@ -1821,21 +2350,35 @@ class SalaryCalculator {
     });
 
     // Bagkur premium input
-    this.elements.bagkurPrimiInput.addEventListener("input", () => {
+    // Use change event for Bağ-Kur slider to avoid UI freeze during dragging
+    // Input event will be handled separately for visual updates only
+    this.elements.bagkurPrimiInput.addEventListener("change", () => {
       this.updateBaseValuesFromInputs();
       // Race condition fix: updateInputDisplays() call removed
       this.updateUI();
     });
+    
+    // Handle input event for real-time label update without full recalculation
+    let bagkurInputTimeout = null;
+    this.elements.bagkurPrimiInput.addEventListener("input", () => {
+      // Update label immediately for visual feedback
+      if (this.elements.bagkurPrimLabel) {
+        const timeMultiplier = this.state.currentMode === "yearly" ? 12 : 1;
+        const displayValue = parseFloat(this.elements.bagkurPrimiInput.value) * timeMultiplier;
+        this.elements.bagkurPrimLabel.textContent = this.formatCurrency(displayValue, "TRY");
+      }
+      
+      // Debounce full recalculation - update after user stops dragging
+      clearTimeout(bagkurInputTimeout);
+      bagkurInputTimeout = setTimeout(() => {
+        this.updateBaseValuesFromInputs();
+        this.updateUI();
+      }, 300);
+    });
 
     // Match SGK premium checkbox
     this.elements.matchSgkPrimCheck.addEventListener("change", () => {
-      this.elements.bagkurPrimiInput.disabled =
-        this.elements.matchSgkPrimCheck.checked;
-      if (this.elements.matchSgkPrimCheck.checked) {
-        this.setSmartBagkurValue();
-        // Race condition fix: updateInputDisplays() call removed
-        this.updateUI();
-      }
+      this.handleMatchSgkPrimChange();
     });
 
     // Mode and currency buttons
@@ -1852,13 +2395,17 @@ class SalaryCalculator {
       this.setCurrency("USD")
     );
 
-    // Comparison basis buttons
-    this.elements.brutBasisBtn.addEventListener("click", () =>
-      this.setComparisonBasis("grossEquivalence")
-    );
-    this.elements.tceBasisBtn.addEventListener("click", () =>
-      this.setComparisonBasis("tceEquivalence")
-    );
+    // Comparison basis buttons (handled via event delegation for Model B card, but keep for header if exists)
+    if (this.elements.brutBasisBtn) {
+      this.elements.brutBasisBtn.addEventListener("click", () =>
+        this.setComparisonBasis("grossEquivalence")
+      );
+    }
+    if (this.elements.tceBasisBtn) {
+      this.elements.tceBasisBtn.addEventListener("click", () =>
+        this.setComparisonBasis("tceEquivalence")
+      );
+    }
 
     // TCE Percentage Input
     if (this.elements.tcePercentageInput) {
@@ -1883,7 +2430,10 @@ class SalaryCalculator {
     // TES Reformu checkbox
     if (this.elements.tesReformuUygulaCheck) {
       this.elements.tesReformuUygulaCheck.addEventListener("change", () => {
+        // Clear calculation state to force recalculation with new TES settings
+        this.state.dogru_yillik_brut_maas = null;
         this.updateBaseValuesFromInputs();
+        // Bağ-Kur PEK will be updated in updateUI if retirement equivalency is enabled
         this.updateUI();
       });
     }
@@ -1927,8 +2477,13 @@ class SalaryCalculator {
     this.elements.yillikBtn.classList.remove("active");
     this.elements.tryBtn.classList.add("active");
     this.elements.usdBtn.classList.remove("active");
-    this.elements.brutBasisBtn.classList.add("active");
-    this.elements.tceBasisBtn.classList.remove("active");
+    // Comparison basis buttons are now in Model B card, only update if they exist in header
+    if (this.elements.brutBasisBtn) {
+      this.elements.brutBasisBtn.classList.add("active");
+    }
+    if (this.elements.tceBasisBtn) {
+      this.elements.tceBasisBtn.classList.remove("active");
+    }
 
     // Initialize TCE percentage input and hide panel
     if (this.elements.tcePercentageInput) {
@@ -1957,6 +2512,14 @@ class SalaryCalculator {
     this.elements.matchSgkPrimCheck.checked = true;
     this.elements.bagkurPrimiInput.disabled = true;
 
+    // Genç Girişimci özellikleri varsayılan olarak kapalı
+    if (this.elements.gencGirisimciVergiCheck) {
+      this.elements.gencGirisimciVergiCheck.checked = false;
+    }
+    if (this.elements.gencGirisimciPrimCheck) {
+      this.elements.gencGirisimciPrimCheck.checked = false;
+    }
+
     this.updateBaseValuesFromInputs();
     this.setSmartBagkurValue();
     // Race condition fix: updateInputDisplays() call removed
@@ -1980,7 +2543,7 @@ window.toggleSGKDetay = function (button) {
 
  // Initialize the application when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  new SalaryCalculator();
+  window.calculator = new SalaryCalculator();
   initializeTooltipModal();
 });
 

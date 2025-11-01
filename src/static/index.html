@@ -257,68 +257,7 @@
                       Yıllık
                     </button>
                   </div>
-                  <!-- Comparison Basis Selector -->
-                  <div
-                    class="flex items-center gap-2 rounded-lg p-1 bg-gray-100"
-                    role="group"
-                    aria-label="Comparison basis selection"
-                  >
-                    <button
-                      id="brutBasisBtn"
-                      class="toggle-btn px-2 py-1 text-xs font-semibold rounded-md transition-colors"
-                      aria-pressed="true"
-                    >
-                      Brüt Maaş
-                    </button>
-                    <button
-                      id="tceBasisBtn"
-                      class="toggle-btn px-2 py-1 text-xs font-semibold rounded-md transition-colors"
-                      aria-pressed="false"
-                    >
-                      İşveren Maliyeti
-                    </button>
-
-                    <div id="tcePercentagePanel" class="hidden flex items-center gap-1 ml-1">
-                      <input
-                        type="number"
-                        id="tcePercentageInput"
-                        min="1"
-                        max="200"
-                        step="1"
-                        value="100"
-                        class="w-14 px-1.5 py-0.5 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                        title="İşveren maliyeti oranı (%)"
-                      />
-                      <span class="text-xs text-gray-600">%</span>
-                    </div>
-
-                    <span
-                      class="info-icon text-blue-500 cursor-help ml-1"
-                      data-tooltip="Varsayılan modda, freelance hasılatı maaşlı çalışanın brüt maaşına eşitlenir. 'İşveren Maliyeti' modunda ise hasılat, işverenin SGK payları dahil toplam maliyetine eşitlenir. Bu, bir pozisyon için ayrılan toplam bütçenin daha doğru bir karşılaştırmasını sağlar."
-                    >ℹ️</span>
-                  </div>
-
-                  <!-- TCE Percentage Input (shown only when İşveren Maliyeti is selected) -->
-                  <div id="tcePercentagePanel" class="hidden mt-3">
-                    <label for="tcePercentageInput" class="block text-xs font-medium text-gray-700 mb-1">
-                      İşveren Maliyeti Oranı (%)
-                    </label>
-                    <div class="flex items-center gap-2">
-                      <input
-                        type="number"
-                        id="tcePercentageInput"
-                        min="1"
-                        max="200"
-                        step="1"
-                        value="100"
-                        class="w-20 px-2 py-1 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      />
-                      <span class="text-xs text-gray-600">% (Varsayılan: 100%)</span>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-1">
-                      İşveren maliyetinin yüzde kaçını baz alacağınızı belirleyin.
-                    </p>
-                  </div>
+                  <!-- Comparison Basis Selector moved to Model B options -->
                 </div>
               </div>
               <div
@@ -329,47 +268,25 @@
             </div>
 
             <div class="space-y-6">
-              <!-- Input Fields - Side by Side -->
-              <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <div>
-                  <label
-                    for="netMaasInput"
-                    class="block text-sm font-medium text-gray-700 mb-2"
-                    ><span class="mode-label">Aylık</span> Net SGK'lı Maaşınız
-                    (TRY)</label
-                  >
-                  <input
-                    type="number"
-                    id="netMaasInput"
-                    min="0"
-                    max="1000000000"
-                    step="0.01"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm p-3"
-                    aria-describedby="netMaasHelp"
-                  />
-                  <div id="netMaasHelp" class="sr-only">
-                    Enter your monthly net salary with SGK deductions
-                  </div>
-                </div>
-                <div>
-                  <label
-                    for="hesaplananBrutInput"
-                    class="block text-sm font-medium text-gray-700 mb-2"
-                    >Hesaplanan Brüt Maaş / Hasılat (<span
-                      class="currency-label"
-                      >TRY</span
-                    >)</label
-                  >
-                  <input
-                    type="text"
-                    id="hesaplananBrutInput"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm p-3"
-                    disabled
-                    aria-describedby="brutMaasHelp"
-                  />
-                  <div id="brutMaasHelp" class="sr-only">
-                    Calculated gross salary or revenue based on net input
-                  </div>
+              <!-- Input Field -->
+              <div>
+                <label
+                  for="netMaasInput"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  ><span class="mode-label">Aylık</span> Net SGK'lı Maaşınız
+                  (TRY)</label
+                >
+                <input
+                  type="number"
+                  id="netMaasInput"
+                  min="0"
+                  max="1000000000"
+                  step="0.01"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm p-3"
+                  aria-describedby="netMaasHelp"
+                />
+                <div id="netMaasHelp" class="sr-only">
+                  Enter your monthly net salary with SGK deductions
                 </div>
               </div>
 
@@ -450,264 +367,133 @@
                 </div>
               </section>
 
-              <!-- Main Input Fields - Side by Side -->
-              <div class="flex flex-col w-full">
-                <!-- Expense Input -->
+              <!-- Hidden inputs for Model A options (will be displayed in Model A card) -->
+              <div style="display: none;">
+                <!-- Mid-Year Raise Effect -->
+                <input
+                  id="zamEtkisiCheck"
+                  name="zamEtkisiCheck"
+                  type="checkbox"
+                  aria-describedby="zamEtkisiHelp"
+                />
+                <div id="zamEtkisiHelp" class="sr-only">
+                  Simulate mid-year salary increase effects
+                </div>
+                <div id="zamDetayPanel" class="hidden mt-2 pl-6 border-l-2 border-blue-200">
+                  <div class="grid grid-cols-2 gap-2">
+                    <div>
+                      <label for="zamOrani" class="block text-xs font-medium text-gray-700">Zam Oranı (%)</label>
+                      <input
+                        type="number"
+                        id="zamOrani"
+                        min="0"
+                        max="200"
+                        step="5"
+                        value="20"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+                        aria-describedby="zamOraniHelp"
+                      />
+                      <div id="zamOraniHelp" class="sr-only">Enter raise percentage</div>
+                    </div>
+                    <div>
+                      <label for="zamAyi" class="block text-xs font-medium text-gray-700">Hangi Aydan İtibaren</label>
+                      <select
+                        id="zamAyi"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
+                        aria-describedby="zamAyiHelp"
+                      >
+                        <option value="1">Ocak</option>
+                        <option value="2">Şubat</option>
+                        <option value="3">Mart</option>
+                        <option value="4">Nisan</option>
+                        <option value="5">Mayıs</option>
+                        <option value="6">Haziran</option>
+                        <option value="7" selected>Temmuz</option>
+                        <option value="8">Ağustos</option>
+                        <option value="9">Eylül</option>
+                        <option value="10">Ekim</option>
+                        <option value="11">Kasım</option>
+                        <option value="12">Aralık</option>
+                      </select>
+                      <div id="zamAyiHelp" class="sr-only">Select month when raise takes effect</div>
+                    </div>
+                  </div>
+                </div>
 
-                <!-- Bağ-Kur Premium Input -->
-                <div class="w-full">
-                  <label
-                    for="bagkurPrimiInput"
-                    class="block text-sm font-medium text-gray-700 mb-2"
-                    >Bağ-Kur Prim Kazancı (<span class="mode-label">Aylık</span>
-                    TRY)</label
-                  >
-                  <input
-                    type="range"
-                    id="bagkurPrimiInput"
-                    class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-2"
-                    aria-describedby="bagkurHelp"
-                  />
-                  <div id="bagkurHelp" class="sr-only">
-                    Select Bağ-Kur premium income level
-                  </div>
-                  <div class="flex justify-between text-xs text-gray-500 mt-1">
-                    <span>Min</span>
-                    <span
-                      id="bagkurPrimLabel"
-                      class="font-semibold text-blue-600"
-                    ></span>
-                    <span>Tavan</span>
-                  </div>
+                <!-- 2026 TES Reformu Simulation -->
+                <input
+                  id="tesReformuUygula"
+                  name="tesReformuUygula"
+                  type="checkbox"
+                  aria-describedby="tesReformuHelp"
+                />
+                <div id="tesReformuHelp" class="sr-only">
+                  Simulate 2026 TES (Complementary Retirement System) reform
                 </div>
               </div>
 
-              <!-- Control Options -->
-              <fieldset class="bg-gray-50 p-4 rounded-lg">
-                <legend class="text-sm font-semibold text-gray-700 mb-3">
-                  Seçenekler
-                </legend>
-                <div
-                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"
-                >
-                  <!-- Retirement Equivalence -->
-                  <div class="flex items-center space-x-2">
-                    <input
-                      id="matchSgkPrim"
-                      name="matchSgkPrim"
-                      type="checkbox"
-                      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                      aria-describedby="matchSgkHelp"
-                    />
-                    <label
-                      for="matchSgkPrim"
-                      class="text-sm font-medium text-gray-700 flex items-center gap-1"
-                      >Emeklilik Eşdeğerliği
-                    </label>
-                    <span
-                      class="info-icon text-blue-500 cursor-help"
-                      data-tooltip="Bu seçenek, Bağ-Kur emekli maaşınızın, maaşlı çalışandakiyle aynı seviyede olmasını sağlamak için ödemeniz gereken prim kazancını (PEK) otomatik olarak ayarlar."
-                      >ℹ️</span>
-                    <div id="matchSgkHelp" class="sr-only">
-                      Match SGK retirement contributions for equivalent pension
-                    </div>
-                  </div>
-
-                  <!-- Young Entrepreneur Tax Exemption -->
-                  <div class="flex items-center space-x-2">
-                    <input
-                      id="gencGirisimciVergi"
-                      name="gencGirisimciVergi"
-                      type="checkbox"
-                      checked
-                      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                    />
-                    <label
-                      for="gencGirisimciVergi"
-                      class="text-sm font-medium text-gray-700"
-                      >Genç Girişimci Vergi İstisnası</label
-                    >
-                    <span
-                      class="info-icon text-blue-500 cursor-help"
-                      data-tooltip="3 yıl boyunca, 2025 yılı için 330.000 TL'ye kadar olan kârınız için Gelir Vergisi muafiyeti sağlar."
-                      >ℹ️</span
-                    >
-                  </div>
-
-                  <!-- Young Entrepreneur Bağ-Kur Support -->
-                  <div class="flex items-center space-x-2">
-                    <input
-                      id="gencGirisimciPrim"
-                      name="gencGirisimciPrim"
-                      type="checkbox"
-                      checked
-                      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                    />
-                    <label
-                      for="gencGirisimciPrim"
-                      class="text-sm font-medium text-gray-700"
-                      >Genç Girişimci Bağ-Kur Desteği</label
-                    >
-                    <span
-                      class="info-icon text-red-500 cursor-help"
-                      data-tooltip="DİKKAT: TBMM'ye sunulan yasa teklifine göre 12 aylık Bağ-Kur prim desteğinin 2026 itibarıyla kaldırılması planlanmaktadır. 2026 ve sonrası için simülasyon yapıyorsanız bu seçeneğin işaretini kaldırın."
-                      >ℹ️</span
-                    >
-                  </div>
-
-                  <!-- SGK Exemption -->
-                  <div class="flex items-center space-x-2">
-                    <input
-                      id="sgkMuafiyeti"
-                      name="sgkMuafiyeti"
-                      type="checkbox"
-                      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                      aria-describedby="sgkMuafiyetiHelp"
-                    />
-                    <label
-                      for="sgkMuafiyeti"
-                      class="text-sm font-medium text-gray-700 flex items-center gap-1"
-                      >SGK Muafiyeti
-                    </label>
-                    <span
-                      class="info-icon text-blue-500 cursor-help"
-                      data-tooltip="Mevcut SGK'lı işiniz devam ederken şahıs şirketi kurduğunuzda, 5510 sayılı kanunun 53. maddesi gereği Bağ-Kur primi ödeme yükümlülüğünüz bulunmaz. Bu seçenek bu durumu simüle eder."
-                      >ℹ️</span>
-                    <div id="sgkMuafiyetiHelp" class="sr-only">
-                      Exempt from Bağ-Kur premiums due to existing SGK
-                      employment
-                    </div>
-                  </div>
-
-                  <!-- Service Export -->
-                  <div class="flex items-center space-x-2">
-                    <input
-                      id="hizmetIhracati"
-                      name="hizmetIhracati"
-                      type="checkbox"
-                      checked
-                      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                      aria-describedby="hizmetIhracatiHelp"
-                    />
-                    <label
-                      for="hizmetIhracati"
-                      class="text-sm font-medium text-gray-700"
-                      >%80 Hizmet İhracatı</label
-                    >
-                    <div id="hizmetIhracatiHelp" class="sr-only">
-                      Apply 80% service export tax exemption
-                    </div>
-                  </div>
-
-                  <!-- Mid-Year Raise Effect -->
-                  <div>
-                    <div class="flex items-center space-x-2">
-                      <input
-                        id="zamEtkisiCheck"
-                        name="zamEtkisiCheck"
-                        type="checkbox"
-                        class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                        aria-describedby="zamEtkisiHelp"
-                      />
-                      <label
-                        for="zamEtkisiCheck"
-                        class="text-sm font-medium text-gray-700"
-                        >🔄 Yıl İçi Zam Simülasyonu</label
-                      >
-                      <div id="zamEtkisiHelp" class="sr-only">
-                        Simulate mid-year salary increase effects
-                      </div>
-                    </div>
-                    <div
-                      id="zamDetayPanel"
-                      class="hidden mt-2 pl-6 border-l-2 border-blue-200"
-                    >
-                      <div class="grid grid-cols-2 gap-2">
-                        <div>
-                          <label
-                            for="zamOrani"
-                            class="block text-xs font-medium text-gray-700"
-                            >Zam Oranı (%)</label
-                          >
-                          <input
-                            type="number"
-                            id="zamOrani"
-                            min="0"
-                            max="200"
-                            step="5"
-                            value="20"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
-                            aria-describedby="zamOraniHelp"
-                          />
-                          <div id="zamOraniHelp" class="sr-only">
-                            Enter raise percentage
-                          </div>
-                        </div>
-                        <div>
-                          <label
-                            for="zamAyi"
-                            class="block text-xs font-medium text-gray-700"
-                            >Hangi Aydan İtibaren</label
-                          >
-                          <select
-                            id="zamAyi"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm"
-                            aria-describedby="zamAyiHelp"
-                          >
-                            <option value="1">Ocak</option>
-                            <option value="2">Şubat</option>
-                            <option value="3">Mart</option>
-                            <option value="4">Nisan</option>
-                            <option value="5">Mayıs</option>
-                            <option value="6">Haziran</option>
-                            <option value="7" selected>Temmuz</option>
-                            <option value="8">Ağustos</option>
-                            <option value="9">Eylül</option>
-                            <option value="10">Ekim</option>
-                            <option value="11">Kasım</option>
-                            <option value="12">Aralık</option>
-                          </select>
-                          <div id="zamAyiHelp" class="sr-only">
-                            Select month when raise takes effect
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- 2026 TES Reformu Simulation -->
-                  <div class="flex items-center space-x-2">
-                    <input
-                      id="tesReformuUygula"
-                      name="tesReformuUygula"
-                      type="checkbox"
-                      class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                      aria-describedby="tesReformuHelp"
-                    />
-                    <label
-                      for="tesReformuUygula"
-                      class="text-sm font-medium text-gray-700"
-                      >2026 TES Reformu Simülasyonu (Deneysel)</label
-                    >
-                    <span
-                      class="info-icon text-red-500 cursor-help"
-                      data-tooltip="DİKKAT: Bu seçeneği işaretlemek, 2026'da planlanan Tamamlayıcı Emeklilik Sistemi'ni (TES) simüle eder. Model A'nın (Maaşlı) net maaşından %3 kesinti yapar ve işveren maliyetini (TCE) %4 artırır. Raporlara göre Model B (Bağ-Kur) bu sistemden etkilenmez."
-                      >ℹ️</span
-                    >
-                    <div id="tesReformuHelp" class="sr-only">
-                      Simulate 2026 TES (Complementary Retirement System) reform
-                    </div>
-                  </div>
+              <!-- Hidden inputs for Model B options (will be displayed in Model B card) -->
+              <div style="display: none;">
+                <!-- Retirement Equivalence -->
+                <input
+                  id="matchSgkPrim"
+                  name="matchSgkPrim"
+                  type="checkbox"
+                  aria-describedby="matchSgkHelp"
+                />
+                <div id="matchSgkHelp" class="sr-only">
+                  Match SGK retirement contributions for equivalent pension
                 </div>
-                <div class="text-xs text-gray-500 mt-2">
-                  <strong>SGK Muafiyeti:</strong> Mevcut SGK'lı iş devam ederken
-                  Bağ-Kur primi ödeme yükümlülüğü olmaz (5510 SK m.53)<br />
-                  <strong>Emeklilik Eşdeğerliği:</strong> SGK ile aynı emekli
-                  maaşı için gerekli PEK'i otomatik ayarlar<br />
-                  <strong>Yıl İçi Zam:</strong> Belirtilen aydan itibaren maaş
-                  artışı simülasyonu (SGK kümülatif vergi etkisi analizi)
+
+                <!-- Young Entrepreneur Tax Exemption -->
+                <input
+                  id="gencGirisimciVergi"
+                  name="gencGirisimciVergi"
+                  type="checkbox"
+                />
+
+                <!-- Young Entrepreneur Bağ-Kur Support -->
+                <input
+                  id="gencGirisimciPrim"
+                  name="gencGirisimciPrim"
+                  type="checkbox"
+                />
+
+                <!-- SGK Exemption -->
+                <input
+                  id="sgkMuafiyeti"
+                  name="sgkMuafiyeti"
+                  type="checkbox"
+                  aria-describedby="sgkMuafiyetiHelp"
+                />
+                <div id="sgkMuafiyetiHelp" class="sr-only">
+                  Exempt from Bağ-Kur premiums due to existing SGK employment
                 </div>
-              </fieldset>
+
+                <!-- Service Export -->
+                <input
+                  id="hizmetIhracati"
+                  name="hizmetIhracati"
+                  type="checkbox"
+                  checked
+                  aria-describedby="hizmetIhracatiHelp"
+                />
+                <div id="hizmetIhracatiHelp" class="sr-only">
+                  Apply 80% service export tax exemption
+                </div>
+
+                <!-- Bağ-Kur Premium Input (hidden, will be displayed in Model B card) -->
+                <input
+                  type="range"
+                  id="bagkurPrimiInput"
+                  class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-2"
+                  aria-describedby="bagkurHelp"
+                />
+                <div id="bagkurHelp" class="sr-only">
+                  Select Bağ-Kur premium income level
+                </div>
+                <span id="bagkurPrimLabel" class="font-semibold text-blue-600"></span>
+              </div>
             </div>
           </div>
         </section>
