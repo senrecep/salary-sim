@@ -968,11 +968,11 @@ const reportKullanimKilavuzu = {
       reportContent.forEach((section) => {
           const colors = getColorClasses(section.type || 'default');
           const item = document.createElement("div");
-          item.className = `accordion-item ${colors.border} border rounded-lg bg-white dark:bg-gray-800 overflow-hidden shadow-sm`;
+          item.className = `${colors.border} border rounded-lg bg-white dark:bg-gray-800 overflow-hidden shadow-sm`;
           item.innerHTML = `
-              <button class="accordion-button w-full flex justify-between items-center text-left p-4 font-semibold text-lg ${colors.text} ${colors.button} transition" aria-expanded="false">
+              <button class="accordion-button w-full flex justify-between items-center text-left p-4 font-semibold text-lg ${colors.text} ${colors.button} transition-all cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-700/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2" aria-expanded="false">
                   <span>${section.title}</span>
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg class="w-5 h-5 flex-shrink-0 transition-transform duration-300 ease-out" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
               </button>
