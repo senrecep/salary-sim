@@ -1652,7 +1652,7 @@ class SalaryCalculator {
                 />
                 <label class="text-sm font-medium text-gray-700 dark:text-gray-300">2026 TES Reformu Simülasyonu (Deneysel)</label>
                   <span
-                    class="inline-flex items-center justify-center text-base cursor-pointer transition-all select-none w-5 h-5 rounded-full bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300 hover:scale-110 hover:bg-red-500 hover:text-white dark:hover:bg-red-500 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-500 focus-visible:outline-offset-2"
+                    class="inline-flex items-center justify-center text-base cursor-pointer transition-transform duration-150 select-none w-5 h-5 rounded-full text-gray-600 dark:text-gray-400 hover:scale-105 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-500 focus-visible:outline-offset-1"
                     data-tooltip="DİKKAT: Bu seçeneği işaretlemek, 2026'da planlanan Tamamlayıcı Emeklilik Sistemi'ni (TES) simüle eder. Model A'nın (Maaşlı) net maaşından %3 kesinti yapar ve işveren maliyetini (TCE) %4 artırır. Raporlara göre Model B (Bağ-Kur) bu sistemden etkilenmez."
                   >ℹ️</span>
               </div>
@@ -1722,7 +1722,7 @@ class SalaryCalculator {
                   <!-- Left side: Info icon and buttons -->
                   <div class="flex items-center gap-2 sm:gap-1 w-full sm:w-auto flex-wrap sm:flex-nowrap sm:flex-shrink-0">
                     <span
-                      class="inline-flex items-center justify-center text-base cursor-pointer transition-all select-none w-5 h-5 rounded-full bg-sky-100 dark:bg-sky-900/50 text-sky-700 dark:text-sky-300 flex-shrink-0 hover:scale-110 hover:bg-sky-500 hover:text-white dark:hover:bg-sky-500 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:outline-offset-2"
+                      class="inline-flex items-center justify-center text-base cursor-pointer transition-transform duration-150 select-none w-5 h-5 rounded-full text-gray-600 dark:text-gray-400 flex-shrink-0 hover:scale-105 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:outline-offset-1"
                       data-tooltip="Varsayılan modda, freelance hasılatı maaşlı çalışanın brüt maaşına eşitlenir. 'İşveren Maliyeti' modunda ise hasılat, işverenin SGK payları dahil toplam maliyetine eşitlenir. Bu, bir pozisyon için ayrılan toplam bütçenin daha doğru bir karşılaştırmasını sağlar."
                     >ℹ️</span>
                     <div class="flex items-center gap-1 flex-1 sm:flex-initial flex-wrap sm:flex-nowrap">
@@ -1804,7 +1804,7 @@ class SalaryCalculator {
                   />
                   <label class="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-1">Emeklilik Eşdeğerliği</label>
                   <span
-                    class="inline-flex items-center justify-center text-base cursor-pointer transition-all select-none w-5 h-5 rounded-full bg-sky-100 dark:bg-sky-900/50 text-sky-700 dark:text-sky-300 hover:scale-110 hover:bg-sky-500 hover:text-white dark:hover:bg-sky-500 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:outline-offset-2"
+                    class="inline-flex items-center justify-center text-base cursor-pointer transition-transform duration-150 select-none w-5 h-5 rounded-full text-gray-600 dark:text-gray-400 hover:scale-105 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:outline-offset-1"
                     data-tooltip="Bu seçenek, Bağ-Kur emekli maaşınızın, maaşlı çalışandakiyle aynı seviyede olmasını sağlamak için ödemeniz gereken prim kazancını (PEK) otomatik olarak ayarlar."
                   >ℹ️</span>
                 </div>
@@ -1819,7 +1819,7 @@ class SalaryCalculator {
                   />
                   <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Genç Girişimci Vergi İstisnası</label>
                   <span
-                    class="inline-flex items-center justify-center text-base cursor-pointer transition-all select-none w-5 h-5 rounded-full bg-sky-100 dark:bg-sky-900/50 text-sky-700 dark:text-sky-300 hover:scale-110 hover:bg-sky-500 hover:text-white dark:hover:bg-sky-500 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:outline-offset-2"
+                    class="inline-flex items-center justify-center text-base cursor-pointer transition-transform duration-150 select-none w-5 h-5 rounded-full text-gray-600 dark:text-gray-400 hover:scale-105 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:outline-offset-1"
                     data-tooltip="3 yıl boyunca, 2025 yılı için 330.000 TL'ye kadar olan kârınız için Gelir Vergisi muafiyeti sağlar."
                   >ℹ️</span>
                 </div>
@@ -1834,7 +1834,7 @@ class SalaryCalculator {
                   />
                   <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Genç Girişimci Bağ-Kur Desteği</label>
                   <span
-                    class="inline-flex items-center justify-center text-base cursor-pointer transition-all select-none w-5 h-5 rounded-full bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300 hover:scale-110 hover:bg-red-500 hover:text-white dark:hover:bg-red-500 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-500 focus-visible:outline-offset-2"
+                    class="inline-flex items-center justify-center text-base cursor-pointer transition-transform duration-150 select-none w-5 h-5 rounded-full text-gray-600 dark:text-gray-400 hover:scale-105 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-500 focus-visible:outline-offset-1"
                     data-tooltip="DİKKAT: TBMM'ye sunulan yasa teklifine göre 12 aylık Bağ-Kur prim desteğinin 2026 itibarıyla kaldırılması planlanmaktadır. 2026 ve sonrası için simülasyon yapıyorsanız bu seçeneğin işaretini kaldırın."
                   >ℹ️</span>
                 </div>
@@ -1849,7 +1849,7 @@ class SalaryCalculator {
                   />
                   <label class="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-1">SGK Muafiyeti</label>
                   <span
-                    class="inline-flex items-center justify-center text-base cursor-pointer transition-all select-none w-5 h-5 rounded-full bg-sky-100 dark:bg-sky-900/50 text-sky-700 dark:text-sky-300 hover:scale-110 hover:bg-sky-500 hover:text-white dark:hover:bg-sky-500 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:outline-offset-2"
+                    class="inline-flex items-center justify-center text-base cursor-pointer transition-transform duration-150 select-none w-5 h-5 rounded-full text-gray-600 dark:text-gray-400 hover:scale-105 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:outline-offset-1"
                     data-tooltip="Mevcut SGK'lı işiniz devam ederken şahıs şirketi kurduğunuzda, 5510 sayılı kanunun 53. maddesi gereği Bağ-Kur primi ödeme yükümlülüğünüz bulunmaz. Bu seçenek bu durumu simüle eder."
                   >ℹ️</span>
                 </div>
@@ -1864,7 +1864,7 @@ class SalaryCalculator {
                   />
                   <label class="text-sm font-medium text-gray-700 dark:text-gray-300">%80 Hizmet İhracatı</label>
                   <span
-                    class="inline-flex items-center justify-center text-base cursor-pointer transition-all select-none w-5 h-5 rounded-full bg-sky-100 dark:bg-sky-900/50 text-sky-700 dark:text-sky-300 hover:scale-110 hover:bg-sky-500 hover:text-white dark:hover:bg-sky-500 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:outline-offset-2"
+                    class="inline-flex items-center justify-center text-base cursor-pointer transition-transform duration-150 select-none w-5 h-5 rounded-full text-gray-600 dark:text-gray-400 hover:scale-105 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:outline-offset-1"
                     data-tooltip="Yurt dışına yaptığınız hizmet satışlarında, gelir vergisi matrahından %80 oranında istisna uygulanır. 2025 yılında bu istisna için limit bulunmamaktadır. Örneğin, %27 vergi dilimindeyseniz ve 100.000 TL'lik kârınız varsa, 80.000 TL'si vergiden muaf tutulur, sadece 20.000 TL üzerinden vergi ödersiniz."
                   >ℹ️</span>
                 </div>
@@ -2170,7 +2170,7 @@ class SalaryCalculator {
                                 <span class="text-gray-600 dark:text-gray-300 flex items-center gap-1">
                                   ${this.state.currentMode === "yearly" ? "Yıllık Bağ-Kur Primi" : "Aylık Bağ-Kur Primi"}
                                   <span
-                                    class="inline-flex items-center justify-center text-base cursor-pointer transition-all select-none w-5 h-5 rounded-full bg-sky-100 dark:bg-sky-900/50 text-sky-700 dark:text-sky-300 inline-block hover:scale-110 hover:bg-sky-500 hover:text-white dark:hover:bg-sky-500 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:outline-offset-2"
+                                    class="inline-flex items-center justify-center text-base cursor-pointer transition-transform duration-150 select-none w-5 h-5 rounded-full text-gray-600 dark:text-gray-400 inline-block hover:scale-105 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:outline-offset-1"
                                     data-tooltip="${this.state.currentMode === "yearly" ? "Bu tutar, tüm yıl boyunca ödenecek toplam Bağ-Kur primidir (12 aylık). Prime Esas Kazanç (PEK) tutarının, 5 puanlık indirim uygulanmış halidir (PEK x %29,5). Her ay bu tutarın 1/12'si kadar prim ödenir." : "Bu tutar, her ay Bağ-Kur'a ödenecek primdir. 'Emeklilik Eşdeğerliği' için seçtiğiniz Prime Esas Kazanç (PEK) tutarının, 5 puanlık indirim uygulanmış halidir (PEK x %29,5). Bağ-Kur primi aylık ödeme yapılır (her ay sonunda)."}"
                                   >ℹ️</span>
                                 </span>
@@ -2190,7 +2190,7 @@ class SalaryCalculator {
                                 <span class="text-gray-600 dark:text-gray-300 flex items-center gap-1">
                                   ${this.state.currentMode === "yearly" ? "Yıllık Gelir Vergisi" : "Aylık Ortalama Vergi Yükü"}
                                   <span
-                                    class="inline-flex items-center justify-center text-base cursor-pointer transition-all select-none w-5 h-5 rounded-full bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300 inline-block hover:scale-110 hover:bg-orange-500 hover:text-white dark:hover:bg-orange-500 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-orange-500 focus-visible:outline-offset-2"
+                                    class="inline-flex items-center justify-center text-base cursor-pointer transition-transform duration-150 select-none w-5 h-5 rounded-full text-gray-600 dark:text-gray-400 inline-block hover:scale-105 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-orange-500 focus-visible:outline-offset-1"
                                     data-tooltip="${this.state.currentMode === "yearly" ? "Bu tutar, tüm yıl boyunca ödenecek toplam gelir vergisidir. Şahıs şirketleri vergiyi yıl içinde 3 ayda bir (Mayıs, Ağustos, Kasım) 'Geçici Vergi' olarak toplu öder. Yıl sonunda (Mart ayında) nihai hesaplama yapılır." : "NAKİT AKIŞI UYARISI: Bu rakam, hesaplanan toplam yıllık verginin 12'ye bölünmüş ortalamasıdır.<br><br>Şahıs şirketleri vergiyi aylık ödemez. Yıl içinde 3 ayda bir (Mayıs, Ağustos, Kasım aylarında) kârınız üzerinden 'Geçici Vergi' adı altında toplu ödeme yaparsınız.<br><br>Bu tutarı her ay biriktirmeniz gereken bir fondur."}"
                                   >ℹ️</span>
                                 </span>

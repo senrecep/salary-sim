@@ -41,12 +41,12 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
-  box-shadow: 0 4px 8px 0 rgb(59 130 246 / 0.5);
+  transform: scale(1.1);
+  box-shadow: 0 3px 6px 0 rgb(59 130 246 / 0.5);
 }
 
 input[type="range"]::-webkit-slider-thumb:active {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 input[type="range"]::-moz-range-thumb {
@@ -65,12 +65,12 @@ input[type="range"]::-moz-range-thumb {
 }
 
 input[type="range"]::-moz-range-thumb:hover {
-  transform: scale(1.15);
-  box-shadow: 0 4px 8px 0 rgb(59 130 246 / 0.5);
+  transform: scale(1.1);
+  box-shadow: 0 3px 6px 0 rgb(59 130 246 / 0.5);
 }
 
 input[type="range"]::-moz-range-thumb:active {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 /* ============================================
