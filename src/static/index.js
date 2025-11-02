@@ -2257,7 +2257,7 @@ class SalaryCalculator {
                 </div>`;
       }
 
-  return `<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow p-6" id="${cardId}" data-model-type="${title.includes('Model A') ? 'model-a' : 'model-b'}">
+  return `<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow p-6 mb-6" id="${cardId}" data-model-type="${title.includes('Model A') ? 'model-a' : 'model-b'}">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">${title}</h3>
                 <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                     <div>
